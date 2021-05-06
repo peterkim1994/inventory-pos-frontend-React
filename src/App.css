@@ -37,3 +37,31 @@
     transform: translateY(0px);
   }
 }
+
+.tabbed-panel{ 
+  margin:auto;
+  padding-top: 10px;
+  max-width: 80%;
+}
+
+.inventory-table{  
+  padding-top: 0px;
+  max-width: 100%;
+  padding: 3rem;
+  position:relative; 
+}
+
+.inventory-table-body{
+  max-height: 800px;
+  overflow-y: scroll;
+}
+
+.new-product-page{
+  max-width:50%;
+  padding-top: 10px;
+  text-align: left;
+}
+
+.table-col{
+  width: 6rem;
+}
