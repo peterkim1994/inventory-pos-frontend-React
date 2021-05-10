@@ -10,14 +10,15 @@ const InventoryTable = () => {
 
     const products = useSelector(state => state.inventoryReducer.products);
     const dispatch = useDispatch();
-    console.log(products);
+    
     useEffect(() => {
         GetInventory(dispatch);
-    }, [products])
+        console.log(products);
+    }, [])
 
     return (
         <div className="inventory-table-body">
-            <table className='table inventory-table'>
+            <table className='table table-striped table-hover inventory-table'>
                 <thead>
                     <tr>
                         <th className="table-col"> Brand </th>

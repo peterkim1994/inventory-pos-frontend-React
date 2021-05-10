@@ -13,15 +13,42 @@ export const GetInventory = async (dispatch) => {
     } catch (err) {
         console.log("GetInventory service error \n" + err)
     }
-
 }
+
 
 export const AddColour = async (dispatch, colour) => {
     try {
-        const { data, status, statusText } = await axiosObj.post("inventory/addcolour", colour);
+        const { data } = await axiosObj.post("inventory/addcolour", colour);
         dispatch(ActionCreators.newColour(data));
     } catch (err) {
         console.log("Add colour service error \n" + err)
+    }
+}
+
+export const EditColour = async (dispatch, colour) => {
+    try {
+        const { data } = await axiosObj.put("inventory/editbrand", colour);
+        dispatch(ActionCreators.editColour(data));
+    } catch (err) {
+        console.log("edit colour service error \n" + err)
+    }
+}
+
+export const AddItemCategory = async (dispatch, category) => {
+    try {
+        const { data } = await axiosObj.post("inventory/addItemCategory", category);
+        dispatch(ActionCreators.newCategory(data));
+    } catch (err) {
+        console.log("Add category service error \n" + err)
+    }
+}
+
+export const AddSize = async (dispatch, size) => {
+    try {
+        const { data } = await axiosObj.post("inventory/addSize", size);
+        dispatch(ActionCreators.newSize(data));
+    } catch (err) {
+        console.log("Add size service error \n" + err)
     }
 }
 
@@ -33,6 +60,17 @@ export const AddBrand = async (dispatch, brand) => {
         console.log("Add brand service error \n" + err)
     }
 }
+
+export const EditBrand = async (dispatch, brand) => {
+    try {
+        const { data } = await axiosObj.put("inventory/editbrand", brand);
+        dispatch(ActionCreators.editBrand(data));
+    } catch (err) {
+        console.log("edit brand service error \n" + err)
+    }
+}
+
+
 
 export const EditProduct = async(dispatch, product) => {
     

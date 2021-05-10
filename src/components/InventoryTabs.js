@@ -1,9 +1,18 @@
 import { Tabs, Tab } from 'react-bootstrap';
-import {NewProduct} from './NewProduct';
+import { NewProduct } from './NewProduct';
 import InventoryBody from './InventoryBody';
+import InventorySettings from './InventorySettings';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { GetProductAttributes } from '../services/Inventory';
 
 
 const InventoryTabs = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        GetProductAttributes(dispatch);
+    }, []);
     return (
         <div>
             <Tabs defaultActiveKey="SeeInventory" id="uncontrolled-tab-example">
@@ -17,8 +26,10 @@ const InventoryTabs = () => {
                         <NewProduct />
                     </div>
                 </Tab>
-                <Tab eventKey="contact" title="Contact" disabled>
-
+                <Tab eventKey="InventorySettings" title="Settings" >
+                    <div className="tabbed-panel inventory-body">
+                        <InventorySettings />
+                    </div>
                 </Tab>
             </Tabs>
         </div>

@@ -4,15 +4,15 @@ import { useDispatch } from "react-redux";
 import {  useSelector } from 'react-redux';
 import AttributeSelector from './AttributeSelector';
 import NumericalFormInput from './NumericalFormInput';
-import { GetProductAttributes, AddProduct } from '../services/Inventory';
+import { GetProductAttributes } from '../services/Inventory';
 
 
 export const ProductForm = ({ product, handleClose, handleSubmit }) => {    
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    useEffect(()=>{
-        GetProductAttributes(dispatch);
-    },[]);
+    // useEffect(()=>{
+    //     GetProductAttributes(dispatch);
+    // },[]);
 
     const brands = useSelector(state => state.inventoryReducer.brands);
     const colours = useSelector(state => state.inventoryReducer.colours);
@@ -65,7 +65,7 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
                 <Col sm={8}>
                     <Form.Control
                         type="number" 
-                        onChange={(event) => setNewProduct({...newProduct, barcode : event.target.value})}
+                        onChange={(event) => setNewProduct({...newProduct, barcode : parseInt(event.target.value)})}
                         value = { newProduct.barcode === null? "": newProduct.barcode }
                     />
                 </Col>
