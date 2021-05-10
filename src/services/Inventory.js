@@ -34,24 +34,39 @@ export const AddBrand = async (dispatch, brand) => {
     }
 }
 
+export const EditProduct = async(dispatch, product) => {
+    
+    let userRequestResponse = document.getElementById("addProductApiResponse");
+    try{
+        const response = await axiosObj.put("inventory/editproduct", product);
+        dispatch(ActionCreators.editProduct(response.data));
+        userRequestResponse.innerHTML = "success";    
+    }catch(err){
+        userRequestResponse.innerHTML = err.message;
+        console.log(err);
+    }   
+}
+
 export const AddProduct = async (dispatch, product) => {
     const userRequestResponse = document.getElementById("addProductApiResponse");
     let validProduct = true;
     //   try {
+    console.log(product);
     const response = await axiosObj.post("inventory/addproduct", product)
         .catch(err => {                       
-            validProduct = false;
-            let errorMessage = "";
-            if(typeof(err.response.data) === "object" ){
-                err.response.data.errors.Description.map(e => {
-                    errorMessage += (e + "\n");
-                })
-            }else{
-                errorMessage = err.response.data;
-            }
-            userRequestResponse.innerHTML = errorMessage;
+            validProduct = false;            
+            console.log(err);
+            // let errorMessage = "";
+            // if(err.response.data && typeof(err.response.data) === "object" ){
+            //     err.response.data.errors.Description.map(e => {
+            //         errorMessage += (e + "\n");
+            //     })
+            // }else if(err.response.data){ 
+            //     errorMessage = err.response.data;
+            // }
+            // userRequestResponse.innerHTML = errorMessage;
         });
-    console.log(response);
+   
     if (validProduct) {
         dispatch(ActionCreators.newProduct(response.data));
         userRequestResponse.innerHTML = "success";

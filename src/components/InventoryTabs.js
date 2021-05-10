@@ -6,7 +6,7 @@ import InventoryBody from './InventoryBody';
 const InventoryTabs = () => {
     return (
         <div>
-            <Tabs defaultActiveKey="AddProduct" id="uncontrolled-tab-example">
+            <Tabs defaultActiveKey="SeeInventory" id="uncontrolled-tab-example">
                 <Tab eventKey="SeeInventory" title="Inventory">
                     <div className="tabbed-panel inventory-body">
                         <InventoryBody />

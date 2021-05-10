@@ -65,3 +65,14 @@
 .table-col{
   width: 6rem;
 }
+
+.product-form-button{
+  width: auto;
+  margin: auto;
+  align-items: center;
+}
+
+.modal-form{
+  width:100%;
+  max-width:100%;
+}

@@ -7,7 +7,7 @@ const NumericalFormInput = ({label, handleOnChange}) =>{
             <Form.Group as={Row}>
                 <Form.Label column sm={4}> {label} </Form.Label>
                 <Col sm={8}>
-                    <Form.Control type="number" onChange={(event)=> handleOnChange(event)} />
+                    <Form.Control type="number" onChange={event=> handleOnChange(event)} />
                 </Col>
             </Form.Group>
         </Col>
