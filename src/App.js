@@ -4,8 +4,8 @@ import './App.css';
 import {Route,Link} from 'react-router-dom';
 import Header from './components/Header';
 import InventoryTabs from './components/InventoryTabs';
-import POSBody from './components/PointOfSalesBody';
 
+import PosTabs from './components/PosTabs';
 
 
 
@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <Header/>
       <Route exact path = "/inventory" component={InventoryTabs}/>
-      <Route exact path = "/pos" component={POSBody}/>
+      <Route exact path = "/pos" component={PosTabs}/>
     </div>
   );
 }

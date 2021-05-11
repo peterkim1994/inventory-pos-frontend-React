@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { ProductForm } from './ProductForm';
-import {EditProduct} from '../services/Inventory';
+import { EditProduct } from '../services/Inventory';
 
 const EditProductModal = ({ product }) => {
   const [show, setShow] = useState(false);
@@ -11,15 +11,18 @@ const EditProductModal = ({ product }) => {
   const handleShow = () => setShow(true);
   const dispatch = useDispatch();
 
-  const editProduct =(editedProduct) =>{
-     EditProduct(dispatch, editedProduct);
+  const editProduct = (editedProduct) => {
+    EditProduct(dispatch, editedProduct);
+    handleClose();
   }
 
   return (
     <div>
       <Button onClick={handleShow} className='btn btn-success' > Edit </Button>
-      <Modal show={show}>
+      <Modal show={show} className="edit-product-modal">
+        <Modal.Body>
           <ProductForm product={product} handleClose={handleClose} handleSubmit={editProduct} />
+        </Modal.Body>
       </Modal>
     </div>
   )

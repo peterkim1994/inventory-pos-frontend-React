@@ -107,7 +107,7 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
                 />
             </Form.Row>
             <Form.Row>
-                <NumericalFormInput label="Price" handleOnChange={(event) => setNewProduct({...newProduct, price : parseInt(event.target.value)})} />
+                <NumericalFormInput label="Price" handleOnChange={(event) => setNewProduct({...newProduct, price : (100 * parseInt(event.target.value))})} />
                 <NumericalFormInput label="Quantity" handleOnChange={(event) => setNewProduct({...newProduct, qty : parseInt(event.target.value)})} />
             </Form.Row>
             <div className = "form-buttons-container">

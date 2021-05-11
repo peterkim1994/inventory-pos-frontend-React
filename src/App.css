@@ -76,3 +76,9 @@
   width:100%;
   max-width:100%;
 }
+
+.edit-product-modal{
+  width:auto;
+  margin: auto;
+  padding: 6px;
+}

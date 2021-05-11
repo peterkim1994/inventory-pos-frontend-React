@@ -1,4 +1,5 @@
 const initialState = {
+    searchedProducts:[],
     products: [],
     colours: [],
     sizes: [],
@@ -7,6 +8,7 @@ const initialState = {
 }
 
 export const ActionTypes = {
+    SET_SEARCHED_PRODUCTS : 'SET_SEARCHED_PRODUCTS',
     SET_PRODUCTS: 'SET_PRODUCTS',
     NEW_PRODUCT: 'NEW_PRODUCT',
     EDIT_PRODUCT: 'EDIT_PRODUCT',
@@ -15,6 +17,7 @@ export const ActionTypes = {
     EDIT_COLOUR: 'EDIT_COLOUR',
     SET_CATEGORIES: 'SET_CATEGORIES',
     NEW_CATEGORY: 'NEW_CATEGORY',
+    EDIT_CATEGORY: 'EDIT_CATEGORY',
     SET_BRANDS: 'SET_BRANDS',
     NEW_BRAND: 'NEW_BRAND',
     EDIT_BRAND: 'EDIT_BRAND',
@@ -23,6 +26,7 @@ export const ActionTypes = {
 }
 
 export const ActionCreators = {
+    setSearchedProducts: payload => ({ type: ActionTypes.SET_SEARCHED_PRODUCTS, payload }),
     setProducts: payload => ({ type: ActionTypes.SET_PRODUCTS, payload }),
     newProduct: payload => ({ type: ActionTypes.NEW_PRODUCT, payload }),
     editProduct: payload => ({ type: ActionTypes.EDIT_PRODUCT, payload }),
@@ -31,6 +35,7 @@ export const ActionCreators = {
     editColour: payload => ({ type: ActionTypes.EDIT_COLOUR, payload }),
     setCategories: payload => ({ type: ActionTypes.SET_CATEGORIES, payload }),
     newCategory: payload => ({ type: ActionTypes.NEW_CATEGORY, payload }),
+    editCategory: payload => ({ type: ActionTypes.EDIT_CATEGORY, payload }),
     setBrands: payload => ({ type: ActionTypes.SET_BRANDS, payload }),
     newBrand: payload => ({ type: ActionTypes.NEW_BRAND, payload }),
     editBrand: payload => ({ type: ActionTypes.EDIT_BRAND, payload }),
@@ -40,12 +45,12 @@ export const ActionCreators = {
 
 export default function InventoryReducer(state = initialState, action) {
     switch (action.type) {
+        case ActionTypes.SET_SEARCHED_PRODUCTS:
+            return { ...state, searchedProducts: [...action.payload] }
         case ActionTypes.SET_PRODUCTS:
-            return { ...state, products: [...action.payload] }
-
+            return { ...state, products: [...action.payload] }            
         case ActionTypes.NEW_PRODUCT:
             return { ...state, products: [...state.products, action.payload] }
-
         case ActionTypes.EDIT_PRODUCT:
             let updatedProducts = state.products.map(prod => {
                 if (prod.id === action.payload.id) {
@@ -68,12 +73,20 @@ export default function InventoryReducer(state = initialState, action) {
                 return c;
             })
             return { ...state, colours: [...updatedColours] }
-
         case ActionTypes.SET_CATEGORIES:
             return { ...state, categories: [...action.payload] }
 
         case ActionTypes.NEW_CATEGORY:
             return { ...state, categories: [...state.colours, action.payload] }
+
+        case ActionTypes.EDIT_CATEGORY:
+            let updatedCategories = state.categories.map(c => {
+                if (c.id == action.payload.id) {
+                    c = action.payload;
+                }
+                return c;
+            })
+            return { ...state, categories: [...updatedCategories] }
 
         case ActionTypes.SET_BRANDS:
             return { ...state, brands: [...action.payload] }

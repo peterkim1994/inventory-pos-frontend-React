@@ -2,7 +2,7 @@ import { Form, Col, Row, Button, Modal, InputGroup } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AddColour, AddBrand, AddItemCategory, AddSize } from '../services/Inventory';
-import { EditColour, EditBrand } from '../services/Inventory';
+import { EditColour, EditBrand, EditCategory, EditSize} from '../services/Inventory';
 import AttributeSelector from './AttributeSelector';
 
 const AttributeSetting = ({ attributeName, attributes }) => {
@@ -26,21 +26,20 @@ const AttributeSetting = ({ attributeName, attributes }) => {
         editAttribute = EditColour;
     } else if (attributeName == "Category") {
         addAttribute = AddItemCategory;
+        editAttribute = EditCategory;
     } else {
         addAttribute = AddSize;
+        editAttribute = EditSize;
     }
-
-    console.log(addAttribute);
 
     const handleAdd = () => {
         addAttribute(dispatch, newAttribute);
+        setNewAttribute({value:""});
     }
 
     const handleEdit = () => {
         editAttribute(dispatch, attribute);
     }
-
-    var pompom;
 
     return (
         <div style={{ width: "100%", padding: "10px" }}>
@@ -55,23 +54,20 @@ const AttributeSetting = ({ attributeName, attributes }) => {
                                 const attributeValue = event.target.options[event.target.selectedIndex].text;
                                 const attributeId = parseInt(event.target.value);
                                 setAttribute({ id: attributeId, value: attributeValue });
-                                console.log(event.target.text);
-                                pompom = event.target;
-                            }
-
-                            }
+                                console.log(event.target.text);                            
+                            }}
                         />
                     </Col>
                     <Col sm={4}>
                         <InputGroup>
                             <input type="text" value={attribute.value} disabled={show} onChange={event => setAttribute({ ...attribute, value: event.target.value })} />
-                            <Button onClick={handleEdit} >Update</Button>
+                            <Button className="btn-warning" onClick={handleEdit} >Update</Button>
                         </InputGroup>
                     </Col>
                     <Col sm={4}>
                         <InputGroup>
                             <input type="text" value={newAttribute.value} disabled={show} onChange={event => setNewAttribute({value:event.target.value})} />
-                            <Button onClick={handleAdd}>
+                            <Button className="btn-light" onClick={handleAdd}>
                                 {`Add ${attributeName}`}
                             </Button>
                         </InputGroup>

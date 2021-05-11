@@ -3,22 +3,25 @@ import { NewProduct } from './NewProduct';
 import InventoryBody from './InventoryBody';
 import InventorySettings from './InventorySettings';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { GetProductAttributes } from '../services/Inventory';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetProductAttributes, GetInventory } from '../services/Inventory';
 
 
 const InventoryTabs = () => {
-    const dispatch = useDispatch();
-
+    const dispatch = useDispatch();  
     useEffect(() => {
         GetProductAttributes(dispatch);
+        GetInventory(dispatch);
     }, []);
+
+    const products = useSelector( state => state.inventoryReducer.products );
+  
     return (
         <div>
-            <Tabs defaultActiveKey="SeeInventory" id="uncontrolled-tab-example">
+            <Tabs defaultActiveKey = "SeeInventory">
                 <Tab eventKey="SeeInventory" title="Inventory">
                     <div className="tabbed-panel inventory-body">
-                        <InventoryBody />
+                        <InventoryBody products={products} />
                     </div>
                 </Tab>
                 <Tab eventKey="AddProduct" title="Add New Product">
