@@ -1,7 +1,4 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ActionCreators } from '../redux/InventoryReducer';
-import { GetInventory } from '../services/Inventory';
 import { Button } from 'react-bootstrap';
 import EditProductModal from './EditProductModal';
 
@@ -14,9 +11,11 @@ const InventoryTable = ({ products, selectEnabled }) => {
     //     GetInventory(dispatch);
     //     console.log(products);
     // }, [])
+ 
 
+    //class name for root dive has typo
     return (
-        <div className="inventory-table-body">
+        <div className="inventory-table-bodys">
             <table className='table table-striped table-hover inventory-table'>
                 <thead>
                     <tr>

@@ -7,12 +7,13 @@ import { Button, Form, Row, InputGroup } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
 
-export default function InventoryBody({ products }) {
+export default function InventoryBody() {
     const brands = useSelector(state => state.inventoryReducer.brands);
     const colours = useSelector(state => state.inventoryReducer.colours);
     const sizes = useSelector(state => state.inventoryReducer.sizes);
     const categories = useSelector(state => state.inventoryReducer.categories);
 
+    const products = useSelector( state => state.inventoryReducer.products );
 
 
     const [filteredProducts, setFilteredProducts] = useState(products);//initial state set to all products

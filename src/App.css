@@ -82,3 +82,10 @@
   margin: auto;
   padding: 6px;
 }
+
+.promotional-inventory-panel{
+  width:65%;
+  max-width:65%;
+  margin:auto;
+  font-size: smaller;
+}

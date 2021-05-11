@@ -14,14 +14,14 @@ const InventoryTabs = () => {
         GetInventory(dispatch);
     }, []);
 
-    const products = useSelector( state => state.inventoryReducer.products );
+    
   
     return (
         <div>
             <Tabs defaultActiveKey = "SeeInventory">
                 <Tab eventKey="SeeInventory" title="Inventory">
                     <div className="tabbed-panel inventory-body">
-                        <InventoryBody products={products} />                 
+                        <InventoryBody/>                 
                     </div>
                 </Tab>
                 <Tab eventKey="AddProduct" title="Add New Product">
