@@ -24,7 +24,7 @@ const AttributeSelector = ({ stateAttributes, attributeName, handleSelect, produ
                     //         defaultvalue={productAttribute != 0 ? productAttribute: 0}
                     //    defaultvalue={"1"}
                     >
-                        <option key={0} value={1} selected={true}> - </option>
+                        <option key={0} value={null} selected={true}> - </option>
                         {
                             attributes.map(a =>
                                 <option

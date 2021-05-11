@@ -47,10 +47,13 @@ export default function InventoryReducer(state = initialState, action) {
     switch (action.type) {
         case ActionTypes.SET_SEARCHED_PRODUCTS:
             return { ...state, searchedProducts: [...action.payload] }
+
         case ActionTypes.SET_PRODUCTS:
             return { ...state, products: [...action.payload] }            
+
         case ActionTypes.NEW_PRODUCT:
             return { ...state, products: [...state.products, action.payload] }
+
         case ActionTypes.EDIT_PRODUCT:
             let updatedProducts = state.products.map(prod => {
                 if (prod.id === action.payload.id) {
@@ -59,6 +62,7 @@ export default function InventoryReducer(state = initialState, action) {
                 return prod;
             });
             return { ...state, products: [...updatedProducts] }
+
         case ActionTypes.SET_COLOURS:
             return { ...state, colours: [...action.payload] }
 
@@ -73,6 +77,7 @@ export default function InventoryReducer(state = initialState, action) {
                 return c;
             })
             return { ...state, colours: [...updatedColours] }
+
         case ActionTypes.SET_CATEGORIES:
             return { ...state, categories: [...action.payload] }
 
@@ -108,6 +113,7 @@ export default function InventoryReducer(state = initialState, action) {
 
         case ActionTypes.NEW_SIZE:
             return { ...state, sizes: [...state.sizes, action.payload] }
+            
         default:
             return state;
     }

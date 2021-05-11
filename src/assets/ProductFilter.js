@@ -4,6 +4,7 @@ export default class ProductFilter {
         this.colourParam = null;
         this.categoryParam = null;
         this.brandParam = null;
+        this.filterBrand = this.filterBrand.bind(this);
     }
     filterSize = (item) => {
         if (this.sizeParam === null) {
@@ -25,15 +26,16 @@ export default class ProductFilter {
     }
 
     filterBrand = (item) => {
+        console.log("filter debug");
+        console.log(item.brandId);
+        console.log(this.brandParam);
         if (this.brandParam === null) {
             return true;
-        }
-        if (item) {
-            return item.brandId === this.brandParam;
-        }
+        }              
+        return item.brandId === this.brandParam;        
     }
 
-    searchFilter = (item) => {
+    filterProducts = (item) => {
         return (
             this.filterSize(item)
             && this.filterColour(item)

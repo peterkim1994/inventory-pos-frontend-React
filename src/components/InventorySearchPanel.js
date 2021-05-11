@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {useSelector} from 'react-redux';
+import { Button, Modal, Form } from 'react-bootstrap';
 
 const InventorySearchPanel = () =>{
 

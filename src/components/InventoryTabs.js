@@ -21,7 +21,7 @@ const InventoryTabs = () => {
             <Tabs defaultActiveKey = "SeeInventory">
                 <Tab eventKey="SeeInventory" title="Inventory">
                     <div className="tabbed-panel inventory-body">
-                        <InventoryBody products={products} />
+                        <InventoryBody products={products} />                 
                     </div>
                 </Tab>
                 <Tab eventKey="AddProduct" title="Add New Product">
