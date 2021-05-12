@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar'
 import { NavDropdown, Nav } from "react-bootstrap";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const Header = () => {
@@ -12,7 +12,7 @@ const Header = () => {
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link as={Link} to="/inventory">Inventory</Nav.Link>
-                    <Nav.Link as={Link}  to= "/pos">POS</Nav.Link>                  
+                    <Nav.Link as={Link} to="/pos">POS</Nav.Link>
                     <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -24,7 +24,7 @@ const Header = () => {
                 <Nav>
                     <Nav.Link href="#deets">More deets</Nav.Link>
                     <Nav.Link eventKey={2} href="#memes">
-                        Dank memes 
+                        Dank memes
                     </Nav.Link>
                 </Nav>
             </Navbar.Collapse>

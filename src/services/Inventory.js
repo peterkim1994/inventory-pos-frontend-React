@@ -24,8 +24,6 @@ export const SetSearchItems = async (dispatch, searchQuery) => {
     }
 }
 
-
-
 export const AddColour = async (dispatch, colour) => {
     try {
         const { data } = await axiosObj.post("inventory/addcolour", colour);
@@ -98,10 +96,7 @@ export const EditBrand = async (dispatch, brand) => {
     }
 }
 
-
-
-export const EditProduct = async(dispatch, product) => {
-    
+export const EditProduct = async(dispatch, product) => {    
     let userRequestResponse = document.getElementById("addProductApiResponse");
     try{
         const response = await axiosObj.put("inventory/editproduct", product);
@@ -138,7 +133,6 @@ export const AddProduct = async (dispatch, product) => {
         userRequestResponse.innerHTML = "success";
     }
 }
-
 
 export const GetProductAttributes = async (dispatch) => {
     try {

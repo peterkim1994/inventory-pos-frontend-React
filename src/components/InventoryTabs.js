@@ -8,14 +8,6 @@ import { GetProductAttributes, GetInventory } from '../services/Inventory';
 
 
 const InventoryTabs = () => {
-    const dispatch = useDispatch();  
-    useEffect(() => {
-        GetProductAttributes(dispatch);
-        GetInventory(dispatch);
-    }, []);
-
-    
-  
     return (
         <div>
             <Tabs defaultActiveKey = "SeeInventory">

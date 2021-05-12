@@ -84,8 +84,25 @@
 }
 
 .promotional-inventory-panel{
+  height: 600px;
   width:65%;
   max-width:65%;
   margin:auto;
   font-size: smaller;
+}
+
+.promotional-management{
+   margin: auto;
+   width: auto;   
+   display: flex;
+   align-content:space-around;
+   justify-items:center;
+}
+
+.promotional-ui{
+  display: flex;
+  align-content:flex-end;
+  justify-items:right;
+  float: right;
+  text-align: right;
 }

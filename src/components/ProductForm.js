@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import {  useSelector } from 'react-redux';
 import AttributeSelector from './AttributeSelector';
 import NumericalFormInput from './NumericalFormInput';
+import CurrencyFormInput from './CurrencyFormInput';
 import { GetProductAttributes } from '../services/Inventory';
 
 
@@ -18,8 +19,8 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
     const colours = useSelector(state => state.inventoryReducer.colours);
     const sizes = useSelector(state => state.inventoryReducer.sizes);
     const categories = useSelector(state => state.inventoryReducer.categories);
-    console.log("product form product: ");
-    console.log(product);
+    // console.log("product form product: ");
+    // console.log(product);
  
     if (product === null) {
         product = {
@@ -35,7 +36,7 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
         };
     }
 
-    const [newProduct,setNewProduct] = useState(product);
+    const [updatedProduct, updateProduct] = useState(product);
 
     return (       
         <Form >
@@ -44,8 +45,8 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
                 <Col sm={8}>
                     <Form.Control 
                         type="text"
-                        value={newProduct.manufactureCode===null ?  "": newProduct.manufactureCode} 
-                        onChange={(event) => setNewProduct({...newProduct, manufactureCode : event.target.value})}
+                        value={updatedProduct.manufactureCode===null ?  "": updatedProduct.manufactureCode} 
+                        onChange={(event) => updateProduct({...updatedProduct, manufactureCode : event.target.value})}
                     />
                 </Col>
             </Form.Group>
@@ -55,8 +56,8 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
                     <Form.Control    
                         as="textarea" 
                         rows={2} 
-                        value = {newProduct && newProduct.description===null ? "" : newProduct.description }
-                        onChange={event => setNewProduct({...newProduct, description : event.target.value })}
+                        value = {updatedProduct && updatedProduct.description===null ? "" : updatedProduct.description }
+                        onChange={event => updateProduct({...updatedProduct, description : event.target.value })}
                     />
                 </Col>
             </Form.Group>
@@ -65,8 +66,8 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
                 <Col sm={8}>
                     <Form.Control
                         type="number" 
-                        onChange={(event) => setNewProduct({...newProduct, barcode : parseInt(event.target.value)})}
-                        value = { newProduct.barcode === null? "": newProduct.barcode }
+                        onChange={(event) => updateProduct({...updatedProduct, barcode : parseInt(event.target.value)})}
+                        value = { updatedProduct.barcode === null? "": updatedProduct.barcode }
                     />
                 </Col>
             </Form.Group>
@@ -76,7 +77,7 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
                     attributeName="Brand" 
                     productAttribute={product.brandId}
                     handleSelect={
-                        event=> setNewProduct({...newProduct, brandId: parseInt(event.target.value)})
+                        event=> updateProduct({...updatedProduct, brandId: parseInt(event.target.value)})
                     }   
                 />
                 <AttributeSelector 
@@ -84,7 +85,7 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
                     attributeName="Category" 
                     productAttribute={product.itemCategoryId}
                     handleSelect={event=>
-                         setNewProduct({...newProduct, itemCategoryId: parseInt(event.target.value)})
+                         updateProduct({...updatedProduct, itemCategoryId: parseInt(event.target.value)})
                     } 
                   />
             </Form.Row>
@@ -94,7 +95,7 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
                     attributeName="Colour"
                     productAttribute={product.colourId}
                     handleSelect={
-                        event=>setNewProduct({...newProduct, colourId: parseInt(event.target.value)})
+                        event=>updateProduct({...updatedProduct, colourId: parseInt(event.target.value)})
                     }
                  />
                 <AttributeSelector 
@@ -102,18 +103,18 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
                     attributeName="Size" 
                     productAttribute={product.sizeId} 
                     handleSelect={
-                        event=>setNewProduct({...newProduct, sizeId: parseInt(event.target.value)})
+                        event=>updateProduct({...updatedProduct, sizeId: parseInt(event.target.value)})
                     }
                 />
             </Form.Row>
             <Form.Row>
-                <NumericalFormInput label="Price" handleOnChange={(event) => setNewProduct({...newProduct, price : (100 * parseInt(event.target.value))})} />
-                <NumericalFormInput label="Quantity" handleOnChange={(event) => setNewProduct({...newProduct, qty : parseInt(event.target.value)})} />
+                <CurrencyFormInput label="Price" initialValue={updatedProduct.price} handleOnChange={(event) => updateProduct({...updatedProduct, price : (parseFloat(event.target.value))})} />
+                <NumericalFormInput label="Quantity" initialValue={updatedProduct.qty} handleOnChange={(event) => updateProduct({...updatedProduct, qty : parseInt(event.target.value)})} />
             </Form.Row>
             <div className = "form-buttons-container">
                 <Button variant="primary" className="product-form-button" onClick={(event)=>{
                     event.preventDefault();
-                    handleSubmit(newProduct);                    
+                    handleSubmit(updatedProduct);                    
                 }}> Save </Button>   
                 {product.id && <Button variant="warning" className="product-form-button" onClick={handleClose}> close </Button> }        
                 <p className="error-message" id="addProductApiResponse"></p>

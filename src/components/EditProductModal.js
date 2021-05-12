@@ -11,7 +11,7 @@ const EditProductModal = ({ product }) => {
   const handleShow = () => setShow(true);
   const dispatch = useDispatch();
 
-  const editProduct = (editedProduct) => {
+  const editProduct = (editedProduct) => {    
     EditProduct(dispatch, editedProduct);
     handleClose();
   }

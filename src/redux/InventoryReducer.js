@@ -61,6 +61,8 @@ export default function InventoryReducer(state = initialState, action) {
                 }
                 return prod;
             });
+            console.log("proecuts reducer action");
+            console.log(updatedProducts);
             return { ...state, products: [...updatedProducts] }
 
         case ActionTypes.SET_COLOURS:
@@ -71,7 +73,7 @@ export default function InventoryReducer(state = initialState, action) {
 
         case ActionTypes.EDIT_COLOUR:
             let updatedColours = state.colours.map(c => {
-                if (c.id == action.payload.id) {
+                if (c.id === action.payload.id) {
                     c = action.payload;
                 }
                 return c;
@@ -113,7 +115,7 @@ export default function InventoryReducer(state = initialState, action) {
 
         case ActionTypes.NEW_SIZE:
             return { ...state, sizes: [...state.sizes, action.payload] }
-            
+
         default:
             return state;
     }

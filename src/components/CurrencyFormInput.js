@@ -1,7 +1,7 @@
 import { Form, Col, Row } from 'react-bootstrap';
 
 
-const NumericalFormInput = ({ label, initialValue, handleOnChange }) => {
+const CurrencyFormInput = ({ label, initialValue, handleOnChange }) => {
     return (
         <Col>
             <Form.Group as={Row}>
@@ -10,10 +10,11 @@ const NumericalFormInput = ({ label, initialValue, handleOnChange }) => {
                     <Form.Control                       
                         type="number"
                         min="0.00"
-                        step="1"                
-                        presicion={0}
+                        step="0.001"
+                        max="10000.00"
+                        presicion={2}
                         onChange={event => handleOnChange(event)}
-                        value={(initialValue)? initialValue:"0"}
+                        value={(initialValue)? initialValue:"0.00"}
                     />
                 </Col>
             </Form.Group>
@@ -21,4 +22,4 @@ const NumericalFormInput = ({ label, initialValue, handleOnChange }) => {
     );
 }
 
-export default NumericalFormInput
+export default CurrencyFormInput

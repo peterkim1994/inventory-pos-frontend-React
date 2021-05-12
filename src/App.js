@@ -4,12 +4,19 @@ import './App.css';
 import {Route,Link} from 'react-router-dom';
 import Header from './components/Header';
 import InventoryTabs from './components/InventoryTabs';
-
 import PosTabs from './components/PosTabs';
 
-
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetProductAttributes, GetInventory } from './services/Inventory';
 
 function App() {
+  const dispatch = useDispatch();  
+  useEffect(() => {
+      GetProductAttributes(dispatch);
+      GetInventory(dispatch);
+  }, []);
+  
   return (
     <div className="App">
       <Header/>

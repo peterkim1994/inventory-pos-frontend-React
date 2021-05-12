@@ -6,18 +6,18 @@ export default class ProductFilter {
         this.brandParam = null;
         this.filterBrand = this.filterBrand.bind(this);
     }
+
     filterSize = (item) => {
-        if (this.sizeParam === null) {
-            return true;
-        }
-        return item.sizeId === this.sizeParam;
+        return (this.sizeParam === null || item.sizeId === this.sizeParam )
     }
+
     filterColour = (item) => {
         if (this.colourParam === null) {
             return true;
         }
         return item.colourId === this.colourParam;
     }
+
     filterCategory = (item) => {
         if (this.categoryParam === null) {
             return true;
@@ -26,9 +26,6 @@ export default class ProductFilter {
     }
 
     filterBrand = (item) => {
-        console.log("filter debug");
-        console.log(item.brandId);
-        console.log(this.brandParam);
         if (this.brandParam === null) {
             return true;
         }              
@@ -43,7 +40,4 @@ export default class ProductFilter {
             && this.filterBrand(item)
        )
     }
-
-
-
 }

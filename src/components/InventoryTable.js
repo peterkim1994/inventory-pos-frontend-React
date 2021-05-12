@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import EditProductModal from './EditProductModal';
 
 
-const InventoryTable = ({ products, selectEnabled }) => {
+const InventoryTable = ({ products, selectEnabled, handleSelect }) => {
 
     // const products = useSelector( state => state.inventoryReducer.products );
     // const dispatch = useDispatch();    
@@ -18,8 +18,7 @@ const InventoryTable = ({ products, selectEnabled }) => {
         <div className="inventory-table-bodys">
             <table className='table table-striped table-hover inventory-table'>
                 <thead>
-                    <tr>
-                        {selectEnabled && <th className="table-col"> </th>}
+                    <tr>                        
                         <th className="table-col"> Brand </th>
                         <th className="table-col"> Category </th>
                         <th className="table-col"> Colour </th>
@@ -33,13 +32,7 @@ const InventoryTable = ({ products, selectEnabled }) => {
                 <tbody >
                     {
                         products.map(pr =>
-                            <tr key={pr.id}>
-                                {
-                                    selectEnabled &&
-                                    <td className="table-col">
-                                        <input type="checkbox" value={pr.id} />
-                                    </td>
-                                }
+                            <tr key={pr.id}>                                
                                 <td className="table-col"> {pr.brandValue} </td>
                                 <td className="table-col"> {pr.itemCategoryValue} </td>
                                 <td className="table-col"> {pr.colourValue} </td>
@@ -48,8 +41,8 @@ const InventoryTable = ({ products, selectEnabled }) => {
                                 <td className="table-col"> {pr.price} </td>
                                 <td className="table-col"> {pr.qty} </td>
                                 <td className="table-col">
-                                    <EditProductModal product={pr} />
-
+                                    {!selectEnabled && <EditProductModal product={pr} />}
+                                    {selectEnabled &&  <input type="checkbox" value={pr.id} onClick={handleSelect}/>}
                                 </td>
                             </tr>
                         )
