@@ -20,11 +20,12 @@ const AttributeSelector = ({ stateAttributes, attributeName, handleSelect, produ
                     <Form.Control as="select"
                         id={`${attributeName}-selector`}
                         onChange={handleSelect}
+                        required
                     //        onChange = {event => selectAttribute(event)} 
                     //         defaultvalue={productAttribute != 0 ? productAttribute: 0}
                     //    defaultvalue={"1"}
                     >
-                        <option key={0} value={null} selected={true}> - </option>
+                        <option key={0} value={null} selected={false}> - </option>
                         {
                             attributes.map(a =>
                                 <option

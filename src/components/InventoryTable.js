@@ -32,7 +32,7 @@ const InventoryTable = ({ products, selectEnabled, handleSelect }) => {
                 <tbody >
                     {
                         products.map(pr =>
-                            <tr key={pr.id}>                                
+                            <tr key={pr.id} id={`product-row-${pr.id}`}>                                
                                 <td className="table-col"> {pr.brandValue} </td>
                                 <td className="table-col"> {pr.itemCategoryValue} </td>
                                 <td className="table-col"> {pr.colourValue} </td>

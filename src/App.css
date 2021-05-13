@@ -85,10 +85,11 @@
 
 .promotional-inventory-panel{
   height: 600px;
-  width:65%;
   max-width:65%;
+  max-height: 800px;
   margin:auto;
   font-size: smaller;
+  overflow-y: scroll;
 }
 
 .promotional-management{
@@ -96,7 +97,7 @@
    width: auto;   
    display: flex;
    align-content:space-around;
-   justify-items:center;
+   justify-items:normal;
 }
 
 .promotional-ui{

@@ -5,7 +5,9 @@ import InventoryTable from './InventoryTable';
 import PromotionForm from './PromotionForm';
 import {AddPromotion} from '../services/Promotions';
 
-export default function PromotionManagement() {
+
+
+export default function PromotionProductsModal({products}) {
 
     const products = useSelector(state => state.inventoryReducer.products);
     const [filteredProducts, setFilteredProducts] = useState(products);//initial state set to all products
@@ -19,18 +21,15 @@ export default function PromotionManagement() {
         start: Date.now(),
         end: new Date(Date.now() + 604800000), //initial end date is 1 week from current
         products: [],
-    }
+    } 
 
     const [promotion, setPromotion] = useState(defaultPromotion);
 
-
     const dispatch = useDispatch();
 
-    const AddNewPromotion = (promo) =>{
-        console.log("add promo");
+    const AddNewPromotion = (promo) =>{     
         AddPromotion(dispatch, promo);
     }
-
 
     const handleSelect = (event) => {
         const selectedItemId = parseInt(event.target.value);
@@ -56,3 +55,5 @@ export default function PromotionManagement() {
     );
     // handleChange={setPromotion} 
 }
+
+export default PromotionProductsModal

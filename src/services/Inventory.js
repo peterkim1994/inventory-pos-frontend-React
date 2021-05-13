@@ -37,8 +37,10 @@ export const EditColour = async (dispatch, colour) => {
     try {
         const { data } = await axiosObj.put("inventory/editColour", colour);
         dispatch(ActionCreators.editColour(data));
+     
     } catch (err) {
         console.log("edit colour service error \n" + err)
+        
     }
 }
 
@@ -102,9 +104,11 @@ export const EditProduct = async(dispatch, product) => {
         const response = await axiosObj.put("inventory/editproduct", product);
         dispatch(ActionCreators.editProduct(response.data));
         userRequestResponse.innerHTML = "success";    
+        return true;       
     }catch(err){
         userRequestResponse.innerHTML = err.message;
         console.log(err);
+        return false;
     }   
 }
 
@@ -117,17 +121,17 @@ export const AddProduct = async (dispatch, product) => {
         .catch(err => {                       
             validProduct = false;            
             console.log(err);
-            // let errorMessage = "";
-            // if(err.response.data && typeof(err.response.data) === "object" ){
-            //     err.response.data.errors.Description.map(e => {
-            //         errorMessage += (e + "\n");
-            //     })
-            // }else if(err.response.data){ 
-            //     errorMessage = err.response.data;
-            // }
-            // userRequestResponse.innerHTML = errorMessage;
-        });
-   
+            let errorMessage = "";
+            if(err.response.data && typeof(err.response.data) === "object" ){
+                if(err.response.data.Description)
+                 err.response.data.errors.Description.map(e => {
+                     errorMessage += (e + "\n");
+                })
+              }else if(err.response.data){ 
+                 errorMessage = err.response.data;
+            }
+            userRequestResponse.innerHTML = errorMessage;
+        });   
     if (validProduct) {
         dispatch(ActionCreators.newProduct(response.data));
         userRequestResponse.innerHTML = "success";
