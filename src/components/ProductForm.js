@@ -1,19 +1,14 @@
 import { Form, Modal, Button, FormControl, Row, Col } from "react-bootstrap";
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
-import {  useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import AttributeSelector from './AttributeSelector';
 import NumericalFormInput from './NumericalFormInput';
 import CurrencyFormInput from './CurrencyFormInput';
 import { GetProductAttributes } from '../services/Inventory';
 
 
-export const ProductForm = ({ product, handleClose, handleSubmit }) => {    
-    // const dispatch = useDispatch();
-
-    // useEffect(()=>{
-    //     GetProductAttributes(dispatch);
-    // },[]);
+export const ProductForm = ({ product, handleClose, handleSubmit }) => {
 
     const brands = useSelector(state => state.inventoryReducer.brands);
     const colours = useSelector(state => state.inventoryReducer.colours);
@@ -21,43 +16,49 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
     const categories = useSelector(state => state.inventoryReducer.categories);
     // console.log("product form product: ");
     // console.log(product);
- 
-    if (product === null) {
-        product = {
-            manufactureCode: "",
-            description: "",
-            barcode: 0,
-            brandId: 0,
-            itemCategoryId: 0,
-            colourId: 0,
-            sizeId: 0,
-            price: 0,
-            qty: 0
-        };
+
+    const [validated, setValidated] = useState(false);
+
+    const inputValidationResponse = useRef();
+
+    const submitForm = (event) => {
+        const form = event.currentTarget;
+        event.preventDefault();
+        if (!updatedProduct.itemCategoryId  ||
+            !updatedProduct.brandId ||
+            !updatedProduct.colourId  ||
+            !updatedProduct.sizeId
+        ) {
+            inputValidationResponse.current.innerHTML = "You must make a selection for all product options";
+        } else {
+            handleSubmit(updatedProduct);
+        }
+
     }
 
     const [updatedProduct, updateProduct] = useState(product);
 
-    return (       
-        <Form >
+    return (
+        <Form hasValidation onSubmit={submitForm} >
             <Form.Group as={Row} controlId="manufacture">
                 <Form.Label column sm={4} >Manufacturer Code </Form.Label>
                 <Col sm={8}>
-                    <Form.Control 
-                        type="text"
-                        value={updatedProduct.manufactureCode===null ?  "": updatedProduct.manufactureCode} 
-                        onChange={(event) => updateProduct({...updatedProduct, manufactureCode : event.target.value})}
+                    <Form.Control
+                        type="text"                      
+                        value={updatedProduct.manufactureCode === null ? "" : updatedProduct.manufactureCode}
+                        onChange={(event) => updateProduct({ ...updatedProduct, manufactureCode: event.target.value })}
                     />
                 </Col>
             </Form.Group>
             <Form.Group as={Row} controlId="exampleForm.ControlTextarea1">
-                <Form.Label column sm={4}> Desciption</Form.Label>
+                <Form.Label column sm={4}> Description</Form.Label>
                 <Col sm={8}>
-                    <Form.Control    
-                        as="textarea" 
-                        rows={2} 
-                        value = {updatedProduct && updatedProduct.description===null ? "" : updatedProduct.description }
-                        onChange={event => updateProduct({...updatedProduct, description : event.target.value })}
+                    <Form.Control
+                        as="textarea"
+                        required
+                        rows={2}
+                        value={updatedProduct && updatedProduct.description === null ? "" : updatedProduct.description}
+                        onChange={event => updateProduct({ ...updatedProduct, description: event.target.value })}
                     />
                 </Col>
             </Form.Group>
@@ -65,59 +66,57 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
                 <Form.Label column sm={4} >Barcode Number</Form.Label>
                 <Col sm={8}>
                     <Form.Control
-                        type="number" 
-                        onChange={(event) => updateProduct({...updatedProduct, barcode : parseInt(event.target.value)})}
-                        value = { updatedProduct.barcode === null? "": updatedProduct.barcode }
+                        type="number"
+                        onChange={(event) => updateProduct({ ...updatedProduct, barcode: parseInt(event.target.value) })}
+                        value={updatedProduct.barcode === null ? "" : updatedProduct.barcode}
                     />
                 </Col>
             </Form.Group>
             <Form.Row>
-                <AttributeSelector 
-                    stateAttributes={brands} 
-                    attributeName="Brand" 
+                <AttributeSelector
+                    stateAttributes={brands}
+                    attributeName="Brand"
                     productAttribute={product.brandId}
                     handleSelect={
-                        event=> updateProduct({...updatedProduct, brandId: parseInt(event.target.value)})
-                    }   
+                        event => updateProduct({ ...updatedProduct, brandId: parseInt(event.target.value) })
+                    }
                 />
-                <AttributeSelector 
+                <AttributeSelector
                     stateAttributes={categories}
-                    attributeName="Category" 
+                    attributeName="Category"
                     productAttribute={product.itemCategoryId}
-                    handleSelect={event=>
-                         updateProduct({...updatedProduct, itemCategoryId: parseInt(event.target.value)})
-                    } 
-                  />
+                    handleSelect={event =>
+                        updateProduct({ ...updatedProduct, itemCategoryId: parseInt(event.target.value) })
+                    }
+                />
             </Form.Row>
             <Form.Row>
-                <AttributeSelector 
-                    stateAttributes={colours} 
+                <AttributeSelector
+                    stateAttributes={colours}
                     attributeName="Colour"
                     productAttribute={product.colourId}
                     handleSelect={
-                        event=>updateProduct({...updatedProduct, colourId: parseInt(event.target.value)})
+                        event => updateProduct({ ...updatedProduct, colourId: parseInt(event.target.value) })
                     }
-                 />
-                <AttributeSelector 
-                    stateAttributes={sizes} 
-                    attributeName="Size" 
-                    productAttribute={product.sizeId} 
+                />
+                <AttributeSelector
+                    stateAttributes={sizes}
+                    attributeName="Size"
+                    productAttribute={product.sizeId}
                     handleSelect={
-                        event=>updateProduct({...updatedProduct, sizeId: parseInt(event.target.value)})
+                        event => updateProduct({ ...updatedProduct, sizeId: parseInt(event.target.value) })
                     }
                 />
             </Form.Row>
             <Form.Row>
-                <CurrencyFormInput label="Price" initialValue={updatedProduct.price} handleOnChange={(event) => updateProduct({...updatedProduct, price : (parseFloat(event.target.value))})} />
-                <NumericalFormInput label="Quantity" initialValue={updatedProduct.qty} handleOnChange={(event) => updateProduct({...updatedProduct, qty : parseInt(event.target.value)})} />
+                <CurrencyFormInput label="Price" initialValue={updatedProduct.price} handleOnChange={(event) => updateProduct({ ...updatedProduct, price: (parseFloat(event.target.value)) })} />
+                <NumericalFormInput label="Quantity" initialValue={updatedProduct.qty} handleOnChange={(event) => updateProduct({ ...updatedProduct, qty: parseInt(event.target.value) })} />
             </Form.Row>
-            <div className = "form-buttons-container">
-                <Button variant="primary" className="product-form-button" onClick={(event)=>{
-                    event.preventDefault();
-                    handleSubmit(updatedProduct);                    
-                }}> Save </Button>   
-                {product.id && <Button variant="warning" className="product-form-button" onClick={handleClose}> close </Button> }        
-                <p className="error-message" id="addProductApiResponse"></p>
+            <div className="form-buttons-container">
+                <Button variant="primary" className="product-form-button"
+                    type="submit" > Save </Button>
+                {product.id && <Button variant="warning" className="product-form-button" onClick={handleClose}> close </Button>}
+                <p ref={inputValidationResponse} className="error-message" id="addProductApiResponse">{}</p>
             </div>
         </Form>
     );

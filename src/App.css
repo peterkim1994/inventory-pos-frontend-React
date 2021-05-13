@@ -83,27 +83,31 @@
   padding: 6px;
 }
 
-.promotional-inventory-panel{
-  height: 600px;
-  max-width:65%;
-  max-height: 800px;
-  margin:auto;
+.promotional-inventory-modal{
+  height: 500px;
+  width:fit-content; 
+  max-height: 600px;
+ /* margin:auto; */
   font-size: smaller;
-  overflow-y: scroll;
+}
+
+.promotion-modal-table{
+   max-height: 500;
+   overflow-y:hidden;
 }
 
 .promotional-management{
-   margin: auto;
-   width: auto;   
+ /* margin:auto; */
+   max-width: 100%;   
    display: flex;
-   align-content:space-around;
-   justify-items:normal;
+   align-content:center;
+   justify-items:stretch;
 }
 
 .promotional-ui{
   display: flex;
   align-content:flex-end;
-  justify-items:right;
+  justify-items:left;
   float: right;
   text-align: right;
 }

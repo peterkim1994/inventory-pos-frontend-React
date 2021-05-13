@@ -15,7 +15,7 @@ const InventoryTable = ({ products, selectEnabled, handleSelect }) => {
 
     //class name for root dive has typo
     return (
-        <div className="inventory-table-bodys">
+        <div >
             <table className='table table-striped table-hover inventory-table'>
                 <thead>
                     <tr>                        

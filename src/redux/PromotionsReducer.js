@@ -20,11 +20,11 @@ export default function PromotionsReducer(state=initialState, action){
         case ActionTypes.NEW_PROMOTION:
             return {...state, promotions:[...state.promotions, action.payload]}
         case ActionTypes.EDIT_PROMOTION:
-            let updatedPromotions = state.promotions.map((item)=>{
-                if(item.id === action.payload.id){
-                    item = action.payload;
+            let updatedPromotions = state.promotions.map((promo)=>{
+                if(promo.id === action.payload.id){
+                    promo = action.payload;
                 }
-                return item;
+                return promo;
             });
             return {...state, promotions: updatedPromotions};
         default:

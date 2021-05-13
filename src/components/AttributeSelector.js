@@ -14,10 +14,10 @@ const AttributeSelector = ({ stateAttributes, attributeName, handleSelect, produ
 
     return (
         <Col>
-            <Form.Group as={Row}>               
-                <Form.Label column sm={4} > {attributeName} </Form.Label>                
+            <Form.Group as={Row} required>
+                <Form.Label column sm={4} > {attributeName} </Form.Label>
                 <Col sm={8}>
-                    <Form.Control as="select"
+                    <Form.Control as="select"              
                         id={`${attributeName}-selector`}
                         onChange={handleSelect}
                         required
@@ -25,12 +25,12 @@ const AttributeSelector = ({ stateAttributes, attributeName, handleSelect, produ
                     //         defaultvalue={productAttribute != 0 ? productAttribute: 0}
                     //    defaultvalue={"1"}
                     >
-                        <option key={0} value={null} selected={false}> - </option>
+                        <option key={0}  selected={true}> - </option>
                         {
                             attributes.map(a =>
                                 <option
                                     key={a.id}
-                                    value={a.id}                                    
+                                    value={a.id}
                                     selected={(productAttribute && a.id == productAttribute) ? true : false}
                                 >
                                     {a.value}
@@ -38,7 +38,7 @@ const AttributeSelector = ({ stateAttributes, attributeName, handleSelect, produ
                             )
                         }
                     </Form.Control>
-                </Col>             
+                </Col>
             </Form.Group>
         </Col>
     )

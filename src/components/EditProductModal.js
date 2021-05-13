@@ -12,6 +12,7 @@ const EditProductModal = ({ product }) => {
   const handleShow = () => setShow(true);
   const dispatch = useDispatch();
 
+
   const editProduct = (editedProduct) => {    
     const success =  EditProduct(dispatch, editedProduct);
     if(success)
@@ -22,7 +23,7 @@ const EditProductModal = ({ product }) => {
     <div>
       <Button onClick={handleShow} className='btn btn-success' > Edit </Button>
       <Modal show={show} className="edit-product-modal">
-        <Modal.Header>
+        <Modal.Header closeButton>
           <Modal.Title className="modal-title">
             Edit Product
           </Modal.Title>
@@ -34,9 +35,6 @@ const EditProductModal = ({ product }) => {
     </div>
   )
 }
-
-
-
 
 
 export default EditProductModal

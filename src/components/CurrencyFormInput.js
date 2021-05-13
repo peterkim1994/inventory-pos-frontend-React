@@ -9,8 +9,9 @@ const CurrencyFormInput = ({ label, initialValue, handleOnChange }) => {
                 <Col sm={8}>
                     <Form.Control                       
                         type="number"
+                        required
                         min="0.00"
-                        step="0.001"
+                        step="0.01"
                         max="10000.00"
                         presicion={2}
                         onChange={event => handleOnChange(event)}

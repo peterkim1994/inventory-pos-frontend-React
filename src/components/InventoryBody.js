@@ -16,9 +16,12 @@ export default function InventoryBody() {
 
     const searchPanelRef = useRef();
     return (
-        <div>     
+        <div >     
             <InventorySearchPanel setResults={setFilteredProducts}/>      
-            <InventoryTable products={filteredProducts}  />
+            <div className="inventory-table-body">           
+        
+                <InventoryTable products={filteredProducts} className="inventory-table-body" />
+            </div>
         </div>
     );
 }

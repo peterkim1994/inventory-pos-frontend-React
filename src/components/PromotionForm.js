@@ -11,6 +11,7 @@ const PromotionForm = ({ promotion, handleSubmit }) => {
 
     const refFunc = ()=> {handleSubmit(promo)};
 
+
     return (
         <Form>
             <Form.Group as={Row}>

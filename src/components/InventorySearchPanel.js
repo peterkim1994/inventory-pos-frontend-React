@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Button, InputGroup, Form } from 'react-bootstrap';
+import { Button, InputGroup, Form, Col} from 'react-bootstrap';
 import ProductFilter from '../assets/ProductFilter';
 import AttributeSelector from './AttributeSelector';
 
@@ -9,7 +9,7 @@ const InventorySearchPanel = ({ setResults }) => {
     const colours = useSelector(state => state.inventoryReducer.colours);
     const sizes = useSelector(state => state.inventoryReducer.sizes);
     const categories = useSelector(state => state.inventoryReducer.categories);
-    const products = useSelector( state => state.inventoryReducer.products );
+    const products = useSelector(state => state.inventoryReducer.products);
 
     // console.log("filtered products ");
     // console.log(products);
@@ -51,7 +51,10 @@ const InventorySearchPanel = ({ setResults }) => {
                             attributeName={"Size"}
                             handleSelect={event => productFilterObj.sizeParam = parseInt(event.target.value)}
                         />
-                        <Button className="btn-primary" onClick={performFilter}>Filter</Button>
+                  
+                    <Col>
+                        <Button variant="primary" onClick={performFilter}>Filter</Button>
+                    </Col>
                     </InputGroup>
                 </Form.Row>
             </Form>
