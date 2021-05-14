@@ -1,6 +1,4 @@
 import { Tabs, Tab } from 'react-bootstrap';
-import { NewProduct } from './NewProduct';
-import InventoryBody from './InventoryBody';
 import InventorySettings from './InventorySettings';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';

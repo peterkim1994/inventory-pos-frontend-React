@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AttributeSetting from './AttributeSetting';
 import { GetProductAttributes } from '../services/Inventory';

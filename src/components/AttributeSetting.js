@@ -1,5 +1,5 @@
 import { Form, Col, Row, Button, Modal, InputGroup } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AddColour, AddBrand, AddItemCategory, AddSize } from '../services/Inventory';
 import { EditColour, EditBrand, EditCategory, EditSize} from '../services/Inventory';

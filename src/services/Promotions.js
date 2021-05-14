@@ -14,7 +14,7 @@ export const AddPromotion = async (dispatch, promotion) => {
         const { data } = await axiosObj.post("sales/addPromotion", promotion);
         dispatch(ActionCreators.newPromotion(data));
     } catch (err) {
-        console.log("edit brand service error \n")
+        console.log("edit brand service error \n");
         console.log(err);
     }
 }
@@ -35,6 +35,28 @@ export const GetCurrentPromotions = async(dispatch) =>{
         dispatch(ActionCreators.setPromotions(data));
     } catch (err) {
         console.log("edit brand service error \n")
+        console.log(err);
+    }
+}
+
+export const AddProductToPromotion =  async(dispatch, promotion, product) =>{
+    try{
+        const { data } = await axiosObj.get(`sales/AddProductPromotion/?${product.id}/${promotion.id}`);
+        dispatch(ActionCreators.setPromotions(data));
+    } catch (err) {
+        console.log("edit brand service error \n")
+        console.log(err);
+    }
+}
+
+export const GetPromotionsProducts = async(dispatch, promotionId) => {
+    try{
+        const { data } = await axiosObj.get(`sales/GetPromotionsProducts/${promotionId}`);     
+        console.log("dispatch ");
+        console.log(data);
+        dispatch(ActionCreators.setPromotionProducts(data));
+    } catch (err) {
+        console.log(" GetPromotionsProducts service error \n");
         console.log(err);
     }
 }

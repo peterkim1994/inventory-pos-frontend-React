@@ -1,6 +1,5 @@
 import { Form, Button, Row, Label, Col } from 'react-bootstrap';
 import CurrencyFormInput from './CurrencyFormInput';
-import AttributeSelector from './AttributeSelector';
 import NumericalFormInput from './NumericalFormInput';
 import { useState } from 'react';
 
@@ -10,7 +9,6 @@ const PromotionForm = ({ promotion, handleSubmit }) => {
     // const setPromo = handleChange;
 
     const refFunc = ()=> {handleSubmit(promo)};
-
 
     return (
         <Form>

@@ -1,11 +1,11 @@
-import { Form, Modal, Button, FormControl, Row, Col } from "react-bootstrap";
-import React, { useEffect, useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { Form, Button, Row, Col } from "react-bootstrap";
+import React, { useState, useRef } from "react";
+
 import { useSelector } from 'react-redux';
 import AttributeSelector from './AttributeSelector';
 import NumericalFormInput from './NumericalFormInput';
 import CurrencyFormInput from './CurrencyFormInput';
-import { GetProductAttributes } from '../services/Inventory';
+
 
 
 export const ProductForm = ({ product, handleClose, handleSubmit }) => {
@@ -39,7 +39,7 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
     const [updatedProduct, updateProduct] = useState(product);
 
     return (
-        <Form hasValidation onSubmit={submitForm} >
+        <Form hasvalidation onSubmit={submitForm} >
             <Form.Group as={Row} controlId="manufacture">
                 <Form.Label column sm={4} >Manufacturer Code </Form.Label>
                 <Col sm={8}>

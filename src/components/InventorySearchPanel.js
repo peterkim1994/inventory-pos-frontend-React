@@ -11,17 +11,11 @@ const InventorySearchPanel = ({ setResults }) => {
     const categories = useSelector(state => state.inventoryReducer.categories);
     const products = useSelector(state => state.inventoryReducer.products);
 
-    // console.log("filtered products ");
-    // console.log(products);
-
     const productFilter = new ProductFilter();
     const [productFilterObj, setProductFilter] = useState(productFilter);
 
     const performFilter = () => {
         const filteredResults = products.filter((product) => { return productFilterObj.filterProducts(product) });
-        // console.log("perfrom filter in inventory boidy");
-        // console.log(filteredResults);
-        // console.log(productFilterObj);
         console.log("set results being called");
         setResults(filteredResults);
     }

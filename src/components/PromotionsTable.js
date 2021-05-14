@@ -1,38 +1,34 @@
-import { useSelector } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import { GetPromotions } from '../services/Promotions';
-import PromotionProductsModal from './PromotionProductsModal';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import PromotionProductsModal from './PromotionProductsModal';
+import { GetPromotionsProducts } from '../services/Promotions';
 
 const PromotionsTable = ({ promotions }) => {
+    const dispatch = useDispatch();
 
-    const [promotion, setPromotion] = useState();
+    const [showPromotion, setShow ] = useState(0);
+    const handleClose = () => setShow(0);
+ //   const handleClose = () => setShow(false);
 
-    const showPromotionProducts = (promo) => {
-        console.log(promotion);
-        if (promotion === undefined)
-            setPromotion(promo);
-        //  return (<PromotionProductsModal promotion={promotion} />);
+    const showPromotionProducts = async (promo) => {     
+      await GetPromotionsProducts(dispatch, promo.id);
+      setShow(promo.id);
     }
 
-    const handleClose = () => setPromotion();
+  
 
     return (
         <div>
-            <table className="table">
+            <table className="table promotions-table">
                 <thead>
-                    <th>
-                        Promotion Name
-                    </th>
-                    <th>
-                        Start
-                    </th>
-                    <th>
-                        End
-                    </th>
-                    <th> </th>    
+                    <tr>
+                    <th> Promotion Name </th>
+                    <th> Start Date </th>
+                    <th> End Date </th>
                     <th> </th>
-
+                    <th> </th>
+                    </tr>
                 </thead>
                 <tbody>
                     {promotions.map(promo =>
@@ -46,7 +42,7 @@ const PromotionsTable = ({ promotions }) => {
                             <td>
                                 <Button onClick={() => showPromotionProducts(promo)}>Edit Promotions Products</Button>
                             </td>
-                            {promotion && promotion.id === promo.id && <PromotionProductsModal promotion={promo} handleClose={handleClose} className="promotional-inventory-modal" />}
+                            {showPromotion === promo.id && <PromotionProductsModal promotion={promo} handleClose={handleClose} className="promotional-inventory-modal" />}
                         </tr>
                     )}
                 </tbody>

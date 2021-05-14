@@ -1,55 +1,60 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import InventorySearchPanel from './InventorySearchPanel';
 import InventoryTable from './InventoryTable';
-import PromotionForm from './PromotionForm';
-import { EditPromotion } from '../services/Promotions';
+import { GetPromotionsProducts } from '../services/Promotions';
 import { Modal, Button } from 'react-bootstrap';
 
 const PromotionProductsModal = ({ promotion, handleClose }) => {
-
+    const dispatch = useDispatch();
     const products = useSelector(state => state.inventoryReducer.products);
-    const [relevantProducts, setRelevantProducts] = useState(products);//initial state set to all products
-    const [selectedProducts, setSelectedProducts] = useState([]); //products checked/selected
+    const [allProducts, setAllProducts] = useState(products);//initial state set to all products
+    const promosCurrentProducts = useSelector(state => state.promotionsReducer.promotionProducts);
+    const [promotionsProducts, setPromotionsProductions] = useState(promosCurrentProducts); //products checked/selected
 
-    const [promo, setPromotion] = useState(promotion);
+    console.log(promosCurrentProducts);
+
+    useEffect(() => {
+        GetPromotionsProducts(dispatch, promotion);
+    }, []);
+
+    //alert(promotion.id);
+    console.log("promo producs");
+    console.log(promotionsProducts);
+
+    const [editedPromotion, setPromotion] = useState(promotion);
     const [show, setShow] = useState(true);
 
     const closeModal = () => {
-        setShow(false);
         handleClose();
     }
 
-    //  alert("promo modal has mounted " +promotion.id);
+    const HandleSubmit = (promo) => {
 
-    const dispatch = useDispatch();
-
-    const AddNewPromotion = (promo) => {
-        EditPromotion(dispatch, promo);
     }
 
     const handleSelect = (event) => {
         const selectedItemId = parseInt(event.target.value);
         if (event.target.checked) {
-            const selectedProductId = selectedItemId;
-            setPromotion({ ...promotion, products: [...promotion.products, selectedProductId] });
+            if (!editedPromotion.products.includes(selectedItemId))
+                setPromotion({ ...editedPromotion, products: [...editedPromotion.products, selectedItemId] });
         } else {
-            let editedPromoProducts = selectedProducts.filter((item) => item.id !== selectedItemId);
-            setPromotion({ ...promotion, products: editedPromoProducts });
+            let editedPromoProducts = promotionsProducts.filter((item) => item.id !== selectedItemId);
+            setPromotion({ ...editedPromotion, products: editedPromoProducts });
         }
     }
 
     return (
-        <div className="promotional-inventory-modal">
-            <Modal show={show} size="lg"  dialogClassName="promotional-inventory-modal">
+        <div className="promotional-inventory-modals ">
+            <Modal show={true} size="lg" dialogClassName="promotional-inventory-modal">
                 <Modal.Header >
-                    <Modal.Title>{promotion.promotionName}</Modal.Title>     
-                    <InventorySearchPanel setResults={setRelevantProducts} />               
+                    <Modal.Title>{promotion.promotionName}</Modal.Title>
+                    <InventorySearchPanel setResults={setAllProducts} />
                 </Modal.Header>
-                <Modal.Body style={{maxHeight:"460px", overflow:"scroll"}} >                         
-                    <InventoryTable products={relevantProducts} selectEnabled={true} handleSelect={handleSelect} />             
+                <Modal.Body style={{ maxHeight: "460px", overflow: "scroll" }} >             
+                    <InventoryTable products={promotionsProducts} selectEnabled={true} handleSelect={handleSelect} />
                 </Modal.Body>
-                <Modal.Footer style={{width:"auto", margin:"auto" }}>
+                <Modal.Footer style={{ width: "auto", margin: "auto", height: "fit-content" }}>
                     <Button variant="secondary" onClick={handleClose}> Close </Button>
                     <Button variant="warning" onClick={handleClose}> Save </Button>
                 </Modal.Footer>
@@ -57,6 +62,7 @@ const PromotionProductsModal = ({ promotion, handleClose }) => {
         </div>
     );
 }
-//      
+
 
 export default PromotionProductsModal
+

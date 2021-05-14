@@ -1,16 +1,19 @@
 const initialState = {
     promotions : [],
+    promotionProducts : [],
 }
 
 const ActionTypes = {
     SET_PROMOTIONS : 'SET_PROMOTIONS',
     NEW_PROMOTION : 'NEW_PROMOTION',
-    EDIT_PROMOTION : 'EDIT_PROMOTION'
+    EDIT_PROMOTION : 'EDIT_PROMOTION',
+    SET_PROMOTION_PRODUCTS : 'SET_PROMOTION_PRODUCTS',
 }
 
 export const ActionCreators = {
     setPromotions : payload => ({type: ActionTypes.SET_PROMOTIONS, payload}),
     newPromotion : payload => ({type: ActionTypes.NEW_PROMOTION, payload }),
+    setPromotionProducts : payload => ({type: ActionTypes.SET_PROMOTION_PRODUCTS, payload}),
 }
 
 export default function PromotionsReducer(state=initialState, action){
@@ -27,6 +30,8 @@ export default function PromotionsReducer(state=initialState, action){
                 return promo;
             });
             return {...state, promotions: updatedPromotions};
+        case ActionTypes.SET_PROMOTION_PRODUCTS:
+            return {...state, promotionProducts: action.payload};
         default:
             return state;
     }

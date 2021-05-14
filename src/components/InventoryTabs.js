@@ -2,10 +2,6 @@ import { Tabs, Tab } from 'react-bootstrap';
 import { NewProduct } from './NewProduct';
 import InventoryBody from './InventoryBody';
 import InventorySettings from './InventorySettings';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetProductAttributes, GetInventory } from '../services/Inventory';
-
 
 const InventoryTabs = () => {
     return (
