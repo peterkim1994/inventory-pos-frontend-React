@@ -9,14 +9,8 @@ import {AddPromotion, GetCurrentPromotions} from '../services/Promotions';
 
 export default function PromotionManagement() {
    
-    // const [filteredProducts, setFilteredProducts] = useState(products);//initial state set to all products
-    // const [selectedProducts, setSelectedProducts] = useState([]); //products checked/selected
 
     const dispatch = useDispatch();    
-    // useEffect(()=>{
-    //     GetCurrentPromotions(dispatch);
-    // },[])
-
     const promotions = useSelector(state=> state.promotionsReducer.promotions);
 
     const AddNewPromotion = (promo) =>{     
@@ -31,6 +25,7 @@ export default function PromotionManagement() {
         end: new Date(Date.now() + 604800000), //initial end date is 1 week from current
         products: [],
     } 
+
     const [promotion, setPromotion] = useState(defaultPromotion);
 
     return (

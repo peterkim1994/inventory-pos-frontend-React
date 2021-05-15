@@ -1,62 +1,100 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import InventorySearchPanel from './InventorySearchPanel';
 import InventoryTable from './InventoryTable';
-import { GetPromotionsProducts } from '../services/Promotions';
+import { GetPromotionsProducts, RemoveProductPromotions, AddProductPromotions } from '../services/Promotions';
 import { Modal, Button } from 'react-bootstrap';
 
 const PromotionProductsModal = ({ promotion, handleClose }) => {
     const dispatch = useDispatch();
     const products = useSelector(state => state.inventoryReducer.products);
-    const [allProducts, setAllProducts] = useState(products);//initial state set to all products
     const promosCurrentProducts = useSelector(state => state.promotionsReducer.promotionProducts);
-    const [promotionsProducts, setPromotionsProductions] = useState(promosCurrentProducts); //products checked/selected
+    const [diplayedProducts, setDisplayedProducts] = useState(promosCurrentProducts); //products checked/selected
 
-    console.log(promosCurrentProducts);
-
-    useEffect(() => {
-        GetPromotionsProducts(dispatch, promotion);
-    }, []);
-
-    //alert(promotion.id);
-    console.log("promo producs");
-    console.log(promotionsProducts);
+    const [btnLabel,setBtnLabel] = useState("Add products from Inventory");
+    const [searchVisible, setSearchVisible] = useState(false);
 
     const [editedPromotion, setPromotion] = useState(promotion);
     const [show, setShow] = useState(true);
 
-    const closeModal = () => {
-        handleClose();
+    const prevPromoItems = useRef(promotion.productIds);
+
+    const removeProductPromos = () =>{
+        const removedList = prevPromoItems.current.filter((prod)=>{
+            return !editedPromotion.productIds.includes(prod);
+        });
+        if(removedList.length > 0)
+         RemoveProductPromotions(dispatch, editedPromotion, removedList);
     }
 
-    const HandleSubmit = (promo) => {
+    const addProductPromos = () =>{
+        const addedList = editedPromotion.productIds.filter((prod)=>{
+            return !prevPromoItems.current.includes(prod);
+        });
+        if(addedList.length > 0)
+            AddProductPromotions(dispatch, editedPromotion, addedList);
+    }
 
+    //function filters out products already included in promotion
+    const showOtherProducts = (inventory) =>{
+        const otherProducts = inventory.filter((product)=>{
+            return !editedPromotion.productIds.includes(product.id);
+       })
+       setDisplayedProducts(otherProducts);
+    }
+    const inventorySearchPanel = <InventorySearchPanel setResults={showOtherProducts} />;
+
+    const toggleProducts = async()=>{
+        if(btnLabel === "Add products from Inventory"){
+             setBtnLabel("Done");
+             //Not ideal but oh well
+             showOtherProducts(products);
+             setSearchVisible(true);
+        } else {
+            setBtnLabel("Add products from Inventory");
+            setDisplayedProducts(promosCurrentProducts);
+            setSearchVisible(false);
+        }
+    }
+
+    const closeModal = () => {
+        setShow(false);  
+        handleClose(); 
+    }
+
+    const handleSubmit = () => {
+        addProductPromos();
+        removeProductPromos();
+        closeModal();
     }
 
     const handleSelect = (event) => {
         const selectedItemId = parseInt(event.target.value);
+        console.log("handle select promo state");
+        console.log(editedPromotion);
         if (event.target.checked) {
-            if (!editedPromotion.products.includes(selectedItemId))
-                setPromotion({ ...editedPromotion, products: [...editedPromotion.products, selectedItemId] });
-        } else {
-            let editedPromoProducts = promotionsProducts.filter((item) => item.id !== selectedItemId);
-            setPromotion({ ...editedPromotion, products: editedPromoProducts });
+            if (!editedPromotion.productIds.includes(selectedItemId))
+                setPromotion({ ...editedPromotion, productIds: [...editedPromotion.productIds, selectedItemId] });
+        } else {//if unchecked
+            let addedPromoProducts = editedPromotion.productIds.filter((item) => item.id !== selectedItemId);
+            setPromotion({ ...editedPromotion, productIds: [...editedPromotion.productIds, addedPromoProducts] });
         }
     }
 
     return (
         <div className="promotional-inventory-modals ">
-            <Modal show={true} size="lg" dialogClassName="promotional-inventory-modal">
+            <Modal show={show} size="lg" dialogClassName="promotional-inventory-modal">
                 <Modal.Header >
                     <Modal.Title>{promotion.promotionName}</Modal.Title>
-                    <InventorySearchPanel setResults={setAllProducts} />
+                    {searchVisible && inventorySearchPanel} 
+                    <Button onClick={toggleProducts}>{btnLabel}</Button>                                     
                 </Modal.Header>
-                <Modal.Body style={{ maxHeight: "460px", overflow: "scroll" }} >             
-                    <InventoryTable products={promotionsProducts} selectEnabled={true} handleSelect={handleSelect} />
+                <Modal.Body style={{ maxHeight: "460px", overflow: "scroll" }} >                        
+                    <InventoryTable  products={diplayedProducts} selectEnabled={true} handleSelect={handleSelect} />
                 </Modal.Body>
                 <Modal.Footer style={{ width: "auto", margin: "auto", height: "fit-content" }}>
-                    <Button variant="secondary" onClick={handleClose}> Close </Button>
-                    <Button variant="warning" onClick={handleClose}> Save </Button>
+                    <Button variant="secondary" onClick={closeModal}> Close </Button>
+                    <Button variant="warning" onClick={handleSubmit}> Save </Button>
                 </Modal.Footer>
             </Modal>
         </div>

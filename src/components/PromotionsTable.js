@@ -1,22 +1,25 @@
 import { Button } from 'react-bootstrap';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import PromotionFormModal from './PromotionFormModal';
 import PromotionProductsModal from './PromotionProductsModal';
-import { GetPromotionsProducts } from '../services/Promotions';
+import { GetPromotionsProducts, EditPromotion } from '../services/Promotions';
+
 
 const PromotionsTable = ({ promotions }) => {
     const dispatch = useDispatch();
 
-    const [showPromotion, setShow ] = useState(0);
-    const handleClose = () => setShow(0);
- //   const handleClose = () => setShow(false);
+    const [showPromotion, setShowPromotion ] = useState(0);
+    const handleClose = () => setShowPromotion(0);
 
     const showPromotionProducts = async (promo) => {     
-      await GetPromotionsProducts(dispatch, promo.id);
-      setShow(promo.id);
+        await GetPromotionsProducts(dispatch, promo.id);
+        setShowPromotion(promo.id);
     }
 
-  
+    const editPromotion = (promotion) =>{
+        EditPromotion(dispatch, promotion);
+    }
 
     return (
         <div>
@@ -37,7 +40,7 @@ const PromotionsTable = ({ promotions }) => {
                             <td>{promo.start}</td>
                             <td>{promo.end}</td>
                             <td>
-                                <Button variant="warning" >Edit</Button>
+                               <PromotionFormModal promotion={promo} handleSubmit={editPromotion} />
                             </td>
                             <td>
                                 <Button onClick={() => showPromotionProducts(promo)}>Edit Promotions Products</Button>

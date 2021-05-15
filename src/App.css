@@ -106,8 +106,14 @@
 
 .promotional-ui{
   display: flex;
-  align-content:flex-end;
+  align-content:center;
   justify-items:left;
   float: right;
   text-align: right;
+}
+
+.form-action-buttons{
+  width: auto;
+  margin: auto;
+  height: fit-content;
 }

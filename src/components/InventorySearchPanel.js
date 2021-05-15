@@ -22,7 +22,7 @@ const InventorySearchPanel = ({ setResults }) => {
 
     return (
         <div>
-            <Form>
+            <Form >
                 <Form.Row>
                     <InputGroup>
                         <AttributeSelector
