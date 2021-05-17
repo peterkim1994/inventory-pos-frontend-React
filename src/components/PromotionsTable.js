@@ -22,15 +22,15 @@ const PromotionsTable = ({ promotions }) => {
     }
 
     return (
-        <div>
-            <table className="table promotions-table">
+        <div className="promotions-table">
+            <table className="table ">
                 <thead>
                     <tr>
-                    <th> Promotion Name </th>
-                    <th> Start Date </th>
-                    <th> End Date </th>
-                    <th> </th>
-                    <th> </th>
+                        <th> Promotion Name </th>
+                        <th> Start Date </th>
+                        <th> End Date </th>
+                        <th> Details</th>
+                        <th> Products </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,12 +40,13 @@ const PromotionsTable = ({ promotions }) => {
                             <td>{promo.start}</td>
                             <td>{promo.end}</td>
                             <td>
-                               <PromotionFormModal promotion={promo} handleSubmit={editPromotion} />
+                               <PromotionFormModal promotion={promo} label="Edit" handleSubmit={editPromotion} />
                             </td>
                             <td>
-                                <Button onClick={() => showPromotionProducts(promo)}>Edit Promotions Products</Button>
+                                <Button variant="info" onClick={() => showPromotionProducts(promo)}>View Promotion Products</Button>
                             </td>
-                            {showPromotion === promo.id && <PromotionProductsModal promotion={promo} handleClose={handleClose} className="promotional-inventory-modal" />}
+                            {showPromotion === promo.id && 
+                                <PromotionProductsModal promotion={promo} handleClose={handleClose} className="promotional-inventory-modal" />}
                         </tr>
                     )}
                 </tbody>

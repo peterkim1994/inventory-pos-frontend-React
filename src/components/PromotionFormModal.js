@@ -5,35 +5,39 @@ import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 
 
-const PromotionFormModal = ({ promotion, handleClose }) => {
+const PromotionFormModal = ({ promotion, label, handleSubmit }) => {
 
     const dispatch = useDispatch();
     const [show, setShow] = useState(false);
     const handleShow = () => {
         setShow(true);
     };
- 
-    const editPromotion = (editedPromotion) => {
-        EditPromotion(dispatch, editedPromotion);
+
+    const submit = (editedPromotion) => {
+        handleSubmit(editedPromotion);
         setShow(false);
     }
 
+    const closeModal =()=>{       
+        setShow(false);
+    }
 
     return (
-        <div>
-        <Button type="button" onClick={handleShow}> Edits </Button>
-            <Modal show={show}>
-            <Modal.Header>
-            <Modal.Title>{promotion.promotionName}</Modal.Title>
-            </Modal.Header>
+        <div class="promotion-modal">
+            <Button type="button" onClick={handleShow}> {label} </Button>
+            <Modal show={show} onHide={closeModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{promotion.promotionName}</Modal.Title>
+                </Modal.Header>
                 <Modal.Body>
-                <PromotionForm promotion={promotion} handleSubmit={editPromotion} />
-                <Button onClick={handleClose}>Close</Button>
+                    <PromotionForm promotion={promotion} handleSubmit={submit} />       
+                    <Button >Delete </Button>         
                 </Modal.Body>
+                
             </Modal>
         </div>
     )
-
+//    <Button variant="warning" onClick={closeModal}>Close</Button>
 }
 
 export default PromotionFormModal

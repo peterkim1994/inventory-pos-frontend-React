@@ -21,14 +21,14 @@ const EditProductModal = ({ product }) => {
   return (
     <div>
       <Button onClick={handleShow} className='btn btn-success' > Edit </Button>
-      <Modal show={show} className="edit-product-modal">
+      <Modal show={show} className="edit-product-modal" onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title className="modal-title">
             Edit Product
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <ProductForm product={product} handleClose={handleClose} handleSubmit={editProduct} />
+        {show && <ProductForm product={product} handleClose={handleClose} handleSubmit={editProduct} />}
         </Modal.Body>
       </Modal>
     </div>

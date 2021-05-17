@@ -55,7 +55,7 @@ export const RemoveProductPromotions = async (dispatch, promotion, removedProduc
             promotionId: promotion.id,
             productIds: removedProducts
         }
-        const { data } = await axiosObj.delete("sales/RemoveProductPromotions", requestBody);
+        const { data } = await axiosObj.delete("sales/RemoveProductPromotions", { data: requestBody});
         dispatch(ActionCreators.editPromotion(data));
     } catch (err) {
         console.log("RemoveProductPromotions service error \n")
@@ -81,7 +81,7 @@ export const AddProductPromotions = async (dispatch, promotion, addedProducts) =
             promotionId: promotion.id,
             productIds: addedProducts
         }
-        const { data } = await axiosObj.post("sales/AddProductPromotions", requestBody);
+        const { data } = await axiosObj.post("sales/AddProductPromotions",requestBody );
         dispatch(ActionCreators.editPromotion(data));
     } catch (err) {
         console.log("AddProductPromotions service error \n")

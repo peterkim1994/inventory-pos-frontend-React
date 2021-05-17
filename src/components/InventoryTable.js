@@ -1,8 +1,8 @@
 import React from 'react';
 import EditProductModal from './EditProductModal';
 
-const InventoryTable = ({ products, selectEnabled, handleSelect }) => {
-
+const InventoryTable = ({ products, selectEnabled, handleSelect, actionBtn }) => {
+    console.log(actionBtn);
     return (
         <div >
             <table className='table table-striped table-hover inventory-table'>
@@ -21,18 +21,19 @@ const InventoryTable = ({ products, selectEnabled, handleSelect }) => {
                 <tbody >
                     {
                       products.map(pr =>
-                            <tr key={pr.id} id={`product-row-${pr.id}`}>                                
+                            <tr key={pr.id} id={`product-row-${pr.id}`} style={{height:"50%"}}>                                
                                 <td className="table-col"> {pr.brandValue} </td>
                                 <td className="table-col"> {pr.itemCategoryValue} </td>
                                 <td className="table-col"> {pr.colourValue} </td>
                                 <td className="table-col"> {pr.sizeValue} </td>
-                                <td className="table-col"> {pr.description} </td>
+                                <td className="table-col" style={{minWidth:"30%",fontSize:"0.9em"}}> {pr.description} </td>
                                 <td className="table-col"> {pr.price} </td>
                                 <td className="table-col"> {pr.qty} </td>
                                 <td className="table-col">
                                     {!selectEnabled && <EditProductModal product={pr} />}
                                     {selectEnabled &&  <input type="checkbox" value={pr.id} onClick={handleSelect}/>}
-                                </td>
+                                </td>                              
+                                {actionBtn &&  <>{actionBtn(pr)}</> }
                             </tr>
                         )
                     }

@@ -10,11 +10,6 @@ const PromotionForm = ({ promotion, handleSubmit }) => {
 
     const updatePromotion = ()=> {handleSubmit(promo)};
 
-    const processDate = (date) =>{
-        const dateObj = new Date(date);
-        const fomattedDate = Date.parse()
-    }
-
     return (
         <Form>
             <Form.Group as={Row}>

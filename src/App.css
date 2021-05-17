@@ -91,25 +91,40 @@
   font-size: smaller;
 }
 
+.promotions-table{
+  max-height: 400px;
+  overflow-y: scroll;
+}
 .promotion-modal-table{
    max-height: 500;
    overflow-y:hidden;
 }
 
 .promotional-management{
- /* margin:auto; */
+   margin-top: 10px;
+   margin-left:auto; 
+   margin-right: auto;
    max-width: 100%;   
-   display: flex;
-   align-content:center;
+   display: inline-block;
+   align-items:center;
+   align-content: center;
    justify-items:stretch;
+   text-align: left;
+}
+
+.promotion-modal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .promotional-ui{
   display: flex;
   align-content:center;
-  justify-items:left;
-  float: right;
-  text-align: right;
+  justify-items:normal;
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 14px;
 }
 
 .form-action-buttons{
