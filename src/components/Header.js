@@ -20,7 +20,7 @@ const Header = () => {
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="#action/3.4">Separated link to nothing</NavDropdown.Item>
                     </NavDropdown>
-                </Nav>            
+                </Nav>
             </Navbar.Collapse>
         </Navbar>
     )

@@ -27,7 +27,7 @@ export default function PromotionManagement() {
     const [promotion, setPromotion] = useState(defaultPromotion);
    
 
-    const AddNewPromotion = async(promo) => {
+    const AddNewPromotion = async (promo) => {
         await AddPromotion(dispatch, promo);
         await GetCurrentPromotions(dispatch);
         setPromotion(defaultPromotion);
@@ -38,6 +38,8 @@ export default function PromotionManagement() {
         <div className="promotional-management">
             <div className="promotional-ui">
               <PromotionFormModal promotion={promotion} label="New Promotion" handleSubmit={AddNewPromotion} />
+              
+              
             </div>
                 <PromotionsTable promotions={allPromotions} />
         </div>

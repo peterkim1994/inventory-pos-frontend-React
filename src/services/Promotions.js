@@ -29,6 +29,19 @@ export const EditPromotion = async (dispatch, promotion) => {
     }
 }
 
+export const DeletePromotion = async(dispatch, promotion) => {
+    console.log(promotion.id);
+    try {
+        const requestBody = {
+            promotionId: promotion.id
+        }
+        const { data } = await axiosObj.delete("sales/DeletePromotion", { data:  requestBody});
+        dispatch(ActionCreators.deletePromotion( promotion.id));
+    } catch (err) {
+        console.log("DeletePromotion service error \n")
+    }
+}
+
 export const GetCurrentPromotions = async (dispatch) => {
     try {
         const { data } = await axiosObj.get("sales/GetActivePromotions");

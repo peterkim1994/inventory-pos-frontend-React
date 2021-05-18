@@ -1,5 +1,5 @@
 import PromotionForm from './PromotionForm';
-import { EditPromotion } from '../services/Promotions';
+import { DeletePromotion } from '../services/Promotions';
 import { Modal, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
@@ -22,6 +22,15 @@ const PromotionFormModal = ({ promotion, label, handleSubmit }) => {
         setShow(false);
     }
 
+    const handleDelete = () => {
+        let confirm = prompt("Are you sure you want to delete promotion: " + promotion.promotionName);
+        if(confirm === "yes" || confirm === "Yes" ){
+            DeletePromotion(dispatch,promotion);
+            closeModal();
+        }
+            
+    }
+
     return (
         <div class="promotion-modal">
             <Button type="button" onClick={handleShow}> {label} </Button>
@@ -31,7 +40,7 @@ const PromotionFormModal = ({ promotion, label, handleSubmit }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <PromotionForm promotion={promotion} handleSubmit={submit} />       
-                    <Button >Delete </Button>         
+                    <Button onClick={handleDelete} >Delete </Button>         
                 </Modal.Body>
                 
             </Modal>

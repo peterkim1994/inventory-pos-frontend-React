@@ -28,7 +28,7 @@ const EditProductModal = ({ product }) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        {show && <ProductForm product={product} handleClose={handleClose} handleSubmit={editProduct} />}
+          {show && <ProductForm product={product} handleClose={handleClose} handleSubmit={editProduct} />}
         </Modal.Body>
       </Modal>
     </div>

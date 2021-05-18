@@ -29,7 +29,7 @@ const PosTabs = () => {
                 </Tab>
                 <Tab eventKey="InventorySettings" title="Transaction History" >
                     <div className="tabbed-panel inventory-body">
-                        <InventorySettings />
+                        <h2>coming soon </h2>
                     </div>
                 </Tab>
             </Tabs>
