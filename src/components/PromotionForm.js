@@ -10,8 +10,10 @@ const PromotionForm = ({ promotion, handleSubmit }) => {
 
     const updatePromotion = ()=> {handleSubmit(promo)};
 
+    const minDate = new Date().toISOString().slice(0, 10);
+
     return (
-        <Form>
+        <Form hasvalidation>
             <Form.Group as={Row}>
                 <Form.Label column sm={4} >Promotion Name</Form.Label>
                 <Col sm={8}>
@@ -21,8 +23,9 @@ const PromotionForm = ({ promotion, handleSubmit }) => {
             <NumericalFormInput
                 label={"Quantity"}
                 initialValue={promo.quantity}
+                minVal = "1.00"
                 handleOnChange={event => setPromo({ ...promo, quantity: parseInt(event.target.value) })}
-            />
+            />       
             <CurrencyFormInput
                 label={"Promotional Price"}
                 initialValue={promo.promotionPrice}
@@ -31,15 +34,15 @@ const PromotionForm = ({ promotion, handleSubmit }) => {
             <Form.Group as={Row}>
                 <Form.Label column sm={4}> Start Date </Form.Label>
                 <Col sm={8}>
-                    <input className="form-control" type="date"  value={promo.start} onChange={event => {                  
-                        setPromo({ ...promo, start: event.target.value });       
-                    }} />
+                    <input className="form-control" type="date"  min={minDate} value={promo.start} onChange={event =>                   
+                        setPromo({ ...promo, start: event.target.value })} />
                 </Col>
             </Form.Group>
             <Form.Group as={Row}>
                 <Form.Label column sm={4}> End Date </Form.Label>
                 <Col sm={8}>
-                    <input className="form-control" type="date" value={promo.end} onChange={event => setPromo({ ...promo, end: event.target.value })} />
+                    <input className="form-control" type="date" min={minDate} value={promo.end} onChange={event =>
+                         setPromo({ ...promo, end: event.target.value })} />
                 </Col>
             </Form.Group>
             <Button type="button" onClick={updatePromotion}> Save </Button>

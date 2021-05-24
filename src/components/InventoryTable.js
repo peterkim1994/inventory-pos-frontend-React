@@ -31,7 +31,7 @@ const InventoryTable = ({ products, selectEnabled, handleSelect, actionBtn }) =>
                                 <td className="table-col"> {pr.qty} </td>
                                 <td className="table-col">
                                     {!selectEnabled && <EditProductModal product={pr} />}
-                                    {selectEnabled &&  <input type="checkbox" value={pr.id} onClick={handleSelect}/>}
+                                    {selectEnabled &&  pr.id}
                                 </td>                              
                                 {actionBtn &&  <>{actionBtn(pr)}</> }
                             </tr>

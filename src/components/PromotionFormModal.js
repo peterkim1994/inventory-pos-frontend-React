@@ -27,8 +27,7 @@ const PromotionFormModal = ({ promotion, label, handleSubmit }) => {
         if(confirm === "yes" || confirm === "Yes" ){
             DeletePromotion(dispatch,promotion);
             closeModal();
-        }
-            
+        }            
     }
 
     return (

@@ -17,10 +17,10 @@ export default function PromotionManagement() {
 
     const defaultPromotion = {
         promotionName: "New Promotion",
-        quantity: 0,
-        promotionPrice: 0.00,
-        start: Date.now(),
-        end: new Date(Date.now() + 604800000), //initial end date is 1 week from current
+        quantity: 1,
+        promotionPrice: 0.01,
+        start: new Date().toISOString().slice(0, 10),
+        end: new Date(Date.now() + (4*604800000)).toISOString().slice(0, 10), //initial end date is 1 month from current
         products: [],
     };
 

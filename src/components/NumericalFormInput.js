@@ -1,20 +1,22 @@
-import { Form, Col, Row } from 'react-bootstrap';
+import { Form, Col, Row, Input } from 'react-bootstrap';
 
 
-const NumericalFormInput = ({ label, initialValue, handleOnChange }) => {
+const NumericalFormInput = ({ label, initialValue, handleOnChange, minVal }) => {
     return (
         <Col>
-            <Form.Group as={Row}>
+            <Form.Group as={Row} hasvalidation>
                 <Form.Label column sm={4}> {label} </Form.Label>
                 <Col sm={8}>
-                    <Form.Control                       
+                    <input
                         type="number"
-                        min="0.00"
-                        step="1"                
+                        className="form-control" 
+                        min={minVal ? minVal : 0.00}
+                        step={1}
                         presicion={0}
                         onChange={event => handleOnChange(event)}
-                        value={(initialValue)? initialValue:"0"}
+                        value={(initialValue) ? initialValue : "0"}
                     />
+
                 </Col>
             </Form.Group>
         </Col>
@@ -22,3 +24,12 @@ const NumericalFormInput = ({ label, initialValue, handleOnChange }) => {
 }
 
 export default NumericalFormInput
+
+                    // <Form.Control
+                    //     type="number"
+                    //     min={minVal ? minVal : "0.00"}
+                    //     step="1"
+                    //     presicion={0}
+                    //     onChange={event => handleOnChange(event)}
+                    //     value={(initialValue) ? initialValue : "0"}
+                    // />
