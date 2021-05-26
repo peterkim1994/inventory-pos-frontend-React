@@ -1,7 +1,6 @@
 import { ActionCreators } from '../redux/InventoryReducer';
 import * as axios from 'axios';
 
-
 const axiosObj = axios.create({
     baseURL: "https://localhost:5001/",
 });

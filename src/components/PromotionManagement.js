@@ -26,7 +26,6 @@ export default function PromotionManagement() {
 
     const [promotion, setPromotion] = useState(defaultPromotion);
    
-
     const AddNewPromotion = async (promo) => {
         await AddPromotion(dispatch, promo);
         await GetCurrentPromotions(dispatch);

@@ -1,32 +1,23 @@
-
 import {useRef, useState} from 'react';
-import * as axios from 'axios';
-
-
-const axiosObj = axios.create({
-    baseURL: "https://localhost:5001/Authenticator/",
-});
+import {useDispatch} from "react-redux";
+import {Login} from '../services/Users';
 
 export const LoginPage = () =>{
 
     const loginRef = useRef();
     const [name,setName] = useState();
     const [pass,setPassword] = useState();
+    const dispatch = useDispatch();
+    const [response, setResponse ] = useState("");
 
     const login = async(event) =>{
-        event.preventDefault();
+        event.preventDefault();      
         const loginData = {
             userName: name,
             password: pass
         }
-        try{
-            //const {data} = await axiosObj.post("authenticate",{});
-            const {data} = await axiosObj.post("loging", loginData);
-            console.log(data);
-        }
-        catch(e){
-            console.log(e);
-        }
+        Login(dispatch, loginData, setResponse);
+
     }
 
     return (
@@ -39,6 +30,7 @@ export const LoginPage = () =>{
                 <br/>
                 <button type="submit">Login</button>
             </form>
+            {response}
         </div>
     )
 }
