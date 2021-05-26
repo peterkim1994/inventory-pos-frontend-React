@@ -37,12 +37,13 @@ export default function PromotionManagement() {
     return (
         <div className="promotional-management">
             <div className="promotional-ui">
-              <PromotionFormModal promotion={promotion} label="New Promotion" handleSubmit={AddNewPromotion} />
-              
+              <PromotionFormModal promotion={promotion} label="New Promotion" handleSubmit={AddNewPromotion} />             
               
             </div>
                 <PromotionsTable promotions={allPromotions} />
         </div>
     );
+
 //  <PromotionForm promotion={promotion} handleSubmit={AddNewPromotion} />
+
 }
