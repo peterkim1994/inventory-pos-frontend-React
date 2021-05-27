@@ -1,20 +1,34 @@
 import * as axios from 'axios';
 import { ActionCreators } from '../redux/UserReducer';
-
-const axiosObj = axios.create({
-    baseURL: "https://localhost:5001/Authenticator/",
-});
-
+import {axiosObj, checkToken,tt,ttt} from './RequestServer';
 
 export const Login = async (dispatch, loginData, errHandler)=>{
-    try{         
-        const {data} = await axiosObj.post("Login", loginData);        
-        dispatch(ActionCreators.loginUser, data)
-        console.log(data);
-        errHandler("success");
+    try{
+        const {data} = await axiosObj.post("Authenticator/Login", loginData);      
+        const token = data.accessToken.split(",")[0];  
+        localStorage.setItem("authority", token);
+        checkToken();
+        await dispatch(ActionCreators.loginUser(data));
+        errHandler("success");        
     }
-    catch(e){       
-        console.log(e.response.data);
-        errHandler(e.response.data);
+    catch(e){
+        if(e.response && e.response.data){
+            console.log(e.response.data);
+            errHandler(e.response.data);
+        }else{
+            console.log(e);
+        }
+    }
+}
+
+export const Logout = async(dispatch) =>{
+    try{
+        checkToken();
+        const {data} = await axiosObj.post("Authenticator/Logout");        
+        dispatch(ActionCreators.logoutUser());
+        localStorage.setItem("authority", " ");
+    }
+    catch(e){
+        console.log(e);   
     }
 }

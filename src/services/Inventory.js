@@ -1,15 +1,14 @@
 import { ActionCreators } from '../redux/InventoryReducer';
-import * as axios from 'axios';
+import {axiosObj, checkToken} from './RequestServer';
 
-const axiosObj = axios.create({
-    baseURL: "https://localhost:5001/",
-});
 
 export const GetInventory = async (dispatch) => {
-    try {
+    try {             
+      
         const { data } = await axiosObj.get("inventory");
         dispatch(ActionCreators.setProducts(data));
     } catch (err) {
+ 
         console.log("GetInventory service error \n" + err)
     }
 }
@@ -38,8 +37,7 @@ export const EditColour = async (dispatch, colour) => {
         dispatch(ActionCreators.editColour(data));
      
     } catch (err) {
-        console.log("edit colour service error \n" + err)
-        
+        console.log("edit colour service error \n" + err);        
     }
 }
 
@@ -102,6 +100,7 @@ export const EditProduct = async(dispatch, product) => {
     try{
         const response = await axiosObj.put("inventory/editproduct", product);
         dispatch(ActionCreators.editProduct(response.data));
+        console.log(response.data);
         userRequestResponse.innerHTML = "success";    
         return true;       
     }catch(err){
@@ -148,7 +147,6 @@ export const GetProductAttributes = async (dispatch) => {
         dispatch(ActionCreators.setBrands(brands));
         dispatch(ActionCreators.setCategories(categories));
         dispatch(ActionCreators.setSizes(sizes));
-
     } catch (err) {
         console.log("Set atts service error \n" + err)
     }
