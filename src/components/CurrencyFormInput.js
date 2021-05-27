@@ -1,6 +1,5 @@
 import { Form, Col, Row } from 'react-bootstrap';
 
-
 const CurrencyFormInput = ({ label, initialValue, handleOnChange }) => {
     return (
         <Col>

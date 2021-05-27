@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import * as axios from 'axios';
 
 export const axiosObj = axios.create({

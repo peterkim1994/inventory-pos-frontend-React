@@ -1,18 +1,8 @@
 import { Tabs, Tab } from 'react-bootstrap';
-import InventorySettings from './InventorySettings';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { GetProductAttributes } from '../services/Inventory';
-import {GetCurrentPromotions} from '../services/Promotions';
 import PosBody from './PointOfSalesBody';
 import PromotionManagement from './PromotionManagement';
 
 const PosTabs = () => {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        GetProductAttributes(dispatch);
-        GetCurrentPromotions(dispatch);
-    }, []);
 
     return (
         <div>

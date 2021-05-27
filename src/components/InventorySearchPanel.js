@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, InputGroup, Form, Col} from 'react-bootstrap';
 import ProductFilter from '../assets/ProductFilter';
@@ -13,6 +13,10 @@ const InventorySearchPanel = ({ setResults }) => {
 
     const productFilter = new ProductFilter();
     const [productFilterObj, setProductFilter] = useState(productFilter);
+
+    useEffect(()=>{
+        performFilter();
+    },[products]);
 
     const performFilter = () => {
         const filteredResults = products.filter((product) => { return productFilterObj.filterProducts(product) });

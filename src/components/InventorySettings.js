@@ -1,16 +1,8 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import AttributeSetting from './AttributeSetting';
-import { GetProductAttributes } from '../services/Inventory';
 
 
 const InventorySettings = () => {
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        GetProductAttributes(dispatch);
-    }, []);
 
     const brands = useSelector(state => state.inventoryReducer.brands);
     const colours = useSelector(state => state.inventoryReducer.colours);

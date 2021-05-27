@@ -7,19 +7,18 @@ import NumericalFormInput from './NumericalFormInput';
 import CurrencyFormInput from './CurrencyFormInput';
 
 
-
 export const ProductForm = ({ product, handleClose, handleSubmit }) => {
 
     const brands = useSelector(state => state.inventoryReducer.brands);
     const colours = useSelector(state => state.inventoryReducer.colours);
     const sizes = useSelector(state => state.inventoryReducer.sizes);
     const categories = useSelector(state => state.inventoryReducer.categories);
-    // console.log("product form product: ");
-    // console.log(product);
 
     const [validated, setValidated] = useState(false);
 
     const inputValidationResponse = useRef();
+
+    const [updatedProduct, updateProduct] = useState(product);
 
     const submitForm = (event) => {
         const form = event.currentTarget;
@@ -33,10 +32,7 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
         } else {
             handleSubmit(updatedProduct);
         }
-
     }
-
-    const [updatedProduct, updateProduct] = useState(product);
 
     return (
         <Form hasvalidation onSubmit={submitForm} >

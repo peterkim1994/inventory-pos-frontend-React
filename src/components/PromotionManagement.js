@@ -1,18 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
-import InventorySearchPanel from './InventorySearchPanel';
-import InventoryTable from './InventoryTable';
-import PromotionForm from './PromotionForm';
+import { useState } from 'react';
 import PromotionsTable from './PromotionsTable';
-import PromotionProductsModal from './PromotionProductsModal';
 import { AddPromotion, GetCurrentPromotions } from '../services/Promotions';
 import PromotionFormModal from './PromotionFormModal';
 
 export default function PromotionManagement() {
 
-
     const dispatch = useDispatch();
-
     const allPromotions = useSelector(state => state.promotionsReducer.promotions);
 
     const defaultPromotion = {
@@ -42,7 +36,5 @@ export default function PromotionManagement() {
                 <PromotionsTable promotions={allPromotions} />
         </div>
     );
-
-//  <PromotionForm promotion={promotion} handleSubmit={AddNewPromotion} />
 
 }

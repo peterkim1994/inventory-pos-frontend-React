@@ -10,18 +10,18 @@ export const LoginPage = () =>{
     const dispatch = useDispatch();
     const [response, setResponse ] = useState("");
 
-    const login = async(event) =>{
+    const login = (event) =>{
         event.preventDefault();      
         const loginData = {
             userName: name,
             password: pass
         }
         Login(dispatch, loginData, setResponse);
-
     }
 
     return (
         <div >
+
             <form ref={loginRef} onSubmit={login} style={{display:"flex", margin:"auto", width:"30%", flexDirection:"column", padding:"50px", flexWrap:"wrap"}}>
                 <label>User Name: </label>
                 <input  name="userName" onChange={(event)=> setName(event.target.value)}/>

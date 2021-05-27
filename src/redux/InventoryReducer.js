@@ -63,7 +63,7 @@ export default function InventoryReducer(state = initialState, action) {
             });
             console.log("proecuts reducer action");
             console.log(updatedProducts);
-            return { ...state, products: [...updatedProducts] }
+            return { ...state, products: updatedProducts }
 
         case ActionTypes.SET_COLOURS:
             return { ...state, colours: [...action.payload] }

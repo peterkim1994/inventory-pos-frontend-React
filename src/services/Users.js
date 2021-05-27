@@ -1,6 +1,5 @@
-import * as axios from 'axios';
 import { ActionCreators } from '../redux/UserReducer';
-import {axiosObj, checkToken,tt,ttt} from './RequestServer';
+import {axiosObj, checkToken} from './RequestServer';
 
 export const Login = async (dispatch, loginData, errHandler)=>{
     try{

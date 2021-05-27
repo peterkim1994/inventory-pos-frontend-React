@@ -1,5 +1,5 @@
 import { ActionCreators } from '../redux/PromotionsReducer';
-import {axiosObj, checkToken} from './RequestServer';
+import {axiosObj} from './RequestServer';
 
 
 export const AddPromotion = async (dispatch, promotion) => {

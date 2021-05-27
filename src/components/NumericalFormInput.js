@@ -1,6 +1,5 @@
 import { Form, Col, Row, Input } from 'react-bootstrap';
 
-
 const NumericalFormInput = ({ label, initialValue, handleOnChange, minVal }) => {
     return (
         <Col>
@@ -24,12 +23,3 @@ const NumericalFormInput = ({ label, initialValue, handleOnChange, minVal }) => 
 }
 
 export default NumericalFormInput
-
-                    // <Form.Control
-                    //     type="number"
-                    //     min={minVal ? minVal : "0.00"}
-                    //     step="1"
-                    //     presicion={0}
-                    //     onChange={event => handleOnChange(event)}
-                    //     value={(initialValue) ? initialValue : "0"}
-                    // />

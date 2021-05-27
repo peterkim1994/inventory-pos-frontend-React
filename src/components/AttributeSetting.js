@@ -1,8 +1,8 @@
-import { Form, Col, Row, Button, Modal, InputGroup } from 'react-bootstrap';
-import {  useState } from 'react';
+import { Form, Col, Button, InputGroup } from 'react-bootstrap';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AddColour, AddBrand, AddItemCategory, AddSize } from '../services/Inventory';
-import { EditColour, EditBrand, EditCategory, EditSize} from '../services/Inventory';
+import { EditColour, EditBrand, EditCategory, EditSize } from '../services/Inventory';
 import AttributeSelector from './AttributeSelector';
 
 const AttributeSetting = ({ attributeName, attributes }) => {
@@ -11,7 +11,7 @@ const AttributeSetting = ({ attributeName, attributes }) => {
     const closeModal = () => setShow(false);
     const showModal = () => setShow(true);
     const [attribute, setAttribute] = useState({ id: 0, value: "" });
-    const [newAttribute, setNewAttribute] = useState({value: "" });
+    const [newAttribute, setNewAttribute] = useState({ value: "" });
 
     const dispatch = useDispatch();
 
@@ -34,7 +34,7 @@ const AttributeSetting = ({ attributeName, attributes }) => {
 
     const handleAdd = () => {
         addAttribute(dispatch, newAttribute);
-        setNewAttribute({value:""});
+        setNewAttribute({ value: "" });
     }
 
     const handleEdit = () => {
@@ -54,7 +54,7 @@ const AttributeSetting = ({ attributeName, attributes }) => {
                                 const attributeValue = event.target.options[event.target.selectedIndex].text;
                                 const attributeId = parseInt(event.target.value);
                                 setAttribute({ id: attributeId, value: attributeValue });
-                                console.log(event.target.text);                            
+                                console.log(event.target.text);
                             }}
                         />
                     </Col>
@@ -66,7 +66,7 @@ const AttributeSetting = ({ attributeName, attributes }) => {
                     </Col>
                     <Col sm={4}>
                         <InputGroup>
-                            <input type="text" value={newAttribute.value} disabled={show} onChange={event => setNewAttribute({value:event.target.value})} />
+                            <input type="text" value={newAttribute.value} disabled={show} onChange={event => setNewAttribute({ value: event.target.value })} />
                             <Button className="btn-light" onClick={handleAdd}>
                                 {`Add ${attributeName}`}
                             </Button>

@@ -20,11 +20,9 @@ const Header = () => {
             GetProductAttributes(dispatch);
             GetInventory(dispatch);
             GetCurrentPromotions(dispatch);
-            alert("is signed in :" + (user === null ? false : true));
-            //     alert("effect used!");
         }
         if (userRef.current !== user) {
-            func();     //
+            func();  
         }
     }, [user]);
 
