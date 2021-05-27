@@ -31,7 +31,7 @@ const PromotionFormModal = ({ promotion, label, handleSubmit }) => {
     }
 
     return (
-        <div class="promotion-modal">
+        <div className="promotion-modal">
             <Button type="button" onClick={handleShow}> {label} </Button>
             <Modal show={show} onHide={closeModal}>
                 <Modal.Header closeButton>
@@ -45,7 +45,6 @@ const PromotionFormModal = ({ promotion, label, handleSubmit }) => {
             </Modal>
         </div>
     )
-//    <Button variant="warning" onClick={closeModal}>Close</Button>
 }
 
 export default PromotionFormModal

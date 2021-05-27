@@ -1,10 +1,5 @@
 import { ActionCreators } from '../redux/PromotionsReducer';
-import * as axios from 'axios';
-
-
-const axiosObj = axios.create({
-    baseURL: "https://localhost:5001/",
-});
+import {axiosObj} from './RequestServer';
 
 
 export const AddPromotion = async (dispatch, promotion) => {

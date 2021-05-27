@@ -6,10 +6,7 @@ import { useState } from 'react';
 
 const PromotionForm = ({ promotion, handleSubmit }) => {
     const [promo, setPromo] = useState(promotion);
-    // const setPromo = handleChange;
-
     const updatePromotion = ()=> {handleSubmit(promo)};
-
     const minDate = new Date().toISOString().slice(0, 10);
 
     return (

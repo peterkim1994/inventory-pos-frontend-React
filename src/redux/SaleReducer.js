@@ -46,6 +46,10 @@ export default function SaleReducer(state = initialState, action) {
         case ActionTypes.COMPLETE_SALE:
             return { ...state, sale: action.payload }
         case ActionTypes.ADD_PRODUCT_SALE :
-            return { ...state, sale: {...state.sale, sale.productSales : [...state.sale.productSales, action.payload] }
+            return { ...state, sale: {...state.sale, productSales : [...state.sale.productSales, action.payload ]} }
+        case ActionTypes.Remove_PRODUCT_SALE : 
+            return { ...state, sale: {...state.sale, productSales : [...state.sale.productSales.filter(ps => ps.id !== action.payload.id) ]} }
+        default:
+            return state;
     }
 }

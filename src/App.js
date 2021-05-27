@@ -5,6 +5,7 @@ import {Route,Link} from 'react-router-dom';
 import Header from './components/Header';
 import InventoryTabs from './components/InventoryTabs';
 import PosTabs from './components/PosTabs';
+import LoginPage from './components/LoginPage';
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,6 +23,7 @@ function App() {
       <Header/>
       <Route exact path = "/inventory" component={InventoryTabs}/>
       <Route exact path = "/pos" component={PosTabs}/>
+      <Route exact path = "/login" component={LoginPage}/>
     </div>
   );
 }

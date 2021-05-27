@@ -1,4 +1,4 @@
-import { Form, Col, Row, Button } from 'react-bootstrap';
+import { Form, Col, Row } from 'react-bootstrap';
 
 
 const AttributeSelector = ({ stateAttributes, attributeName, handleSelect, productAttribute }) => {
@@ -13,18 +13,18 @@ const AttributeSelector = ({ stateAttributes, attributeName, handleSelect, produ
             <Form.Group as={Row} required>
                 <Form.Label column sm={4} > {attributeName} </Form.Label>
                 <Col sm={8}>
-                    <Form.Control as="select"              
+                    <Form.Control as="select"
                         id={`${attributeName}-selector`}
                         onChange={handleSelect}
-                        required      
-                        defaultValue={productAttribute}         
+                        required
+                        defaultValue={productAttribute}
                     >
                         <option key={0} > - </option>
                         {
                             attributes.map(a =>
                                 <option
                                     key={a.id}
-                                    value={a.id}                                  
+                                    value={a.id}
                                 >
                                     {a.value}
                                 </option>
