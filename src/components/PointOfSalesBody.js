@@ -1,9 +1,12 @@
+import SaleUI from './SaleUI';
+
 export default function PointOfSalesBody(){
     return (
-        <div>
+        <div className="point-of-sales">
             <h3>
-                POS
+                Point Of Sales
             </h3>
+            <SaleUI />
         </div>
     );
 }

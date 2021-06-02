@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetProductAttributes, GetInventory } from '../services/Inventory';
 import { GetCurrentPromotions } from '../services/Promotions';
+import { checkToken } from '../services/RequestServer';
 
 
 const Header = () => {
@@ -22,7 +23,9 @@ const Header = () => {
             GetCurrentPromotions(dispatch);
         }
         if (userRef.current !== user) {
-            func();  
+            func();
+        } else { // else will run when component initially mounts
+            checkToken(); // asigns JWT token to axios singleton obj 
         }
     }, [user]);
 

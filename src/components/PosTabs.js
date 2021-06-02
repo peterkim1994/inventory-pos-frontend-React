@@ -8,7 +8,7 @@ const PosTabs = () => {
         <div>
             <Tabs defaultActiveKey="Pos" id="uncontrolled-tab-example">
                 <Tab eventKey="Pos" title="POS">
-                    <div className="tabbed-panel pos-body">
+                    <div className="pos-body">
                         <PosBody/>
                     </div>
                 </Tab>

@@ -21,7 +21,6 @@ export const LoginPage = () =>{
 
     return (
         <div >
-
             <form ref={loginRef} onSubmit={login} style={{display:"flex", margin:"auto", width:"30%", flexDirection:"column", padding:"50px", flexWrap:"wrap"}}>
                 <label>User Name: </label>
                 <input  name="userName" onChange={(event)=> setName(event.target.value)}/>

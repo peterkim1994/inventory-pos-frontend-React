@@ -1,21 +1,26 @@
 const initialState = {
+    bussinessDetails : {
+         storeName: "Inventory & POS Application"
+    },
     sale : {      
         invoiceNumber : 0,
-        productSales : [],
-
-        
+        products : [],        
+        payments : [],
+        total : 0
     },
     previousSale : {},
-
 }
 
 export const ActionTypes = {
+    SET_STORE : "SET_STORE",
     START_NEW_SALE: "START_NEW_SALE",
+    UPDATE_SALE_PAYMENTS: "UPDATE_SALE_PAYMENTS",
+    SET_SALE : "SET_SALE",
     COMPLETE_SALE: "COMPLETE_SALE",
     CANCEL_SALE: "CANCEL_SALE",
     HOLD_SALE: "HOLD_SALE",
     GET_PREV_SALE: "GET_PREV_SALE",
-    ADD_PRODUCT_SALE: "ADD_PRODUCT_SALE",
+    ADD_PRODUCT_SALES: "ADD_PRODUCT_SALES",
     DELETE_PRODUCT_SALE: "DELETE_PRODUCT_SALE",
     ADD_PAYMENT: "ADD_PAYMENT",
     EDIT_PAYMENT: "EDIT_PAYMENT",
@@ -23,12 +28,15 @@ export const ActionTypes = {
 }
 
 export const ActionCreators = {
+    setStore: payload => ({ type: ActionTypes.SET_STORE, payload }),
     startNewSale: payload => ({ type: ActionTypes.START_NEW_SALE, payload }),
+    updateSalePayments: payload => ({ type: ActionTypes.UPDATE_SALE_PAYMENTS, payload }),
+    setSale: payload => ({ type: ActionTypes.SET_SALE, payload }),
     cancelSale: payload => ({ type: ActionTypes.CANCEL_SALE, payload }),
     completeSale: payload => ({ type: ActionTypes.COMPLETE_SALE, payload }),
     holdSale: payload => ({ type: ActionTypes.HOLD_SALE, payload }),
-    getPreviousSale: payload => ({ type: ActionTypes.GET_PREV_SALE, payload }),
-    addProductSale: payload => ({ type: ActionTypes.ADD_PRODUCT_SALE, payload }),
+    getPreviousSale: payload => ({ type: ActionTypes.GET_PREV_SALES, payload }),
+    addProductSales: payload => ({ type: ActionTypes.ADD_PRODUCT_SALES, payload }),
     deleteProductSale: payload => ({ type: ActionTypes.DELETE_PRODUCT_SALE, payload }),
     addPayment: payload => ({ type: ActionTypes.ADD_PAYMENT, payload }),
     editPayment: payload => ({ type: ActionTypes.EDIT_PAYMENT, payload }),
@@ -39,16 +47,22 @@ export default function SaleReducer(state = initialState, action) {
     switch (action.type) {
         case ActionTypes.START_NEW_SALE:
             return { ...state, sale: action.payload }
+        case ActionTypes.UPDATE_SALE_PAYMENTS:
+            return {...state, sale: {...state.sale, payments: action.payload} }
+        case ActionTypes.SET_SALE:
+            return {...state, sale: action.payload }
         case ActionTypes.CANCEL_SALE:
             return { ...state, sale: action.payload }
         case ActionTypes.HOLD_SALE: //holds current sale as previous, and assigns new sale to current
             return { ...state, previousSale: state.sale, sale: action.payload }
         case ActionTypes.COMPLETE_SALE:
             return { ...state, sale: action.payload }
-        case ActionTypes.ADD_PRODUCT_SALE :
-            return { ...state, sale: {...state.sale, productSales : [...state.sale.productSales, action.payload ]} }
+        case ActionTypes.ADD_PRODUCT_SALES :
+            return { ...state, sale: {...state.sale, products : [ ...action.payload ]} }// ...state.sale.productSales,
         case ActionTypes.Remove_PRODUCT_SALE : 
-            return { ...state, sale: {...state.sale, productSales : [...state.sale.productSales.filter(ps => ps.id !== action.payload.id) ]} }
+            return { ...state, sale: {...state.sale, products : [...state.sale.products.filter(ps => ps.id !== action.payload.id) ]} }
+        case ActionTypes.setStore:
+            return { ...state, store: action.payload }
         default:
             return state;
     }

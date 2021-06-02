@@ -1,10 +1,9 @@
 import { ActionCreators } from '../redux/InventoryReducer';
-import {axiosObj, checkToken} from './RequestServer';
+import {axiosObj} from './RequestServer';
 
 
 export const GetInventory = async (dispatch) => {
-    try {             
-      
+    try {                   
         const { data } = await axiosObj.get("inventory");
         dispatch(ActionCreators.setProducts(data));
     } catch (err) {
