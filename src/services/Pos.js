@@ -38,3 +38,17 @@ export const AddProductSales = async(dispatch, saleId, products) =>{
     }
 }
 
+export const CompleteSalePayments = async(dispatch, payments)=> {
+    try{
+        console.log("completesalePayment services :");
+        console.log(payments);
+        const { data } = await axiosObj.post("sales/AddSalePayments", payments);
+        dispatch(ActionCreators.addPayments(data.payments));
+        dispatch(ActionCreators.setSale(data))
+        console.log(data);
+    }catch(err){
+        console.log("AddSalePayments  service err");
+        console.log(err);
+    }
+}
+

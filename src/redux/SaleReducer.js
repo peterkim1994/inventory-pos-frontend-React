@@ -6,7 +6,7 @@ const initialState = {
         invoiceNumber : 0,
         products : [],        
         payments : [],
-        total : 0
+        total : 0.00
     },
     previousSale : {},
 }
@@ -22,7 +22,7 @@ export const ActionTypes = {
     GET_PREV_SALE: "GET_PREV_SALE",
     ADD_PRODUCT_SALES: "ADD_PRODUCT_SALES",
     DELETE_PRODUCT_SALE: "DELETE_PRODUCT_SALE",
-    ADD_PAYMENT: "ADD_PAYMENT",
+    ADD_PAYMENTS: "ADD_PAYMENTS",
     EDIT_PAYMENT: "EDIT_PAYMENT",
     DELETE_PAYMENT: "DELETE_PAYMENT",
 }
@@ -38,7 +38,7 @@ export const ActionCreators = {
     getPreviousSale: payload => ({ type: ActionTypes.GET_PREV_SALES, payload }),
     addProductSales: payload => ({ type: ActionTypes.ADD_PRODUCT_SALES, payload }),
     deleteProductSale: payload => ({ type: ActionTypes.DELETE_PRODUCT_SALE, payload }),
-    addPayment: payload => ({ type: ActionTypes.ADD_PAYMENT, payload }),
+    addPayments: payload => ({ type: ActionTypes.ADD_PAYMENTS, payload }),
     editPayment: payload => ({ type: ActionTypes.EDIT_PAYMENT, payload }),
     deletePayment: payload => ({ type: ActionTypes.DELETE_PAYMENT, payload }),
 }
@@ -59,8 +59,10 @@ export default function SaleReducer(state = initialState, action) {
             return { ...state, sale: action.payload }
         case ActionTypes.ADD_PRODUCT_SALES :
             return { ...state, sale: {...state.sale, products : [ ...action.payload ]} }// ...state.sale.productSales,
-        case ActionTypes.Remove_PRODUCT_SALE : 
+        case ActionTypes.DELETE_PRODUCT_SALE : 
             return { ...state, sale: {...state.sale, products : [...state.sale.products.filter(ps => ps.id !== action.payload.id) ]} }
+        case ActionTypes.ADD_PAYMENTS:
+            return {...state, sale:{...state.sale, payments:[...action.payload]}}
         case ActionTypes.setStore:
             return { ...state, store: action.payload }
         default:
