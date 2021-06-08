@@ -132,3 +132,91 @@
   margin: auto;
   height: fit-content;
 }
+.sale-ui{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  background-color:azure;
+  max-width: 60vw;
+  height: 75vh;
+  margin:auto;
+  box-shadow: 1px 1px 1px 1px #888888;
+}
+
+.sales-list-body{
+  width:50vw;
+  height:60vh;
+  background-color:azure;
+  overflow-y: scroll;
+}
+
+.sale-list-left{
+    display: flex;
+    float: left;
+    white-space: pre-wrap;
+}
+
+.sale-list-right{
+    display: flex;
+    float: right;
+    max-width:min-content;
+    max-height: fit-content;
+}
+
+.product-attribute{
+    width: 8vw;
+}
+
+.payment-controls{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-content:center;
+    align-items: center;
+}
+
+.pos-page{
+    display:inline-flex;
+    flex-direction:row;
+    justify-content:center;
+    align-content:center;
+    align-items: center;
+    margin: auto;    
+}
+
+.payment-ui{  
+    padding: 2vh;
+    background-color: rgba(222, 222, 243, 0.767);
+    box-shadow: 1px 1px 1px 1px #888888;
+    width: 25vw;
+    min-height: 75vh;
+    height: 65vh;
+    margin: auto;
+}
+
+.payment-input{
+  display: flex;
+  width:20vw;
+  flex-direction:row;
+  justify-content:space-between;
+  align-content: space-between;
+  align-items: space-between;
+  margin-top: 2vh;
+}
+
+.payment-input label {
+  display: flex;
+  float: left;
+  background-color: aliceblue;
+}
+
+.payment-input input{
+  display: flex;
+  float: right;
+}
+
+.payment-radio-btns{
+  padding: 10px;
+}

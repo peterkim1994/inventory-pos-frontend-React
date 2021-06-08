@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SaleProductList from './SaleProductList';
-import { AddProductSales, StartSale } from '../services/Pos';
+import { AddProductSales, StartSale, CompleteSalePayments } from '../services/Pos';
 import SalePaymentUI from './SalePaymentUI';
 import SaleInvoice from './SaleInvoice';
 
@@ -51,13 +51,20 @@ export const SaleUI = ({ handle }) => {
     const processInvoice = async () => {
         if (saleItems.length > 0) {
             try {
-                const saleId = await StartSale(dispatch);
-                alert(saleId);
+                const saleId = await StartSale(dispatch);               
                 await AddProductSales(dispatch, saleId, saleItems);                
             } catch (err) {
-
+                
             }
+        }else{
+            alert("There are no products in this sale");
         }
+    }
+
+    const processSaleBtn = () =>{
+        return (
+            <button className="btn btn-primary" onClick={processInvoice}>Process Sale</button>
+        );
     }
 
     return (
@@ -72,14 +79,9 @@ export const SaleUI = ({ handle }) => {
                 <div>
                     <SaleProductList products={saleItems} handleRemove={removeProductItems} />
                 </div>
-                <div className="">
-                    <button className="btn btn-primary" onClick={processInvoice}>Process Sale</button>
-                    { /*  <button className="btn btn-warning">Hold Sale</button>
-                    <button className="btn btn-secondary">Cancel Sale</button> */}
-                </div>
             </div>
             <div className="payment-ui">
-                <SalePaymentUI total={total} />
+                <SalePaymentUI sale={sale} processSaleComponent={processSaleBtn}/>
             </div>
         </div>
     )

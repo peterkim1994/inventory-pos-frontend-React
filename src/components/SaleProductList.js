@@ -8,20 +8,21 @@ const SaleProductList = ({ products, handleRemove }) => {
         console.log(txt);
         return txt.padEnd(len, '-');
     }
-
+    let keyId = 0;
     return (
+
         <div className="sales-list-body">
             <ul className="sale-list list-group" >
                 {
-                    products.map(pr =>  {
+                    products.map(pr => {
                         return (
-                            <li className ="sale-list-row list-group-item" key={`sale-item-no-${pr.id}`}>
+                            <li className="sale-list-row list-group-item" key={`sale-item-no-${keyId++}`}>
                                 <div className="sale-list-left" >
-                                    <span className="product-attribute">{pr.brandValue}</span> 
-                                    <span className="product-attribute">{pr.itemCategoryValue}</span> 
-                                    <span className="product-attribute">{pr.sizeValue} </span> 
-                                    <span className="product-attribute">{pr.colourValue} </span> 
-                                    <span className="product-attribute">{pr.price} </span> 
+                                    <span className="product-attribute">{pr.brandValue}</span>
+                                    <span className="product-attribute">{pr.itemCategoryValue}</span>
+                                    <span className="product-attribute">{pr.sizeValue} </span>
+                                    <span className="product-attribute">{pr.colourValue} </span>
+                                    <span className="product-attribute">{pr.price} </span>
                                 </div>
                                 <span className="sale-list-right">
                                     <button className="btn btn-secondary" onClick={() => handleRemove(pr)}>
@@ -37,4 +38,4 @@ const SaleProductList = ({ products, handleRemove }) => {
     )
 }
 
-export default SaleProductList 
+export default SaleProductList
