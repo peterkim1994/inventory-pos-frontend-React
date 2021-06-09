@@ -220,3 +220,11 @@
 .payment-radio-btns{
   padding: 10px;
 }
+
+.printed-receipt{
+  width: 5cm;
+  height: 8cm;
+  margin: auto;
+  font-size: large;
+  font-weight: bold;
+}

@@ -2,16 +2,21 @@ import { useRef } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import {CompleteSalePayments} from '../services/Pos';
+import SaleInvoice from './SaleInvoice';
+
 
 const SalePaymentUI = ({sale, processSaleComponent }) => {
 
     const total = sale.total;
     const saleId = parseInt(sale.invoiceNumber);
+    const business = useSelector(state => state.saleReducer.bussinessDetails);
     const payOptionsUi = useRef();
     const [eftpos, setEftpos] = useState(0.00);
     const [cash, setCash] = useState(0.00);
     const [storeCredit, setStoreCredit] = useState(0.00);
     const dispatch = useDispatch();
+    const printReceipt = SaleInvoice;
+
 
     //toggles between 
     const enableMoreOptions = () => {
@@ -27,7 +32,7 @@ const SalePaymentUI = ({sale, processSaleComponent }) => {
         setStoreCredit(0.00);
     }
 
-    const processPayments = () => {
+    const processPayments = async () => {
         let payments = [];
         if(eftpos > 0.00){
             payments.push({
@@ -49,8 +54,10 @@ const SalePaymentUI = ({sale, processSaleComponent }) => {
                 PaymentMethodId : 4,
                 Amount : storeCredit
             });
-        }
-        CompleteSalePayments(dispatch,payments);
+        }        
+        await CompleteSalePayments(dispatch, payments);
+        printReceipt(sale, business);
+
     }
 
     const setSinglePayment = (setPaymentType) => {

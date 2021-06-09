@@ -7,16 +7,15 @@ import SaleInvoice from './SaleInvoice';
 
 export const SaleUI = ({ handle }) => {
 
-    const inventory = useSelector(state => state.inventoryReducer.products);
-    const total = useSelector(state => state.saleReducer.sale.total);
-
+    const inventory = useSelector(state => state.inventoryReducer.products);   
+    const sale = useSelector(state => state.saleReducer.sale);
+  //  const total = useSelector(state => state.saleReducer.sale.total);
     const [saleItems, setSaleItems] = useState([]);
     const barcodeRef = useRef();
-
     const dispatch = useDispatch();
+   
 
-    const sale = useSelector(state => state.saleReducer.sale);
-
+    
     const addProductToSale = (item) => {
         setSaleItems([...saleItems, item]);
         barcodeRef.current.value = "";
@@ -83,6 +82,7 @@ export const SaleUI = ({ handle }) => {
             <div className="payment-ui">
                 <SalePaymentUI sale={sale} processSaleComponent={processSaleBtn}/>
             </div>
+            <iframe id="printed-receipt" style={{height: "0px", width: "0px", position: "absolute"}}></iframe>
         </div>
     )
 

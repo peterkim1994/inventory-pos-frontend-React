@@ -1,6 +1,9 @@
 const initialState = {
     bussinessDetails : {
-         storeName: "Inventory & POS Application"
+         storeName: "PROCAMP",
+         address: "The Base Outlet, TeRapa Hamilton",
+         gstNum: "4234 12312 12",
+         contact: "0800 83 83 83"
     },
     sale : {      
         invoiceNumber : 0,
