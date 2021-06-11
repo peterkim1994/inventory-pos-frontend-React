@@ -38,6 +38,14 @@
   }
 }
 
+.inventory-search-panel{
+  display:inline-flexbox;
+  width: auto;
+  justify-content:stretch;
+  align-content: stretch;
+
+}
+
 .tabbed-panel{ 
   margin:auto;
   padding-top: 10px;
@@ -228,3 +236,4 @@
   font-size: large;
   font-weight: bold;
 }
+

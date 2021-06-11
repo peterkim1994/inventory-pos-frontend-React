@@ -25,10 +25,10 @@ const InventorySearchPanel = ({ setResults }) => {
     }
 
     return (
-        <div>
-            <Form >
+        <div className="inventory-search-panel">
+            <Form className="inventory-search-panel">
                 <Form.Row>
-                    <InputGroup>
+                    <InputGroup className="inventory-search-panel">
                         <AttributeSelector
                             stateAttributes={brands}
                             attributeName={"Brand"}

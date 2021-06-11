@@ -1,32 +1,32 @@
 export default class ProductFilter {
     constructor() {
-        this.sizeParam = null;
-        this.colourParam = null;
-        this.categoryParam = null;
-        this.brandParam = null;
+        this.sizeParam = "-";
+        this.colourParam = "-";
+        this.categoryParam = "-";
+        this.brandParam = "-";
         this.filterBrand = this.filterBrand.bind(this);
     }
 
     filterSize = (item) => {
-        return (this.sizeParam === null || item.sizeId === this.sizeParam )
+        return (this.sizeParam === "-" || item.sizeId === this.sizeParam )
     }
 
     filterColour = (item) => {
-        if (this.colourParam === null) {
+        if (this.colourParam === "-") {
             return true;
         }
         return item.colourId === this.colourParam;
     }
 
     filterCategory = (item) => {
-        if (this.categoryParam === null) {
+        if (this.categoryParam === "-") {
             return true;
         }      
         return item.itemCategoryId === this.categoryParam;        
     }
 
     filterBrand = (item) => {
-        if (this.brandParam === null) {
+        if (this.brandParam === "-") {
             return true;
         }              
         return item.brandId === this.brandParam;        

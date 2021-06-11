@@ -12,14 +12,15 @@ const AttributeSelector = ({ stateAttributes, attributeName, handleSelect, produ
         <Col>
             <Form.Group as={Row} required>
                 <Form.Label column sm={4} > {attributeName} </Form.Label>
-                <Col sm={8}>
+                <Col sm={8} style={{width:"100%"}}>
                     <Form.Control as="select"
                         id={`${attributeName}-selector`}
                         onChange={handleSelect}
                         required
                         defaultValue={productAttribute}
+                        style={{width:"100%"}}
                     >
-                        <option key={0} > - </option>
+                     <option key={0} value="-"> - </option>
                         {
                             attributes.map(a =>
                                 <option
