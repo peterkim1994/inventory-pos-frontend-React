@@ -1,64 +1,71 @@
-//not actually a react component, its a function that results in the printing of a receipt
+import React from 'react';
 
-
-const SaleInvoice = ( sale, business ) => {
-
+const SaleInvoice = ({sale, business}) => {
     const productList = sale.products.map(pr => {
         if (pr.promotionApplied = true) {
             let promo = pr.promotionName;
         }
+        console.log("map func inside sale invoice");
+        console.log(pr);
         return (
-            `<p>
-                <span style="white-space:pre-wrap;"><b>${pr.product}</b></span>
-                <span><b>${pr.priceSold.toFixed(2)}</b></span>
-             </p>`
+            <p>
+                <span style={{whiteSpace:"pre-wrap"}}><b>{pr.product}</b></span>
+                <span><b>{pr.priceSold.toFixed(2)}</b></span>
+             </p>
         )
     });
 
-    let productListString = "";
-    productList.forEach(element => {
-        productListString += element;
+    const paymentList = sale.payments.map(p => {
+       return (
+            <p>{p.paymentMethod} : {p.amount} </p>
+        )
     });
 
-    let paymentsString = "";
-    sale.payments.forEach(p => {
-        paymentsString += (
-            `<p>${p.paymentMethod} : \$ ${p.amount} </p>`
-        );
-    });
+    console.log("PLAYUSDGSAYU LIST ");
+    console.log(sale);
+    console.log(paymentList);
+    let keyCount = 0;
 
-
-    const receipt = ` 
-        <div className="printed-receipt" >       
-            <div className="invoice-header">
-                <h2>${business.storeName}</h2>
-                <p><b>${business.address}</b></p>
-                <p><b>${business.gstNum}</b></p>
-                <p><b>${business.contact}</b></p>
-            </div>
+    return (
+        <div className="invoice-body">
             <div>
-                <h5>Invoice: ${sale.invoiceNumber}</h5>
-                <p><b>${sale.dateTime}</b></p>
+                <h4>Invoice Number: {sale.invoiceNumber}</h4>
+                <p>{sale.date}</p>
+                <ul>
+                    {sale.products.map(pr => {
+                        if (pr.promotionApplied = true) {
+                            let promo = pr.promotionName;
+                        }
+                        return (
+                            <li key={`invoice-item-key-${keyCount++}`}>
+                                <span>{pr.product}</span>
+                                <span>{pr.promotionName}</span>
+                            </li>
+                        )
+                    })}
+                </ul>
+                <h3>total: {sale.total}</h3>
+                <h5>Invoice: {sale.invoiceNumber}</h5>
+                <p><b>{sale.dateTime}</b></p>
                 <span className="product-list">
-                    ${productListString}
+                    {productList}
                 </span>
-                <br/>
+                <br />
                 <span>
-                    ${paymentsString}
-                </span>              
-                <h5>total:$ ${sale.total.toFixed(2)}</h5>
+                    {paymentList}
+                </span>
+                <h5>total: ${sale.total.toFixed(2)}</h5>
             </div>
         </div>
-    `;
-
-    (function printDiv() {
-        var printContents = receipt; //document.getElementById("sale-invoice-receipt").innerHTML;
-        var originalContents = document.body.innerHTML;
-        document.body.innerHTML = printContents;
-        console.log(receipt);
-        window.print();
-        document.body.innerHTML = originalContents;
-    }());
-
+    )
 }
+
+export const printInvoice = () => {
+    var printContents = document.getElementById("printed-receipt").innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+}
+
 export default SaleInvoice

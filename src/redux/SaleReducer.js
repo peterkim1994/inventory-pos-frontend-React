@@ -65,7 +65,7 @@ export default function SaleReducer(state = initialState, action) {
         case ActionTypes.DELETE_PRODUCT_SALE : 
             return { ...state, sale: {...state.sale, products : [...state.sale.products.filter(ps => ps.id !== action.payload.id) ]} }
         case ActionTypes.ADD_PAYMENTS:
-            return {...state, sale:{...state.sale, payments:[...action.payload]}}
+            return {...state, sale:{...state.sale, payments:action.payload}}
         case ActionTypes.setStore:
             return { ...state, store: action.payload }
         default:

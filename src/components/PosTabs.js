@@ -3,7 +3,6 @@ import PosBody from './PointOfSalesBody';
 import PromotionManagement from './PromotionManagement';
 import RefundUI from './RefundUI';
 
-
 const PosTabs = () => {
 
     return (
@@ -29,7 +28,6 @@ const PosTabs = () => {
                         <h2>coming soon </h2>
                     </div>
                 </Tab>
-
             </Tabs>
         </div>
     )

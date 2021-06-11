@@ -10,7 +10,6 @@ const SaleProductList = ({ products, handleRemove }) => {
     }
     let keyId = 0;
     return (
-
         <div className="sales-list-body">
             <ul className="sale-list list-group" >
                 {
