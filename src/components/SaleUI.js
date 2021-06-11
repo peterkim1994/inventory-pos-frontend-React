@@ -5,7 +5,7 @@ import { AddProductSales, StartSale, CompleteSalePayments } from '../services/Po
 import SalePaymentUI from './SalePaymentUI';
 import SaleInvoice from './SaleInvoice';
 
-export const SaleUI = ({ handle }) => {
+export const SaleUI = () => {
 
     const inventory = useSelector(state => state.inventoryReducer.products);   
     const sale = useSelector(state => state.saleReducer.sale);
@@ -14,8 +14,6 @@ export const SaleUI = ({ handle }) => {
     const barcodeRef = useRef();
     const dispatch = useDispatch();
    
-
-    
     const addProductToSale = (item) => {
         setSaleItems([...saleItems, item]);
         barcodeRef.current.value = "";
@@ -69,7 +67,7 @@ export const SaleUI = ({ handle }) => {
     return (
         <div className="pos-page">
             <div className="sale-ui">
-                <div className="">
+                <div className="barcode-search">
                     <form className="sale-ui-barcode-entry" onSubmit={scanBarcode}>
                         <label for="barcodeNumber"> Barcode: </label>
                         <input ref={barcodeRef} type="number" name="barcodeNumber" />

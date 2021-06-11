@@ -12,13 +12,24 @@ export const SetShop = async(dispatch)=>{
     }
 }
 
+export const GetPrevSale =  async(dispatch, saleId) =>{
+    try{
+        const { data } = await axiosObj.get("sales/getSale/" + saleId);
+        
+        dispatch(ActionCreators.setSale(data));       
+    }catch(err){
+        console.log("get sale service err");
+        console.log(err);
+    }
+}
+
 export const StartSale = async(dispatch) =>{
     try{
         const { data } = await axiosObj.post("sales/StartNewSale");
         dispatch(ActionCreators.startNewSale(data));
         return parseInt(data.invoiceNumber);
     }catch(err){
-        console.log("set shop service err");
+        console.log("start sale service err");
         console.log(err);
     }
 }

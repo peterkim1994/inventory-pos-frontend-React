@@ -29,8 +29,7 @@ const SaleInvoice = ( sale, business ) => {
 
 
     const receipt = ` 
-        <div className="printed-receipt" >
-        <h2>GIVE ME BLOWJOB </h2>
+        <div className="printed-receipt" >       
             <div className="invoice-header">
                 <h2>${business.storeName}</h2>
                 <p><b>${business.address}</b></p>
