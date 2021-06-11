@@ -1,6 +1,7 @@
 import { Tabs, Tab } from 'react-bootstrap';
 import PosBody from './PointOfSalesBody';
 import PromotionManagement from './PromotionManagement';
+import RefundUI from './RefundUI';
 
 const PosTabs = () => {
 
@@ -9,7 +10,12 @@ const PosTabs = () => {
             <Tabs defaultActiveKey="Pos" id="uncontrolled-tab-example">
                 <Tab eventKey="Pos" title="POS">
                     <div className="pos-body">
-                        <PosBody/>
+                        <PosBody />
+                    </div>
+                </Tab>
+                <Tab eventKey="Process Refund" title="Process Refund" >
+                    <div className="tabbed-panel">
+                        <RefundUI />
                     </div>
                 </Tab>
                 <Tab eventKey="promotions" title="Manage Promotions">
@@ -17,8 +23,8 @@ const PosTabs = () => {
                         <PromotionManagement />
                     </div>
                 </Tab>
-                <Tab eventKey="InventorySettings" title="Transaction History" >
-                    <div className="tabbed-panel inventory-body">
+                <Tab eventKey="Transaction History" title="Transaction History" >
+                    <div className="tabbed-panel">
                         <h2>coming soon </h2>
                     </div>
                 </Tab>

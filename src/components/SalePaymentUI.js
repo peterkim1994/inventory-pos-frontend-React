@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import {CompleteSalePayments} from '../services/Pos';
 import SaleInvoice from './SaleInvoice';
-
+import {printInvoice} from './SaleInvoice';
 
 const SalePaymentUI = ({sale, processSaleComponent }) => {
 
@@ -15,7 +15,7 @@ const SalePaymentUI = ({sale, processSaleComponent }) => {
     const [cash, setCash] = useState(0.00);
     const [storeCredit, setStoreCredit] = useState(0.00);
     const dispatch = useDispatch();
-    const printReceipt = SaleInvoice;
+    const printReceipt = printInvoice;
 
 
     //toggles between 
@@ -32,7 +32,7 @@ const SalePaymentUI = ({sale, processSaleComponent }) => {
         setStoreCredit(0.00);
     }
 
-    const processPayments = async () => {
+    const processPayments =  async() => {
         let payments = [];
         if(eftpos > 0.00){
             payments.push({
@@ -56,8 +56,8 @@ const SalePaymentUI = ({sale, processSaleComponent }) => {
             });
         }        
         await CompleteSalePayments(dispatch, payments);
-        printReceipt(sale, business);
-
+        console.log(sale);
+        printReceipt();
     }
 
     const setSinglePayment = (setPaymentType) => {
@@ -68,11 +68,11 @@ const SalePaymentUI = ({sale, processSaleComponent }) => {
 
     const autoCalculate = async (event, setPaymentAmount) => {
         //setPaymentAmount is the call back function for the payment type which was entered
-        const paymentAmount = parseFloat(event.target.value).toFixed(2);
+        const paymentAmount = parseFloat(event.target.value);
         if (storeCredit === 0) {
             const autoCalcFor = (event.target.name === "eftposAmount") ? setCash : setEftpos;
             await setPaymentAmount(paymentAmount);
-            const remainingAmount = (total - paymentAmount).toFixed(2);
+            const remainingAmount = (total - paymentAmount);
             autoCalcFor(remainingAmount);
         } else {
             setPaymentAmount(paymentAmount);
@@ -96,15 +96,15 @@ const SalePaymentUI = ({sale, processSaleComponent }) => {
                         <fieldset >
                             <div className="payment-input">
                                 <label className="form-control">Eftpos</label>
-                                <input className="form-control" type="number" name="eftposAmount" value={eftpos} onChange={(event) => autoCalculate(event, setEftpos)} />
+                                <input className="form-control" type="number" name="eftposAmount" value={eftpos.toFixed(2)} onChange={(event) => autoCalculate(event, setEftpos)} />
                             </div>
                             <div className="payment-input">
                                 <label className="form-control">Cash</label>
-                                <input className="form-control" type="num" value={cash} name="cashAmount" onChange={(event) => autoCalculate(event, setCash)} />
+                                <input className="form-control" type="num" value={cash.toFixed(2)} name="cashAmount" onChange={(event) => autoCalculate(event, setCash)} />
                             </div>
                             <div className="payment-input">
                                 <label className="form-control">Store credit</label>
-                                <input type="number" className="form-control" value={storeCredit} onChange={(event) => setStoreCredit(parseFloat(event.target.value).toFixed(2))} />
+                                <input type="number" className="form-control" value={storeCredit.toFixed(2)} onChange={(event) => setStoreCredit(parseFloat(event.target.value).toFixed(2))} />
                             </div>
                             <br />
                         </fieldset>

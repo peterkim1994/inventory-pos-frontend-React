@@ -5,22 +5,20 @@ import { AddProductSales, StartSale, CompleteSalePayments } from '../services/Po
 import SalePaymentUI from './SalePaymentUI';
 import SaleInvoice from './SaleInvoice';
 
-export const SaleUI = ({ handle }) => {
+export const SaleUI = () => {
 
-    const inventory = useSelector(state => state.inventoryReducer.products);   
+    const inventory = useSelector(state => state.inventoryReducer.products);
     const sale = useSelector(state => state.saleReducer.sale);
-  //  const total = useSelector(state => state.saleReducer.sale.total);
+    const business = useSelector(state => state.saleReducer.bussinessDetails);
     const [saleItems, setSaleItems] = useState([]);
     const barcodeRef = useRef();
     const dispatch = useDispatch();
-   
-
-    
+    console.log("sale");
+    console.log(sale);
     const addProductToSale = (item) => {
         setSaleItems([...saleItems, item]);
         barcodeRef.current.value = "";
     }
-
     const removeProductItems = (item) => {
         let removed = false;
         const updatedSaleItems = saleItems.filter(pr => {
@@ -33,7 +31,6 @@ export const SaleUI = ({ handle }) => {
         });
         setSaleItems(updatedSaleItems);
     }
-
     //Optimise product retrieval via barcode later:
     //Should probably use a sorted list for finding the product with the associated barcode
     const scanBarcode = (event) => {
@@ -50,17 +47,17 @@ export const SaleUI = ({ handle }) => {
     const processInvoice = async () => {
         if (saleItems.length > 0) {
             try {
-                const saleId = await StartSale(dispatch);               
-                await AddProductSales(dispatch, saleId, saleItems);                
+                const saleId = await StartSale(dispatch);
+                await AddProductSales(dispatch, saleId, saleItems);
             } catch (err) {
-                
+
             }
-        }else{
+        } else {
             alert("There are no products in this sale");
         }
     }
 
-    const processSaleBtn = () =>{
+    const processSaleBtn = () => {
         return (
             <button className="btn btn-primary" onClick={processInvoice}>Process Sale</button>
         );
@@ -69,7 +66,7 @@ export const SaleUI = ({ handle }) => {
     return (
         <div className="pos-page">
             <div className="sale-ui">
-                <div className="">
+                <div className="barcode-search">
                     <form className="sale-ui-barcode-entry" onSubmit={scanBarcode}>
                         <label for="barcodeNumber"> Barcode: </label>
                         <input ref={barcodeRef} type="number" name="barcodeNumber" />
@@ -80,12 +77,14 @@ export const SaleUI = ({ handle }) => {
                 </div>
             </div>
             <div className="payment-ui">
-                <SalePaymentUI sale={sale} processSaleComponent={processSaleBtn}/>
+                <SalePaymentUI sale={sale} processSaleComponent={processSaleBtn} />
             </div>
-            <iframe id="printed-receipt" style={{height: "0px", width: "0px", position: "absolute"}}></iframe>
+           
+            <div className="printable" id="printed-receipt">
+                <SaleInvoice sale={sale} business={business} />
+            </div>
         </div>
-    )
-
+    );
 }
-
+// <iframe id="printed-receipt" style={{ height: "0px", width: "0px", position: "absolute" }}></iframe>
 export default SaleUI

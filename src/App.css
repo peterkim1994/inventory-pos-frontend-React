@@ -237,3 +237,12 @@
   font-weight: bold;
 }
 
+.printable{
+  display: none;
+}
+
+@media print {
+  .printable{
+    display: block;
+  }
+}
