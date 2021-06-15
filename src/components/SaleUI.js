@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SaleProductList from './SaleProductList';
-import { AddProductSales, StartSale, CompleteSalePayments } from '../services/Pos';
+import { AddProductSales, StartSale, ClearSale } from '../services/Pos';
 import SalePaymentUI from './SalePaymentUI';
 import SaleInvoice from './SaleInvoice';
 
@@ -10,15 +10,26 @@ export const SaleUI = () => {
     const inventory = useSelector(state => state.inventoryReducer.products);
     const sale = useSelector(state => state.saleReducer.sale);
     const business = useSelector(state => state.saleReducer.bussinessDetails);
+    const [removeSetting, setRemoveSetting] = useState(false);
     const [saleItems, setSaleItems] = useState([]);
     const barcodeRef = useRef();
     const dispatch = useDispatch();
-    console.log("sale");
-    console.log(sale);
+
     const addProductToSale = (item) => {
         setSaleItems([...saleItems, item]);
         barcodeRef.current.value = "";
     }
+
+    const clearSale = () => {
+        setSaleItems([]);
+        ClearSale(dispatch);
+        disableRemoveBtns(false);
+    }
+
+    const disableRemoveBtns = (setting) => {
+        setRemoveSetting(setting);
+    }
+
     const removeProductItems = (item) => {
         let removed = false;
         const updatedSaleItems = saleItems.filter(pr => {
@@ -31,6 +42,7 @@ export const SaleUI = () => {
         });
         setSaleItems(updatedSaleItems);
     }
+    
     //Optimise product retrieval via barcode later:
     //Should probably use a sorted list for finding the product with the associated barcode
     const scanBarcode = (event) => {
@@ -49,6 +61,7 @@ export const SaleUI = () => {
             try {
                 const saleId = await StartSale(dispatch);
                 await AddProductSales(dispatch, saleId, saleItems);
+                disableRemoveBtns(true);
             } catch (err) {
 
             }
@@ -64,25 +77,27 @@ export const SaleUI = () => {
     }
 
     return (
-        <div className="pos-page">
-            <div className="sale-ui">
-                <div className="barcode-search">
-                    <form className="sale-ui-barcode-entry" onSubmit={scanBarcode}>
-                        <label for="barcodeNumber"> Barcode: </label>
-                        <input ref={barcodeRef} type="number" name="barcodeNumber" />
-                    </form>
+        <div>
+            <div className="pos-page">
+                <div className="sale-ui">
+                    <div className="barcode-search">
+                        <form className="sale-ui-barcode-entry" onSubmit={scanBarcode}>
+                            <label for="barcodeNumber"> Barcode: </label>
+                            <input ref={barcodeRef} type="number" name="barcodeNumber" />
+                        </form>
+                    </div>
+                    <div>
+                        <SaleProductList products={saleItems} handleRemove={removeProductItems} removeBtnSetting={removeSetting} />
+                    </div>
                 </div>
-                <div>
-                    <SaleProductList products={saleItems} handleRemove={removeProductItems} />
+                <div className="payment-ui">
+                    <SalePaymentUI sale={sale} processSaleComponent={processSaleBtn} clearSale={clearSale} />
+                </div>
+                <div className="printable" id="printed-receipt">
+                    <SaleInvoice sale={sale} business={business} />
                 </div>
             </div>
-            <div className="payment-ui">
-                <SalePaymentUI sale={sale} processSaleComponent={processSaleBtn} />
-            </div>
-           
-            <div className="printable" id="printed-receipt">
-                <SaleInvoice sale={sale} business={business} />
-            </div>
+            <button className="btn btn-warning" > Cancel Sale </button>
         </div>
     );
 }

@@ -1,24 +1,31 @@
 const initialState = {
-    bussinessDetails : {
-         storeName: "PROCAMP",
-         address: "The Base Outlet, TeRapa Hamilton",
-         gstNum: "4234 12312 12",
-         contact: "0800 83 83 83"
+    bussinessDetails: {
+        storeName: "PROCAMP",
+        address: "The Base Outlet, TeRapa Hamilton",
+        gstNum: "4234 12312 12",
+        contact: "0800 83 83 83"
     },
-    sale : {      
-        invoiceNumber : 0,
-        products : [],        
-        payments : [],
-        total : 0.00
+    sale: {
+        invoiceNumber: 0,
+        products: [],
+        payments: [],
+        total: 0.00,
+        finalised: false
     },
-    previousSale : {},
+    previousSale: {},
+    refund : {
+        invoiceNumber:0,
+        amount: 0.00,
+        reason: ""
+     }
 }
 
 export const ActionTypes = {
-    SET_STORE : "SET_STORE",
+    SET_STORE: "SET_STORE",
     START_NEW_SALE: "START_NEW_SALE",
     UPDATE_SALE_PAYMENTS: "UPDATE_SALE_PAYMENTS",
-    SET_SALE : "SET_SALE",
+    SET_SALE: "SET_SALE",
+    CLEAR_SALE : "CLEAR_SALE",
     COMPLETE_SALE: "COMPLETE_SALE",
     CANCEL_SALE: "CANCEL_SALE",
     HOLD_SALE: "HOLD_SALE",
@@ -28,6 +35,7 @@ export const ActionTypes = {
     ADD_PAYMENTS: "ADD_PAYMENTS",
     EDIT_PAYMENT: "EDIT_PAYMENT",
     DELETE_PAYMENT: "DELETE_PAYMENT",
+    UPDATE_SALE_STATUS: "UPDATE_SALE_STATUS"
 }
 
 export const ActionCreators = {
@@ -44,6 +52,8 @@ export const ActionCreators = {
     addPayments: payload => ({ type: ActionTypes.ADD_PAYMENTS, payload }),
     editPayment: payload => ({ type: ActionTypes.EDIT_PAYMENT, payload }),
     deletePayment: payload => ({ type: ActionTypes.DELETE_PAYMENT, payload }),
+    updateSaleStatus: payload => ({ type: ActionTypes.UPDATE_SALE_STATUS, payload }),
+    clearSale : () => ({type: ActionTypes.CLEAR_SALE})
 }
 
 export default function SaleReducer(state = initialState, action) {
@@ -51,23 +61,27 @@ export default function SaleReducer(state = initialState, action) {
         case ActionTypes.START_NEW_SALE:
             return { ...state, sale: action.payload }
         case ActionTypes.UPDATE_SALE_PAYMENTS:
-            return {...state, sale: {...state.sale, payments: action.payload} }
+            return { ...state, sale: { ...state.sale, payments: action.payload } }
         case ActionTypes.SET_SALE:
-            return {...state, sale: action.payload }
+            return { ...state, sale: action.payload }
         case ActionTypes.CANCEL_SALE:
             return { ...state, sale: action.payload }
         case ActionTypes.HOLD_SALE: //holds current sale as previous, and assigns new sale to current
             return { ...state, previousSale: state.sale, sale: action.payload }
         case ActionTypes.COMPLETE_SALE:
             return { ...state, sale: action.payload }
-        case ActionTypes.ADD_PRODUCT_SALES :
-            return { ...state, sale: {...state.sale, products : [ ...action.payload ]} }// ...state.sale.productSales,
-        case ActionTypes.DELETE_PRODUCT_SALE : 
-            return { ...state, sale: {...state.sale, products : [...state.sale.products.filter(ps => ps.id !== action.payload.id) ]} }
+        case ActionTypes.ADD_PRODUCT_SALES:
+            return { ...state, sale: { ...state.sale, products: [...action.payload] } }// ...state.sale.productSales,
+        case ActionTypes.DELETE_PRODUCT_SALE:
+            return { ...state, sale: { ...state.sale, products: [...state.sale.products.filter(ps => ps.id !== action.payload.id)] } }
         case ActionTypes.ADD_PAYMENTS:
-            return {...state, sale:{...state.sale, payments:action.payload}}
-        case ActionTypes.setStore:
+            return { ...state, sale: { ...state.sale, payments: action.payload } }
+        case ActionTypes.SET_STORE:
             return { ...state, store: action.payload }
+        case ActionTypes.UPDATE_SALE_STATUS:
+            return { ...state, sale: { ...state.sale, finalised: action.payload } }
+        case ActionTypes.CLEAR_SALE:
+            return {...state, sale : initialState.sale}
         default:
             return state;
     }

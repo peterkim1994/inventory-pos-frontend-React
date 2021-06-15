@@ -2,10 +2,9 @@ import { Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
-const SaleProductList = ({ products, handleRemove }) => {
+const SaleProductList = ({ products, handleRemove, removeBtnSetting }) => {
 
-    const pad = (txt, len = 20) => {
-        console.log(txt);
+    const pad = (txt, len = 20) => {     
         return txt.padEnd(len, '-');
     }
     let keyId = 0;
@@ -24,7 +23,9 @@ const SaleProductList = ({ products, handleRemove }) => {
                                     <span className="product-attribute">{pr.price} </span>
                                 </div>
                                 <span className="sale-list-right">
-                                    <button className="btn btn-secondary" onClick={() => handleRemove(pr)}>
+                                    <button className="btn btn-secondary pos-remove-btn"
+                                        onClick={() => handleRemove(pr)}
+                                        disabled={removeBtnSetting}>
                                         remove
                                     </button>
                                 </span>

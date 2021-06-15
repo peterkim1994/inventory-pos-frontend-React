@@ -43,7 +43,7 @@
   width: auto;
   justify-content:stretch;
   align-content: stretch;
-
+  align-items: center;
 }
 
 .tabbed-panel{ 
@@ -241,8 +241,42 @@
   display: none;
 }
 
+.refund-ui{
+  display: flex;
+  flex-direction:column;
+  align-self: center;
+  justify-content: center;
+  align-content: center;
+  max-width: 50vw;
+  height: 50vh;
+  margin: auto;
+  background-color: linen;
+}
+
+.refund-field{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.refund-field label{
+  width: 15vw;
+}
+
+.refund-field input{
+  width: 25vw;
+}
+.refund-field textarea{
+  width: 25vw;
+}
+
 @media print {
+  body{
+    display: none;
+  }
   .printable{
     display: block;
   }
+
 }
