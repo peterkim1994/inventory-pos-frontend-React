@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Button, InputGroup, Form, Col} from 'react-bootstrap';
+import { Button, InputGroup, Form, Col } from 'react-bootstrap';
 import ProductFilter from '../assets/ProductFilter';
 import AttributeSelector from './AttributeSelector';
 
@@ -10,23 +10,35 @@ const InventorySearchPanel = ({ setResults }) => {
     const sizes = useSelector(state => state.inventoryReducer.sizes);
     const categories = useSelector(state => state.inventoryReducer.categories);
     const products = useSelector(state => state.inventoryReducer.products);
-
+    const [search,setSearch] = useState("");
     const productFilter = new ProductFilter();
     const [productFilterObj, setProductFilter] = useState(productFilter);
 
-    useEffect(()=>{
-        performFilter();
-    },[products]);
+    useEffect(() => {
+     //   performFilter();
+       // filterSearch();
+    }, [products]);
 
-    const performFilter = () => {
+    const performFilter = (event) => {
+        event.preventDefault();
         const filteredResults = products.filter((product) => { return productFilterObj.filterProducts(product) });
         console.log("set results being called");
+        setResults(filteredResults);
+    }
+
+    const filterSearch = (event) => {
+        event.preventDefault();
+        const filteredResults = products.filter(product => product.description.toLowerCase().includes(search.toLowerCase()));
         setResults(filteredResults);
     }
 
     return (
         <div className="inventory-search-panel">
             <Form className="inventory-search-panel">
+                <div className="inventory-search-bar">
+                    <input className="form-control" placeholder="search description" onChange={(event)=>setSearch(event.target.value)}/>
+                    <button className="btn btn-primary" onClick={(event) => filterSearch(event)}> search</button>
+                </div>
                 <Form.Row>
                     <InputGroup className="inventory-search-panel">
                         <AttributeSelector
@@ -49,10 +61,10 @@ const InventorySearchPanel = ({ setResults }) => {
                             attributeName={"Size"}
                             handleSelect={event => productFilterObj.sizeParam = parseInt(event.target.value)}
                         />
-                  
-                    <Col>
-                        <Button variant="primary" onClick={performFilter}>Filter</Button>
-                    </Col>
+
+                        <Col>
+                            <button className="btn btn-primary" onClick={(event) => performFilter(event)}>Filter</button>
+                        </Col>
                     </InputGroup>
                 </Form.Row>
             </Form>

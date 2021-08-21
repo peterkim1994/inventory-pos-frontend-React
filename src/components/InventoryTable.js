@@ -2,7 +2,6 @@ import React from 'react';
 import EditProductModal from './EditProductModal';
 
 const InventoryTable = ({ products, selectEnabled, handleSelect, actionBtn }) => {
-    console.log(actionBtn);
     return (
         <div >
             <table className='table table-striped table-hover inventory-table'>
@@ -32,8 +31,9 @@ const InventoryTable = ({ products, selectEnabled, handleSelect, actionBtn }) =>
                                 <td className="table-col">
                                     {!selectEnabled && <EditProductModal product={pr} />}
                                     {selectEnabled &&  pr.id}
-                                </td>                              
-                                {actionBtn &&  <>{actionBtn(pr)}</> }
+                                </td>        
+                                { actionBtn && actionBtn(pr) }
+                            
                             </tr>
                         )
                     }

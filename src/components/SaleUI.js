@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SaleProductList from './SaleProductList';
 import { AddProductSales, StartSale, ClearSale } from '../services/Pos';
@@ -15,6 +15,17 @@ export const SaleUI = () => {
     const barcodeRef = useRef();
     const dispatch = useDispatch();
 
+    const [cancelBtn,disableCancelBtn] = useState(false);
+
+    //cancel btn enabled when items are in sale
+    useEffect(()=>{
+        if(sale.products.length > 0 && !sale.finalised){
+            disableCancelBtn(false);            
+        }else{
+            disableCancelBtn(true);
+        }
+    },[sale])
+
     const addProductToSale = (item) => {
         setSaleItems([...saleItems, item]);
         barcodeRef.current.value = "";
@@ -26,7 +37,7 @@ export const SaleUI = () => {
         disableRemoveBtns(false);
     }
 
-    const disableRemoveBtns = (setting) => {
+    const disableRemoveBtns = (setting) => {        
         setRemoveSetting(setting);
     }
 
@@ -83,7 +94,7 @@ export const SaleUI = () => {
                     <div className="barcode-search">
                         <form className="sale-ui-barcode-entry" onSubmit={scanBarcode}>
                             <label for="barcodeNumber"> Barcode: </label>
-                            <input ref={barcodeRef} type="number" name="barcodeNumber" />
+                            <input ref={barcodeRef} type="number" name="barcodeNumber" disabled={removeSetting}/>
                         </form>
                     </div>
                     <div>
@@ -97,7 +108,11 @@ export const SaleUI = () => {
                     <SaleInvoice sale={sale} business={business} />
                 </div>
             </div>
-            <button className="btn btn-warning" > Cancel Sale </button>
+            <button className="btn btn-warning" 
+                    id="cancel-sale-btn"
+                    onClick={clearSale}
+                    disabled={cancelBtn}
+                    > Cancel Sale </button>
         </div>
     );
 }

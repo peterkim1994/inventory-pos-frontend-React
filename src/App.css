@@ -46,6 +46,11 @@
   align-items: center;
 }
 
+.inventory-search-bar{
+  display:flex;
+  width: 20vw;
+}
+
 .tabbed-panel{ 
   margin:auto;
   padding-top: 10px;

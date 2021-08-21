@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PromotionsTable from './PromotionsTable';
 import { AddPromotion, GetCurrentPromotions } from '../services/Promotions';
 import PromotionFormModal from './PromotionFormModal';
@@ -8,6 +8,11 @@ export default function PromotionManagement() {
 
     const dispatch = useDispatch();
     const allPromotions = useSelector(state => state.promotionsReducer.promotions);
+
+    useEffect(()=>{
+        GetCurrentPromotions(dispatch);
+    },[]);
+
 
     const defaultPromotion = {
         promotionName: "New Promotion",

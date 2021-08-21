@@ -14,6 +14,7 @@ import { GetProductAttributes, GetInventory } from './services/Inventory';
 function App() {
   const dispatch = useDispatch();  
   useEffect(() => {
+    
       GetProductAttributes(dispatch);
       GetInventory(dispatch);
   }, []);

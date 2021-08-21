@@ -6,7 +6,7 @@ const initialState = {
         contact: "0800 83 83 83"
     },
     sale: {
-        invoiceNumber: 0,
+        invoiceNumber: "",
         products: [],
         payments: [],
         total: 0.00,

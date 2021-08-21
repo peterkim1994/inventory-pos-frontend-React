@@ -81,3 +81,18 @@ export const ProcessRefund = async (refund, setMsg) => {
         }
     }
 }
+
+export const CancelSale = async(dispatch, sale) => {
+    try {        
+        const { data } = await axiosObj.post("sales/cancelSale", parseInt(sale.invoiceNumber));
+        dispatch(ActionCreators.clearSale());      
+    }
+    catch (e) {
+        if (e.response && e.response.data) {
+            console.log(e.response.data); 
+            alert("sale doesnt exist, was not canceled");
+        } else {
+            console.log(e);
+        }
+    }
+}

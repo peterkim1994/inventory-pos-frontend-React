@@ -20,7 +20,7 @@ const AttributeSelector = ({ stateAttributes, attributeName, handleSelect, produ
                         defaultValue={productAttribute}
                         style={{width:"100%"}}
                     >
-                     <option key={0} value="-"> - </option>
+                     <option key={0} value={-1}> - </option>
                         {
                             attributes.map(a =>
                                 <option
