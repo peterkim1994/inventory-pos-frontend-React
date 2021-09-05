@@ -1,7 +1,14 @@
-export default TransactionsTable = (transactions) => {
+import React from "react";
+
+const TransactionsTable = (transactions) => {
+
+    const getPaymentType = (s, paymentType)=>{
+         return s.paymentMethodId == paymentType;
+    }
+
     return(
         <div >
-        <table className='table table-striped table-hover inventory-table'>
+        <table className='table table-striped table-hover'>
             <thead>
                 <tr>     
                     <th className="table-col"> SaleInvoice Number </th>                   
@@ -20,10 +27,10 @@ export default TransactionsTable = (transactions) => {
                         <tr key={sale.id} id={`sale-row-${sale.id}`} style={{height:"50%"}}>                                
                             <td className="table-col"> {sale.DateTime} </td>
                             <td className="table-col"> {sale.DateTime} </td>
-                            <td className="table-col"> {sale.payments.filter(s=> s.paymentMethodId == 1).map(s.payments.amount)} </td>
-                            <td className="table-col"> {sale.payments.filter(s=> s.paymentMethodId == 2).map(s.payments.amount)} </td>
-                            <td className="table-col"> {sale.payments.filter(s=> s.paymentMethodId == 3).map(s.payments.amount)} </td>
-                            <td className="table-col"> {pr.Amount} </td>                                                                              
+                            <td className="table-col"> {sale.payments.filter(s=> s.paymentMethodId == 1).map(s => s.payments.amount)} </td>
+                            <td className="table-col"> {sale.payments.filter(s=> s.paymentMethodId == 2).map(s =>s.payments.amount)} </td>
+                            <td className="table-col"> {sale.payments.filter(s=> s.paymentMethodId == 3).map(s =>s.payments.amount)} </td>
+                            <td className="table-col"> {sale.Amount} </td>                                                                              
                         </tr>
                     )
                 }
@@ -32,3 +39,5 @@ export default TransactionsTable = (transactions) => {
     </div>
     )    
 }
+
+export default TransactionsTable;

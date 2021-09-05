@@ -37,6 +37,7 @@ const Header = () => {
                 <Nav className="mr-auto">
                     <Nav.Link as={Link} to="/inventory">Inventory</Nav.Link>
                     <Nav.Link as={Link} to="/pos">POS</Nav.Link>
+                    <Nav.Link as={Link} to="/Transactions">Transactions</Nav.Link>
                     <Nav.Link as={Link} to="/login">{signedIn === false ? "Sign In" : "Sign Out"}</Nav.Link>
                     <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1">Nothing</NavDropdown.Item>

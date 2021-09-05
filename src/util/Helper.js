@@ -35,9 +35,9 @@ class Helper {
 
     getStartofMonth = (month) => {
         var aDate = new Date();
-        aDate.setDate(aDate.getDate() - days);
+        aDate.setDate(aDate.getDate());
         var dd = String(aDate.getDate()).padStart(2, '0');
-        var mm = String(aDate.getMonth() + 1).padStart(2, '0');
+        var mm = String( month + 1).padStart(2, '0');
         var yyyy = aDate.getFullYear();
         aDate =   '01/' + mm + '/' + yyyy;
         return aDate;

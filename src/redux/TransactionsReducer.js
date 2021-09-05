@@ -1,8 +1,8 @@
 const initialState = {
-    transactions = [],
-    selectedTransaction = {},
-    refunds = [],
-    refund = []
+    transactions : [],
+    selectedTransaction : {},
+    refunds : [],
+    refund : {}
 }
 
 export const ActionTypes = {
@@ -21,7 +21,7 @@ export default function TransactionsReducer(state = initialState, action) {
     switch (action.type){
         case ActionTypes.SET_TRANSACTIONS:
             return {...state, transactions: action.payload}
-        case ActionsTypes.DELETE_TRANSACTIONS:
+        case ActionTypes.DELETE_TRANSACTIONS:
             return state;
         default:
             return state;

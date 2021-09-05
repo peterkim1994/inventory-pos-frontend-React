@@ -22,12 +22,7 @@ const PosTabs = () => {
                     <div >
                         <PromotionManagement />
                     </div>
-                </Tab>
-                <Tab eventKey="Transaction History" title="Transaction History" >
-                    <div className="tabbed-panel">
-                        <h2>coming soon </h2>
-                    </div>
-                </Tab>
+                </Tab>            
             </Tabs>
         </div>
     )
