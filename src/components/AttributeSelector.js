@@ -1,6 +1,5 @@
 import { Form, Col, Row } from 'react-bootstrap';
 
-
 const AttributeSelector = ({ stateAttributes, attributeName, handleSelect, productAttribute }) => {
     const attributes = stateAttributes;
 

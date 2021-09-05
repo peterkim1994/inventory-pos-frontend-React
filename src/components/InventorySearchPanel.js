@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, InputGroup, Form, Col } from 'react-bootstrap';
-import ProductFilter from '../assets/ProductFilter';
+import ProductFilter from '../util/ProductFilter';
 import AttributeSelector from './AttributeSelector';
 
 const InventorySearchPanel = ({ setResults }) => {
@@ -61,7 +61,6 @@ const InventorySearchPanel = ({ setResults }) => {
                             attributeName={"Size"}
                             handleSelect={event => productFilterObj.sizeParam = parseInt(event.target.value)}
                         />
-
                         <Col>
                             <button className="btn btn-primary" onClick={(event) => performFilter(event)}>Filter</button>
                         </Col>

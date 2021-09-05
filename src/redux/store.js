@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import InventoryReducer from './InventoryReducer';
 import PromotionsReducer from './PromotionsReducer';
+import TransactionsReducer from './TransactionsReducer';
 import UserReducer from './UserReducer';
 import { combineReducers, createStore } from 'redux';
 import SaleReducer from './SaleReducer';
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
     inventoryReducer: InventoryReducer,
     promotionsReducer: PromotionsReducer,
     userReducer: UserReducer,
-    saleReducer: SaleReducer
+    saleReducer: SaleReducer,
+    transactionsReducer: TransactionsReducer
 });
 
 export const store = createStore(

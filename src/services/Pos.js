@@ -57,9 +57,13 @@ export const CompleteSalePayments = async (dispatch, payments) => {
         await dispatch(ActionCreators.addPayments(data.payments));
         //     await dispatch(ActionCreators.setSale(data));     
         await dispatch(ActionCreators.updateSaleStatus(data.finalised));
-    } catch (err) {
+    } catch (e) {
+        if (e.response && e.response.data) {
+            console.log(e.response.data);
+            alert(e.response.data);
+        }
         console.log("AddSalePayments  service err");
-        console.log(err);
+        console.log(e);
     }
 }
 

@@ -49,6 +49,8 @@ const PromotionProductsModal = ({ promotion, handleClose }) => {
         if (btnLabel === "Add products from Inventory") {
             setBtnLabel("Done");
             //Not ideal but oh well
+            addProductPromos();
+            removeProductPromos();
             showOtherProducts(products);
             setSearchVisible(true);
         } else {
@@ -63,9 +65,7 @@ const PromotionProductsModal = ({ promotion, handleClose }) => {
         handleClose();
     }
 
-    const handleSubmit = () => {
-        addProductPromos();
-        removeProductPromos();
+    const handleSubmit = () => {        
         closeModal();
     }
 

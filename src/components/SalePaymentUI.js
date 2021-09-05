@@ -4,10 +4,13 @@ import { useDispatch, useSelector } from "react-redux"
 import { CompleteSalePayments } from '../services/Pos';
 import SaleInvoice from './SaleInvoice';
 import { printInvoice } from './SaleInvoice';
+import helper from '../util/Helper';
+
 
 const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
 
-    const total = sale.total;
+    const total = parseFloat(sale.total);
+    const [paymentAmount,setPaymentAmount] = useState(0.00);
     const saleId = parseInt(sale.invoiceNumber);
     const saleFinished = useSelector(state => state.saleReducer.sale.finalised);
     const [primaryBtn, setPrimaryBtn] = useState("processSale");
@@ -17,6 +20,8 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
     const [storeCredit, setStoreCredit] = useState(0.00);
     const dispatch = useDispatch();
     const printReceipt = printInvoice;
+
+
     useEffect(() => {
         if (saleFinished) {
             setPrimaryBtn("reprint receipt");
@@ -42,7 +47,7 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
     const processPayments = async() => {
         if (saleFinished) {
             printReceipt();
-        } else {
+        } else {            
             let payments = [];
             if (eftpos == 0.00 &&
                 cash == 0.00 &&
@@ -50,7 +55,7 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
                 alert("A payment type must be selected");
                 return;
             }
-            if (eftpos > 0.00) {
+            if (eftpos > 0) {
                 payments.push({
                     SaleInvoiceId: saleId,
                     PaymentMethodId: 2,
@@ -83,18 +88,21 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
         setPaymentType(total);
     }
 
-    const autoCalculate = async (event, setPaymentAmount) => {
-        //setPaymentAmount is the call back function for the payment type which was entered
-        const paymentAmount = parseFloat(event.target.value);
-        if (storeCredit === 0) {
-            const autoCalcFor = (event.target.name === "eftposAmount") ? setCash : setEftpos;
-            await setPaymentAmount(paymentAmount);
-            const remainingAmount = (total - paymentAmount);
-            autoCalcFor(remainingAmount);
-        } else {
-            setPaymentAmount(paymentAmount);
+    const initEventListeners = () => {
+        const inputs = document.getElementsByClassName("amount-field");
+        for (let i = 0; i< inputs.length ; i++){
+            let input = inputs[i];
+            input.addEventListener("keypress", (event)=> {                
+                if (event.keyCode === 13 && storeCredit == 0.00){                
+                    let autoCalculateFor = input.name === "eftposAmount" ? setCash : setEftpos;                  
+                    let enteredValue =  input.name === "eftposAmount" ? eftpos : cash;
+                    autoCalculateFor(total.toFixed(2) - enteredValue.toFixed(2));
+                }
+            })
         }
     }
+
+    initEventListeners();
 
     return (
         <div className="payment-controls">
@@ -113,15 +121,18 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
                             <fieldset >
                                 <div className="payment-input">
                                     <label className="form-control">Eftpos</label>
-                                    <input className="form-control" type="number" name="eftposAmount" value={eftpos.toFixed(2)} onChange={(event) => autoCalculate(event, setEftpos)} />
+                                    <input className="form-control amount-field" type="number" name="eftposAmount" value={eftpos} onChange={(event) => {
+                                        event.preventDefault();
+                                        setEftpos(helper.getFloat(event));
+                                    }} />
                                 </div>
                                 <div className="payment-input">
                                     <label className="form-control">Cash</label>
-                                    <input className="form-control" type="num" value={cash.toFixed(2)} name="cashAmount" onChange={(event) => autoCalculate(event, setCash)} />
+                                    <input className="form-control amount-field" type="number" value={cash} name="cashAmount" onChange={(event) => setCash(helper.getFloat(event))} />
                                 </div>
                                 <div className="payment-input">
                                     <label className="form-control">Store credit</label>
-                                    <input type="number" className="form-control" value={storeCredit.toFixed(2)} onChange={(event) => setStoreCredit(parseFloat(event.target.value).toFixed(2))} />
+                                    <input type="number" className="form-control store-credit-amount-field" value={storeCredit} onChange={(event) => setStoreCredit(helper.getFloat(event))} />
                                 </div>
                                 <br />
                             </fieldset>
