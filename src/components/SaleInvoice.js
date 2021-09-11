@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SaleInvoice = ({sale, business}) => {
+const SaleInvoice = ({sale}) => {
     const productList = sale.products.map(pr => {
         if (pr.promotionApplied = true) {
             let promo = pr.promotionName;

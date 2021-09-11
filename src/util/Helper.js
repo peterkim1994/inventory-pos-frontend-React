@@ -14,6 +14,16 @@ class Helper {
         return parseFloat(value);
     }
 
+
+    getDate = (date) =>{
+        let d = new Date(date);
+        return  `${d.getDate()}/${d.getMonth()}/${d.getYear().toString().substring(2)}`; 
+    }
+
+    getTime =(date)=>{
+        let d = new Date(date);
+        return  `${d.getHours()}:${d.getMinutes()}`; 
+    }
     getCurrentDate = () =>{
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');

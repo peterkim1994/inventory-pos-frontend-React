@@ -1,17 +1,23 @@
 import { useState } from "react"
 import helper from '../util/Helper';
+import {setTransactions} from "../services/Transactions";
+import { useDispatch } from "react-redux";
+
 
 export const TransactionControls = () => {
 
-    let from = helper.getCurrentDate();
-    let to = helper.getDateMinusDays(1);
+    let from = new Date().toISOString().slice(0, 10);
+    let to = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().slice(0, 10);
+
 
     const [startDate, setStartDate] = useState(from);
     const [toDate, setToDate] = useState(to);
+    const dispatch = useDispatch();
+
 
     const selectFromDate = (event) => {
         let from = event.target.value;
-        startDate(from);
+        setStartDate(from);
     }
 
     const selectToDate = (event) => {
@@ -19,8 +25,9 @@ export const TransactionControls = () => {
         setToDate(to);
     }
 
-    const searchDates = () =>{
-        
+    const searchDates = (event) =>{
+        event.preventDefault();
+        setTransactions(dispatch, startDate, toDate);
     }
 
     return (

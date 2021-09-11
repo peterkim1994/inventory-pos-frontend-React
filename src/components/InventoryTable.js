@@ -32,8 +32,7 @@ const InventoryTable = ({ products, selectEnabled, handleSelect, actionBtn }) =>
                                     {!selectEnabled && <EditProductModal product={pr} />}
                                     {selectEnabled &&  pr.id}
                                 </td>        
-                                { actionBtn && actionBtn(pr) }
-                            
+                                { actionBtn && actionBtn(pr) }                            
                             </tr>
                         )
                     }

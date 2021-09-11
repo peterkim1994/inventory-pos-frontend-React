@@ -1,11 +1,15 @@
 import { Tabs, Tab } from 'react-bootstrap';
-import PosBody from './PointOfSalesBody';
 import TransactionsTable from './TransactionsTable';
+import { useSelector } from 'react-redux';
+const TransactionsTabs = () => {
 
-const TransactionsTabs = (transactions) => {
+    const transactions = useSelector(state => state.transactionsReducer.transactions);
+    console.log(transactions);
+
+
     return (
         <div>
-            <Tabs defaultActiveKey="sales" id="sales-table">
+            <Tabs defaultActiveKey="salesTable" id="sales-table">
                 <Tab eventKey="salesTable" title="sales">
                     <div className="sales-table">
                         <TransactionsTable transactions = {transactions}/>
@@ -25,4 +29,4 @@ const TransactionsTabs = (transactions) => {
         </div>
     )
 }
-export default PosTabs;
+export default TransactionsTabs;
