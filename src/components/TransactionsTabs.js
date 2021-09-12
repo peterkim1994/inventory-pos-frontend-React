@@ -1,6 +1,8 @@
 import { Tabs, Tab } from 'react-bootstrap';
 import TransactionsTable from './TransactionsTable';
+import ProductsSoldTable from './SoldProductsTable';
 import { useSelector } from 'react-redux';
+
 const TransactionsTabs = () => {
 
     const transactions = useSelector(state => state.transactionsReducer.transactions);
@@ -17,7 +19,7 @@ const TransactionsTabs = () => {
                 </Tab>
                 <Tab eventKey="productsSold" title="Products Sold" >
                     <div className="tabbed-panel">
-                        coming soon
+                        <ProductsSoldTable/>
                     </div>
                 </Tab>
                 <Tab eventKey="refundsTable" title="Refunds">

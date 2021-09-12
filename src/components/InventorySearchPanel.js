@@ -17,6 +17,11 @@ const InventorySearchPanel = ({ setResults }) => {
     useEffect(() => {
      //   performFilter();
        // filterSearch();
+       let filteredResults = products.filter((product) => { return productFilterObj.filterProducts(product) });
+       if(search !== ""){
+            filteredResults = products.filter(product => product.description.toLowerCase().includes(search.toLowerCase()));
+       }
+       setResults(filteredResults);
     }, [products]);
 
     const performFilter = (event) => {

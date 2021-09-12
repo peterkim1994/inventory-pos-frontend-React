@@ -1,6 +1,6 @@
 import InventoryTable from './InventoryTable';
 import InventorySearchPanel from './InventorySearchPanel';
-import React, { useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import { useSelector } from 'react-redux';
 
 
@@ -10,6 +10,10 @@ export default function InventoryBody() {
     console.log("inventory body mounted");
     console.log(products)
     const [filteredProducts, setFilteredProducts] = useState(products);//initial state set to all products
+
+   // useEffect(()=>{
+   //     setFilteredProducts(products);
+  //  },[products]);
 
     return (
         <div >     

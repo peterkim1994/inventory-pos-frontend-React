@@ -38,6 +38,9 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
         radioBtns.forEach(btn => {
             btn.checked = !btn.checked;
             btn.disabled = !btn.disabled;
+            if(toggledVisibility === "hidden"){
+                btn.checked = false;
+            }
         });
         setEftpos(0.00);
         setCash(0.00);
@@ -77,8 +80,13 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
                 });
             }
             // async  await
-            await CompleteSalePayments(dispatch, payments);
-            printReceipt();
+            try{
+                let success = await CompleteSalePayments(dispatch, payments);
+                if(success)
+                   printReceipt();
+            }catch(e){
+                console.log(e);
+            }
         }
     }
 
@@ -92,13 +100,45 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
         const inputs = document.getElementsByClassName("amount-field");
         for (let i = 0; i< inputs.length ; i++){
             let input = inputs[i];
+            if(input.name === "storeCreditAmount"){
+                return;
+            }
             input.addEventListener("keypress", (event)=> {                
                 if (event.keyCode === 13 && storeCredit == 0.00){                
                     let autoCalculateFor = input.name === "eftposAmount" ? setCash : setEftpos;                  
-                    let enteredValue =  input.name === "eftposAmount" ? eftpos : cash;
-                    autoCalculateFor(total.toFixed(2) - enteredValue.toFixed(2));
+                    let enteredValue =  input.name === "eftposAmount" ? eftpos : cash;  
+                    if(Number.isNaN(enteredValue) && enteredValue > total){
+                        setCash(0.00);
+                        setEftpos(0.00);
+                        setStoreCredit(0.00);         
+                        return;
+                    }                  
+                    try{
+                        handleNaNs();                 
+                        autoCalculateFor(total.toFixed(2) - enteredValue.toFixed(2));
+                    }catch (e){
+                        setCash(0.00);
+                        setEftpos(0.00);
+                        setStoreCredit(0.00);    
+                    }
+                    
                 }
-            })
+            });
+        }
+    }
+
+    const handleNaNs = ()=>{
+        if(Number.isNaN(eftpos)){
+            setEftpos(0.0)
+            throw 100;
+        }
+        if(Number.isNaN(cash)){
+            setCash(0.00);
+            throw 100;
+        }
+        if(Number.isNaN(storeCredit)){
+            setStoreCredit(0.00);
+            throw 100;
         }
     }
 
@@ -132,7 +172,7 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
                                 </div>
                                 <div className="payment-input">
                                     <label className="form-control">Store credit</label>
-                                    <input type="number" className="form-control store-credit-amount-field" value={storeCredit} onChange={(event) => setStoreCredit(helper.getFloat(event))} />
+                                    <input type="number" className="form-control store-credit-amount-field" name="storeCreditAmount" value={storeCredit} onChange={(event) => setStoreCredit(helper.getFloat(event))} />
                                 </div>
                                 <br />
                             </fieldset>

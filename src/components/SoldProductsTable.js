@@ -1,36 +1,33 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Helper from "../util/Helper";
 
 
-const ProductsSoldTable = ( {productsSold} ) => {
+const ProductsSoldTable = ( ) => {
 
-    const getPaymentType = (s, paymentType)=>{
-         return s.paymentMethodId == paymentType;
-    }
+    const transactions = useSelector(state => state.transactionsReducer.transactions);
 
-    console.log("transactions table");
-    console.log(transactions);
+    const products = transactions.flatMap(t=> t.products);
+    console.log(" products table");
+    console.log(products);
+
     return(
         <div >
-        <table className='table table-striped table-hover'>
+        <table className='table table-striped table-hover products-sold'>
             <thead>
                 <tr key={"transactions-header-row"}>     
-                    <th className="table-col"> SaleInvoice Number </th>                   
-                    <th className="table-col"> Date and time </th>                 
-                    <th className="table-col"> Product ID </th>                   
-                    <th className="table-col"> Brand </th>
-                    <th className="table-col"> Type </th>
-                    <th className="table-col"> Colour</th>
-                    <th className="table-col"> Size </th>
-                    <th className="table-col"> Price Sold </th>
+                    <th className="table-col"> SaleInvoice Number </th>                                
+                    <th className="table-col"> Product ID</th>                   
+                    <th className="table-col"> Product Details </th>
                 </tr>
             </thead>
             <tbody >
                 {
-                        products.map(productSale =>
+                    products.map(productSale =>
                         <tr key={productSale.id} id={`product-sale-row-${productSale.id}`} style={{height:"50%"}}>                                
-                            <td className="table-col"> {sale.invoiceNumber} </td>
-                                                                            
+                            <td className="table-col"> {productSale.saleInvoiceId} </td> 
+                            <td className="table-col"> {productSale.productId} </td>
+                            <td className="table-col"> {productSale.product} </td>                                                                         
                         </tr>
                     )
                 }
@@ -40,4 +37,4 @@ const ProductsSoldTable = ( {productsSold} ) => {
     )    
 }
 
-export default TransactionsTable;
+export default ProductsSoldTable;

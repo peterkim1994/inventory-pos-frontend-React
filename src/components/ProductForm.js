@@ -63,6 +63,7 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
                 <Col sm={8}>
                     <Form.Control
                         type="number"
+                        disabled={true} 
                         onChange={(event) => updateProduct({ ...updatedProduct, barcode: parseInt(event.target.value) })}
                         value={updatedProduct.barcode === null ? "" : updatedProduct.barcode}
                     />
