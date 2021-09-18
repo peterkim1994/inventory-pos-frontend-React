@@ -14,3 +14,30 @@ export const setTransactions = async (dispatch, from, to) => {
     }
 }
 
+export const GetReport = async (from, to) => {
+    try{
+        const { data } = await axiosObj.get("StoreManagement/GetReport?from="+from +"&to="+to);
+        console.log("report");
+        console.log(data);
+        let report =   `<div>
+                            <h2> Report </h2>
+                            ${getBoldPara("from", data.from)}
+                            ${getBoldPara("to", data.to)}
+                            ${getBoldPara("total cash", data.cashAmount)}
+                            ${getBoldPara("total eftpos", data.eftposAmount)}
+                            ${getBoldPara("total after pay", data.afterPayAmount)}
+                            ${getBoldPara("Total ", data.totalAmount)}   
+                            ${getBoldPara("total refunds", data.totalRefunds)}
+                            ${getBoldPara("Net Total", data.netTotal)}  
+                        </div>`;
+
+        return report;
+    }catch (err){
+        console.log(" problem in transsaction services: \n" + err);
+    }
+}
+
+const getBoldPara = (text, text2)=>{
+    return `<p><b>${text} : </b> ${text2} </p>`;
+}
+

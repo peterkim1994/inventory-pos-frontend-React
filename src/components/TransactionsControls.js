@@ -1,6 +1,7 @@
 import { useState } from "react"
 import helper from '../util/Helper';
 import {setTransactions} from "../services/Transactions";
+import { GetReport } from "../services/Transactions";
 import { useDispatch } from "react-redux";
 
 
@@ -30,6 +31,13 @@ export const TransactionControls = () => {
         setTransactions(dispatch, startDate, toDate);
     }
 
+    const showReport = async (event) =>{
+        event.preventDefault();
+        const report = await GetReport(startDate, toDate);
+        let reportWindow = window.open("", "MsgWindow", "width=400, height=600");
+        reportWindow.document.write(report);  
+    }
+
     return (
         <div>
             <form>
@@ -49,6 +57,9 @@ export const TransactionControls = () => {
                 />
                 <button onClick = {searchDates}>
                     Search
+                </button>
+                <button onClick = {showReport}>
+                    GetReport
                 </button>
             </form>
         </div>

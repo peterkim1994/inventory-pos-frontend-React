@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 const TransactionsBody = ()=>{
 
-    const dispatch = useDispatch();
-    const transactions = useSelector(state => state.transactionsReducer.transactions);
+   // const dispatch = useDispatch();
+  //  const transactions = useSelector(state => state.transactionsReducer.transactions);
 
     // useEffect(()=>{
     //     if(transactions.length == 0)

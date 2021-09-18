@@ -2,6 +2,7 @@ import React from 'react';
 import EditProductModal from './EditProductModal';
 
 const InventoryTable = ({ products, selectEnabled, handleSelect, actionBtn }) => {
+    
     return (
         <div >
             <table className='table table-striped table-hover inventory-table'>

@@ -13,7 +13,7 @@ const EditProductModal = ({ product }) => {
 
 
   const editProduct = (editedProduct) => {    
-    const success =  EditProduct(dispatch, editedProduct);
+    const success =  EditProduct(dispatch, editedProduct);    
     if(success)
       handleClose();
   }

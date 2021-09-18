@@ -10,17 +10,18 @@ import helper from '../util/Helper';
 const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
 
     const total = parseFloat(sale.total);
-    const [paymentAmount,setPaymentAmount] = useState(0.00);
+    const [amountOwing, setAmountOwing] = useState(total);
+    const [paymentAmount, setPaymentAmount] = useState(0.00);
     const saleId = parseInt(sale.invoiceNumber);
     const saleFinished = useSelector(state => state.saleReducer.sale.finalised);
     const [primaryBtn, setPrimaryBtn] = useState("processSale");
     const payOptionsUi = useRef();
     const [eftpos, setEftpos] = useState(0.00);
     const [cash, setCash] = useState(0.00);
+    const [afterPay, setAfterPay] = useState(0.00);
     const [storeCredit, setStoreCredit] = useState(0.00);
     const dispatch = useDispatch();
-    const printReceipt = printInvoice;
-
+    const printReceipt = printInvoice;    
 
     useEffect(() => {
         if (saleFinished) {
@@ -45,6 +46,7 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
         setEftpos(0.00);
         setCash(0.00);
         setStoreCredit(0.00);
+        setAfterPay(0.00)
     }
 
     const processPayments = async() => {
@@ -54,6 +56,7 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
             let payments = [];
             if (eftpos == 0.00 &&
                 cash == 0.00 &&
+                afterPay == 0.00 &&
                 storeCredit == 0.00) {
                 alert("A payment type must be selected");
                 return;
@@ -72,6 +75,13 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
                     Amount: cash
                 });
             }
+            if (afterPay > 0) {
+                payments.push({
+                    SaleInvoiceId: saleId,
+                    PaymentMethodId: 3,
+                    Amount: afterPay
+                });
+            }
             if (storeCredit > 0) {
                 payments.push({
                     SaleInvoiceId: sale.id,
@@ -84,8 +94,11 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
                 let success = await CompleteSalePayments(dispatch, payments);
                 if(success)
                    printReceipt();
+                else 
+                    throw 100;
             }catch(e){
                 console.log(e);
+                payments = [];
             }
         }
     }
@@ -93,6 +106,7 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
     const setSinglePayment = (setPaymentType) => {
         setCash(0.00);
         setEftpos(0.00);
+        setAfterPay(0.00);
         setPaymentType(total);
     }
 
@@ -104,24 +118,27 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
                 return;
             }
             input.addEventListener("keypress", (event)=> {                
-                if (event.keyCode === 13 && storeCredit == 0.00){                
-                    let autoCalculateFor = input.name === "eftposAmount" ? setCash : setEftpos;                  
-                    let enteredValue =  input.name === "eftposAmount" ? eftpos : cash;  
-                    if(Number.isNaN(enteredValue) && enteredValue > total){
-                        setCash(0.00);
-                        setEftpos(0.00);
-                        setStoreCredit(0.00);         
-                        return;
-                    }                  
-                    try{
-                        handleNaNs();                 
-                        autoCalculateFor(total.toFixed(2) - enteredValue.toFixed(2));
-                    }catch (e){
-                        setCash(0.00);
-                        setEftpos(0.00);
-                        setStoreCredit(0.00);    
-                    }
-                    
+                if ( event.keyCode === 13 ){                
+                    // let autoCalculateFor = input.name === "eftposAmount" ? setCash : setEftpos;                  
+                    // let enteredValue =  input.name === "eftposAmount" ? eftpos : cash;  
+                    // if(Number.isNaN(enteredValue) && enteredValue > total){
+                    //     setCash(0.00);
+                    //     setEftpos(0.00);
+                    //     setStoreCredit(0.00); 
+                    //     setAfterPay(0.00);        
+                    //     return;
+                    // }                  
+                    // try{
+                    //     handleNaNs();                 
+                    //     autoCalculateFor(total.toFixed(2) - enteredValue.toFixed(2));
+                    // }catch (e){
+                    //     setCash(0.00);
+                    //     setEftpos(0.00);
+                    //     setStoreCredit(0.00);    
+                    // } 
+                  //  let amountPaid = 0.00;                   
+                    let amountPaid = eftpos + cash + afterPay + storeCredit;
+                    setAmountOwing(total-amountPaid);
                 }
             });
         }
@@ -155,6 +172,8 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
                             <label className="payment-radio-btns" htmlFor="eftposPay">EFTPOS</label>
                             <input type="radio" id="cashPay" name="paymentType" value="CASH" onClick={() => setSinglePayment(setCash)} />
                             <label className="payment-radio-btns" htmlFor="eftposPay">CASH</label>
+                            <input type="radio" id="afterPay" name="paymentType" value="AFTER PAY" onClick={() => setSinglePayment(setAfterPay)} />
+                            <label className="payment-radio-btns" htmlFor="eftposPay">AFTER PAY</label>
                         </form>
                         <input className="btn btn-info" type="button" value="More Options" onClick={enableMoreOptions} />
                         <form className="payment-controls" ref={payOptionsUi} style={{ visibility: "hidden" }}>
@@ -171,10 +190,15 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
                                     <input className="form-control amount-field" type="number" value={cash} name="cashAmount" onChange={(event) => setCash(helper.getFloat(event))} />
                                 </div>
                                 <div className="payment-input">
+                                <label className="form-control">After Pay</label>
+                                <input type="number" className="form-control after-pay-amount-field" name="storeCreditAmount" value={afterPay} onChange={(event) => setAfterPay(helper.getFloat(event))} />
+                            </div>
+                                <div className="payment-input">
                                     <label className="form-control">Store credit</label>
                                     <input type="number" className="form-control store-credit-amount-field" name="storeCreditAmount" value={storeCredit} onChange={(event) => setStoreCredit(helper.getFloat(event))} />
                                 </div>
                                 <br />
+                                <span>Amount owing: {amountOwing > 0 ? amountOwing: 0.00}</span>
                             </fieldset>
                         </form>
                         <div className="payment-controls">

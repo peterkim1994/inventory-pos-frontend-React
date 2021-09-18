@@ -11,7 +11,8 @@ class Helper {
     
     getFloat = (event) =>{
         let value =  event.target.value;
-        return parseFloat(value);
+        let parsedValue = parseFloat(value);
+        return Number.isNaN(parsedValue) ? 0.00 : parsedValue;
     }
 
 

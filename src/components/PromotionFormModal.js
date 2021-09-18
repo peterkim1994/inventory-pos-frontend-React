@@ -40,8 +40,7 @@ const PromotionFormModal = ({ promotion, label, handleSubmit }) => {
                 <Modal.Body>
                     <PromotionForm promotion={promotion} handleSubmit={submit} />       
                     <Button onClick={handleDelete} >Delete </Button>         
-                </Modal.Body>
-                
+                </Modal.Body>                
             </Modal>
         </div>
     )

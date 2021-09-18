@@ -24,6 +24,7 @@ const TransactionsTable = ({ transactions }) => {
                         <th className="table-col"> Time </th>
                         <th className="table-col"> Cash Amount </th>
                         <th className="table-col"> Efpos Amount </th>
+                        <th className="table-col"> AfterPay Amount</th>
                         <th className="table-col"> Store Credit Amount</th>
                         <th className="table-col"> total: </th>
                         <th className="table-col">  </th>
@@ -37,6 +38,7 @@ const TransactionsTable = ({ transactions }) => {
                                 <td className="table-col"> {Helper.getDate(sale.dateTime)} </td>
                                 <td className="table-col"> {Helper.getTime(sale.dateTime)} </td>
                                 <td className="table-col"> {sale.payments.filter(s => s.paymentMethodId == 1).map(s => s.amount)} </td>
+                                <td className="table-col"> {sale.payments.filter(s => s.paymentMethodId == 2).map(s => s.amount)} </td>
                                 <td className="table-col"> {sale.payments.filter(s => s.paymentMethodId == 2).map(s => s.amount)} </td>
                                 <td className="table-col"> {sale.payments.filter(s => s.paymentMethodId == 3).map(s => s.amount)} </td>
                                 <td className="table-col"> {sale.total} </td>
