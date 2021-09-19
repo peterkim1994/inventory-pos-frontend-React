@@ -9,7 +9,7 @@ const SaleInvoice = ({sale}) => {
         return (
             <p>
                 <span style={{whiteSpace:"pre-wrap"}}><b>{pr.product}</b></span>
-                <span><b>${pr.priceSold.toFixed(2)}</b></span>
+                <span><b>${pr.priceSold.toFixed(2)}</b></span>               
              </p>
         )
     });

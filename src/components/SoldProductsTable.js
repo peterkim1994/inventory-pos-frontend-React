@@ -15,7 +15,7 @@ const ProductsSoldTable = ( ) => {
         <div >
         <table className='table table-striped table-hover products-sold'>
             <thead>
-                <tr key={"transactions-header-row"}>     
+                <tr key={"products-sold-header-row"}>     
                     <th className="table-col"> SaleInvoice Number </th>                                
                     <th className="table-col"> Product ID</th>                   
                     <th className="table-col"> Product Details </th>

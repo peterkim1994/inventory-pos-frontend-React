@@ -11,6 +11,9 @@ const TransactionsTable = ({ transactions }) => {
     console.log("transactions table");
     console.log(transactions);
 
+    const sumPayments = (payments) =>{
+        return payments.reduce((a,b)=> a + b, 0);
+    }
 
 
 
@@ -33,15 +36,15 @@ const TransactionsTable = ({ transactions }) => {
                 <tbody >
                     {
                         transactions && transactions.map(sale =>
-                            <tr key={sale.id} id={`sale-row-${sale.id}`} style={{ height: "50%" }}>
+                            <tr key={sale.id} id={`sale-transaction-row-${sale.id}`} style={{ height: "50%" }}>
                                 <td className="table-col"> {sale.invoiceNumber} </td>
                                 <td className="table-col"> {Helper.getDate(sale.dateTime)} </td>
                                 <td className="table-col"> {Helper.getTime(sale.dateTime)} </td>
                                 <td className="table-col"> {sale.payments.filter(s => s.paymentMethodId == 1).map(s => s.amount)} </td>
                                 <td className="table-col"> {sale.payments.filter(s => s.paymentMethodId == 2).map(s => s.amount)} </td>
-                                <td className="table-col"> {sale.payments.filter(s => s.paymentMethodId == 2).map(s => s.amount)} </td>
                                 <td className="table-col"> {sale.payments.filter(s => s.paymentMethodId == 3).map(s => s.amount)} </td>
-                                <td className="table-col"> {sale.total} </td>
+                                <td className="table-col"> {sale.payments.filter(s => s.paymentMethodId == 4).map(s => s.amount)} </td>
+                                <td className="table-col"> {sumPayments(sale.payments.map(p=>p.amount))} </td>
                                 <td className="table-col"> {SaleInvoiceModal(sale)} </td>
                             </tr>
                         )
