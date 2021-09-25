@@ -149,5 +149,4 @@ export const GetProductAttributes = async (dispatch) => {
     } catch (err) {
         console.log("Set atts service error \n" + err)
     }
-
 }

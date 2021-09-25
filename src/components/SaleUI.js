@@ -104,9 +104,9 @@ export const SaleUI = () => {
                 <div className="payment-ui">
                     <SalePaymentUI sale={sale} processSaleComponent={processSaleBtn} clearSale={clearSale} />
                     <button className="btn btn-warning" 
-                    id="cancel-sale-btn"
-                    onClick={clearSale}
-                    disabled={cancelBtn}
+                        id="cancel-sale-btn"
+                        onClick={clearSale}
+                        disabled={cancelBtn}
                     > Cancel Sale </button>
                 </div>
                 <div className="printable" id="printed-receipt">

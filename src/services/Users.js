@@ -8,7 +8,8 @@ export const Login = async (dispatch, loginData, errHandler)=>{
         localStorage.setItem("authority", token);
         checkToken();
         await dispatch(ActionCreators.loginUser(data));
-        errHandler("success");        
+        errHandler("success");       
+
     }
     catch(e){
         if(e.response && e.response.data){

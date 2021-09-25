@@ -2,7 +2,7 @@ import SaleInvoice from "./SaleInvoice";
 import { Modal, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import { VoidProductSale } from "../services/Transactions";
-const SaleInvoiceModal = ( invoice ) => {
+const SaleInvoiceModal = ( {invoice} ) => {
 
     const [show, setShow] = useState(false);
 
@@ -17,7 +17,6 @@ const SaleInvoiceModal = ( invoice ) => {
     console.log(invoice);
     const voidProductSale = async (productSale) =>{
        let invoice =  await VoidProductSale(productSale);
-
     }
 
     const allC = invoice.payments.filter(p=>p.paymentMethodId !== 1).length === 0;
