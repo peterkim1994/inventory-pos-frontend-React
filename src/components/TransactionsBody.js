@@ -16,8 +16,6 @@ const TransactionsBody = ()=>{
     //         setTransactions(dispatch, helper.getDateMinusDays(1),helper.getCurrentDate());
     // },[]);
 
-   
-
     return(
         <div>
             <div>

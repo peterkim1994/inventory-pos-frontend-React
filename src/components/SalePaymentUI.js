@@ -21,7 +21,7 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
     const [afterPay, setAfterPay] = useState(0.00);
     const [storeCredit, setStoreCredit] = useState(0.00);
     const dispatch = useDispatch();
-    const printReceipt = printInvoice;    
+    const printReceipt = (numItems) => printInvoice(numItems);    
 
     useEffect(() => {
         if (saleFinished) {
@@ -51,7 +51,8 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
 
     const processPayments = async() => {
         if (saleFinished) {
-            printReceipt();
+            let numItems = sale.products.length
+            printReceipt(numItems);
         } else {            
             let payments = [];
             if (eftpos == 0.00 &&
@@ -92,9 +93,10 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
             // async  await
             try{
                 let success = await CompleteSalePayments(dispatch, payments);
-                if(success)
-                   printReceipt();
-                else 
+                if(success){
+                    let numItems = sale.products.length
+                    printReceipt(numItems);
+                }else 
                     throw 100;
             }catch(e){
                 console.log(e);

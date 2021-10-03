@@ -3,7 +3,7 @@ import { Form, Col, Row, Input } from 'react-bootstrap';
 const NumericalFormInput = ({ label, initialValue, handleOnChange, minVal }) => {
     return (
         <Col>
-            <Form.Group as={Row} hasvalidation>
+            <Form.Group as={Row} >
                 <Form.Label column sm={4}> {label} </Form.Label>
                 <Col sm={8}>
                     <input

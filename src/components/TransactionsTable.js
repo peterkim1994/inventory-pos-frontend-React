@@ -43,7 +43,7 @@ const TransactionsTable = ({ transactions }) => {
                                 <td className="table-col"> {sale.payments.filter(s => s.paymentMethodId == 3).map(s => s.amount)} </td>
                                 <td className="table-col"> {sale.payments.filter(s => s.paymentMethodId == 4).map(s => s.amount)} </td>
                                 <td className="table-col"> {sumPayments(sale.payments.map(p=>p.amount))} </td>
-                                <td className="table-col"> { SaleInvoiceModal(sale)} </td>
+                                <td className="table-col"> <SaleInvoiceModal invoice={sale}/> </td>
                             </tr>
                         )
                     }

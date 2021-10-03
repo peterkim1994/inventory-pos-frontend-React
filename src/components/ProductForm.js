@@ -35,7 +35,7 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
     }
 
     return (
-        <Form hasvalidation onSubmit={submitForm} >
+        <Form onSubmit={submitForm} >
             <Form.Group as={Row} controlId="manufacture">
                 <Form.Label column sm={4} >Manufacturer Code </Form.Label>
                 <Col sm={8}>
@@ -62,8 +62,7 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
                 <Form.Label column sm={4} >Barcode Number</Form.Label>
                 <Col sm={8}>
                     <Form.Control
-                        type="number"
-                        disabled={true} 
+                        type="number"                        
                         onChange={(event) => updateProduct({ ...updatedProduct, barcode: parseInt(event.target.value) })}
                         value={updatedProduct.barcode === null ? "" : updatedProduct.barcode}
                     />

@@ -7,7 +7,8 @@ import InventoryTabs from './components/InventoryTabs';
 import PosTabs from './components/PosTabs';
 import LoginPage from './components/LoginPage';
 import TransactionsBody from './components/TransactionsBody';
-
+import PrintComponent from './components/PrintComponent';
+import ProductLabel from './components/ProductLabel';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetProductAttributes, GetInventory } from './services/Inventory';
@@ -26,6 +27,9 @@ function App() {
       <Route exact path = "/pos" component={PosTabs}/>
       <Route exact path = "/transactions" component={TransactionsBody}/>
       <Route exact path = "/login" component={LoginPage}/>
+      <Route exact path = "/printComponent" component={PrintComponent}/>
+      <div className="printable" id="printable-label">
+      </div>
     </div>
   );
 }
