@@ -13,13 +13,19 @@ const SaleInvoiceModal = ( {invoice} ) => {
     const closeModal = () => {
         setShow(false);
     }
-    console.log("invoice");
-    console.log(invoice);
+
     const voidProductSale = async (productSale) =>{
        let invoice =  await VoidProductSale(productSale);
     }
 
-    const allC = invoice.payments.filter(p=>p.paymentMethodId !== 1).length === 0;
+    const allC =() =>{ 
+       let allCash = invoice.payments.filter(p=>p.paymentMethodId !== 1).length === 0;   
+       localStorage.setItem("superAdminLogedOn",true);
+       if(localStorage.getItem("superAdminLogedOn") == "true"){
+         return allCash;        
+       }
+       return false;
+    };
 
     return (
         <div className="invoice-modal">
@@ -31,11 +37,15 @@ const SaleInvoiceModal = ( {invoice} ) => {
                     </Modal.Header>
                     <Modal.Body>
                         <SaleInvoice sale={invoice} />
-                        {allC && invoice.products.map(p=>                                 
-                             <div key={`ps-m-${p.id}`}>
-                                <span>{p.product}</span>   
-                                <button onClick={() => voidProductSale(p)}>  void </button>                                
-                             </div>                                
+                        {allC()==true && invoice.products.map(p=>                            
+                            {
+                            if(p.canceled == false)  
+                                return(                              
+                                    <div key={`ps-m-${p.id}${invoice.invoiceNumber}`}>
+                                        <span>{p.product}</span>   
+                                        <button onClick={() => voidProductSale(p)}>  void </button>                                
+                                    </div>)
+                            }                         
                         )}
                     </Modal.Body>
                 </Modal>

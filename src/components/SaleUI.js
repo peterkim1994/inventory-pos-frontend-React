@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SaleProductList from './SaleProductList';
-import { AddProductSales, StartSale, ClearSale } from '../services/Pos';
+import { AddProductSales, StartSale, ClearSale, CancelSale } from '../services/Pos';
 import SalePaymentUI from './SalePaymentUI';
 import SaleInvoice from './SaleInvoice';
 
@@ -14,6 +14,7 @@ export const SaleUI = () => {
     const [saleItems, setSaleItems] = useState([]);
     const barcodeRef = useRef();
     const dispatch = useDispatch();
+    let currentSaleId;
 
     const [cancelBtn,disableCancelBtn] = useState(false);
 
@@ -32,8 +33,15 @@ export const SaleUI = () => {
     }
 
     const clearSale = () => {
+        ClearSale(dispatch)
         setSaleItems([]);
-        ClearSale(dispatch);
+        disableRemoveBtns(false);
+    }
+
+    const cancelCurrentSale = () =>{
+        console.log(`current sale id is ${currentSaleId} and ${sale.id}`);
+        CancelSale(dispatch, sale);        
+        setSaleItems([]);
         disableRemoveBtns(false);
     }
 
@@ -71,10 +79,12 @@ export const SaleUI = () => {
         if (saleItems.length > 0) {
             try {
                 const saleId = await StartSale(dispatch);
+                console.log(`started new sale id: ${saleId}`);
+                currentSaleId = saleId;
                 await AddProductSales(dispatch, saleId, saleItems);
                 disableRemoveBtns(true);
             } catch (err) {
-
+                alert("weird err");
             }
         } else {
             alert("There are no products in this sale");
@@ -88,7 +98,7 @@ export const SaleUI = () => {
     }
 
     return (
-        <div>
+        <div>        
             <div className="pos-page">
                 <div className="sale-ui">
                     <div className="barcode-search">
@@ -105,11 +115,12 @@ export const SaleUI = () => {
                     <SalePaymentUI sale={sale} processSaleComponent={processSaleBtn} clearSale={clearSale} />
                     <button className="btn btn-warning" 
                         id="cancel-sale-btn"
-                        onClick={clearSale}
+                        onClick={cancelCurrentSale}
                         disabled={cancelBtn}
                     > Cancel Sale </button>
                 </div>
                 <div className="printable" id="printed-receipt">
+                    <img id="receipt-logo" src="../procamp_sign.png"/>
                     <SaleInvoice sale={sale} business={business} />
                 </div>
             </div>
@@ -117,5 +128,4 @@ export const SaleUI = () => {
         </div>
     );
 }
-// <iframe id="printed-receipt" style={{ height: "0px", width: "0px", position: "absolute" }}></iframe>
 export default SaleUI

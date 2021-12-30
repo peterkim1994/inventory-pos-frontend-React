@@ -49,12 +49,15 @@
 .inventory-search-bar{
   display:flex;
   width: 20vw;
+  padding-bottom: 3px;
 }
 
 .tabbed-panel{ 
   margin:auto;
   padding-top: 10px;
   max-width: 80%;
+  padding: 20px;
+  margin-top: 20px;
 }
 
 .inventory-table{  
@@ -62,6 +65,7 @@
   max-width: 100%;
   padding: 3rem;
   position:relative; 
+  
 }
 
 .inventory-table-body{
@@ -108,12 +112,13 @@
   max-height: 400px;
   overflow-y: scroll;
 }
+
 .promotion-modal-table{
    max-height: 500;
    overflow-y:hidden;
 }
 
-.promotional-management{
+.promotional-management{  
    margin-top: 10px;
    margin-left:auto; 
    margin-right: auto;
@@ -121,8 +126,9 @@
    display: inline-block;
    align-items:center;
    align-content: center;
-   justify-items:stretch;
+   justify-items:center;
    text-align: left;
+   padding: 25px;
 }
 
 .promotion-modal{
@@ -155,7 +161,6 @@
   max-width: 60vw;
   height: 75vh;
   margin:auto;
-  box-shadow: 1px 1px 1px 1px #888888;
 }
 
 .sales-list-body{
@@ -197,11 +202,17 @@
     align-content:center;
     align-items: center;
     margin: auto;    
+
+    box-shadow: 1px 1px 1px 1px #888888;
+    border: 1px solid blue;
+    border-radius: 12px;
+    padding: 10px;
+    background-color: rgb(217, 231, 247);
 }
 
 .payment-ui{  
     padding: 2vh;
-    background-color: rgba(222, 222, 243, 0.767);
+    background-color: rgba(232, 232, 235, 0.767);
     box-shadow: 1px 1px 1px 1px #888888;
     width: 25vw;
     min-height: 75vh;
@@ -235,12 +246,16 @@
 }
 
 #printed-receipt{
-  width: 5cm;
-  height: 7cm;
+  position: absolute;
+  left: 10mm;
+  top:2mm;
+  width: 79mm;
+  height: 90mmm;
   margin: 0mm;
   font-size: smaller;
   font-weight: bold;
   text-align: left;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .printable{
@@ -257,6 +272,23 @@
   height: 50vh;
   margin: auto;
   background-color: linen;
+
+  border: 1px solid blue;
+  border-radius: 12px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.promoPage{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  margin: auto;
+
+  border: 1x solid blue;
+  border-radius: 12px;
+  padding: 10px;
+  margin-top: 20px;
 }
 
 .refund-field{
@@ -286,10 +318,45 @@
     margin-left: 0mm;
     margin-top: 0mm;
   }
-  .product-label{
-    size: landscape;
+
+  #printed-receipt{
+    position: absolute;
+    left: 10mm;
+    top:2mm;
+    width: 78mm;
+    height: 78mm;
+    margin: 0mm;
+    font-size: smaller;
+    font-weight: bold;
+    text-align: left;    
+    font-family: Arial, Helvetica, sans-serif;
   }
 
+  .bulk-print-list{
+    font-style: normal;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+  }
+
+  #receipt-logo{
+    max-width: 70mm;
+    max-height: auto;
+  }
+
+  .product-label{
+   /* size: landscape; */
+    margin: auto;
+    display: flex;
+    flex-direction:column;
+    align-self: center;
+    justify-content: center;
+    align-content: center;
+    max-width: 50.mm;
+    max-height: 28mm;
+    margin-left: 0mm;
+    margin-top: 0mm;
+    font-size: smaller;
+  }
 }
 
 .products-sold{
@@ -301,4 +368,44 @@
   flex-direction:column;
   align-items: center;
   justify-content: center;
+}
+
+.sales-report{
+  white-space: pre-wrap;
+  display: flex;
+}
+
+.sold-products-page{
+  display: flex;  
+}
+
+.sold-products-page-sold-table {
+/*  border: 1px solid blue;
+  border-radius: 12px;
+  padding: 5px; */
+  background-color: white;
+  flex: 3 1 0;
+}
+
+.sold-products-page-bulk-list {
+  padding: 5px;
+  flex: 1 2 0;
+}
+
+.transactions-table{
+  display: flex;
+  align-content: center;
+  margin: auto;
+  max-width: 80%;
+  border: 1px solid blue;
+  border-radius: 12px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.payment-radio-btns input{
+  width: 1.5em;
+  height: 1.5em;
+  top: 3px;
+  position: relative;
 }

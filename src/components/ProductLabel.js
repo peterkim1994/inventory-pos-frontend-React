@@ -14,18 +14,20 @@ const ProductLabel = ({ product, size, productId }) => {
     const barcodeRef = useRef();
     useEffect(() => {
         var JsBarcode = require('jsbarcode');
-        JsBarcode(".barcode").options({height:20}).init()
+        JsBarcode(".barcode").options({height:size?size:20,width:1.7} ).init()
     }, []);
-
-    return (
-        <div id={`product-label-${product.id}`} className="product-label">
-            <span>{product.brandValue} - {product.itemCategoryValye}
-                {product.colourValue} - ${product.sizeValue} - ${product.price}</span>
-            <svg className="barcode"
-                jsbarcode-value={product.barcode.toString()}
-                jsbarcode-textmargin="0"
-                jsbarcode-fontoptions="bold">
-            </svg>
+//style={{display:"flex",flexDirection:"column",justifyContent:"center",alignContent:"center",margin:"0"}}
+    return (        
+        <div id={`product-label-${product.id}`} className="product-label" style={{position:"relative"}}>
+        <br/>
+            <span>{product.brandValue}&nbsp;{product.itemCategoryValye}&nbsp;
+                {product.colourValue}&nbsp;{product.sizeValue}&nbsp;${product.price}</span>         
+                <svg className="barcode"                    
+                    jsbarcode-value={product.barcode.toString()}
+                    jsbarcode-textmargin="0"
+                    jsbarcode-fontoptions="bold">
+                </svg>
+           
         </div>
     );
 }

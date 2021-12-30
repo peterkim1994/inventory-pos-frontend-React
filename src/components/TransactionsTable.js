@@ -16,7 +16,7 @@ const TransactionsTable = ({ transactions }) => {
     }
 
     return (
-        <div >
+        <div className="transactions-table">
             <table className='table table-striped table-hover'>
                 <thead>
                     <tr key={"transactions-header-row"}>

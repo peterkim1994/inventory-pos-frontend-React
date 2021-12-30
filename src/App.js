@@ -10,7 +10,7 @@ import TransactionsBody from './components/TransactionsBody';
 import PrintComponent from './components/PrintComponent';
 import ProductLabel from './components/ProductLabel';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { GetProductAttributes, GetInventory } from './services/Inventory';
 
 function App() {

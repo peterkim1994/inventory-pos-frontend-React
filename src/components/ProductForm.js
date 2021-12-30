@@ -6,9 +6,7 @@ import AttributeSelector from './AttributeSelector';
 import NumericalFormInput from './NumericalFormInput';
 import CurrencyFormInput from './CurrencyFormInput';
 
-
 export const ProductForm = ({ product, handleClose, handleSubmit }) => {
-
     const brands = useSelector(state => state.inventoryReducer.brands);
     const colours = useSelector(state => state.inventoryReducer.colours);
     const sizes = useSelector(state => state.inventoryReducer.sizes);
@@ -21,11 +19,11 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
     const [updatedProduct, updateProduct] = useState(product);
 
     const submitForm = (event) => {
-        const form = event.currentTarget;
+        //const form = event.currentTarget;
         event.preventDefault();
         if (!updatedProduct.itemCategoryId  ||
             !updatedProduct.brandId ||
-            !updatedProduct.colourId  ||
+            !updatedProduct.colourId||
             !updatedProduct.sizeId
         ) {
             inputValidationResponse.current.innerHTML = "You must make a selection for all product options";
@@ -110,7 +108,7 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
             </Form.Row>
             <div className="form-buttons-container">
                 <Button variant="primary" className="product-form-button"
-                    type="submit" > Save </Button>
+                    type="button" onClick={submitForm}> Save </Button>
                 {product.id && <Button variant="warning" className="product-form-button" onClick={handleClose}> close </Button>}
                 <p ref={inputValidationResponse} className="error-message" id="addProductApiResponse">{}</p>
             </div>

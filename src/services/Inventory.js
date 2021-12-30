@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { ActionCreators } from '../redux/InventoryReducer';
 import {axiosObj} from './RequestServer';
 
@@ -12,14 +13,14 @@ export const GetInventory = async (dispatch) => {
     }
 }
 
-export const SetSearchItems = async (dispatch, searchQuery) => {
-    try {
-        const data = 
-        dispatch(ActionCreators.setSearchProducts(data));
-    } catch (err) {
-        console.log("GetInventory service error \n" + err)
-    }
-}
+// export const SetSearchItems = async (dispatch, searchQuery) => {
+//     try {
+//         const data = 
+//         dispatch(ActionCreators.setSearchProducts(data));
+//     } catch (err) {
+//         console.log("GetInventory service error \n" + err)
+//     }
+// }
 
 export const AddColour = async (dispatch, colour) => {
     try {
@@ -148,5 +149,15 @@ export const GetProductAttributes = async (dispatch) => {
         dispatch(ActionCreators.setSizes(sizes));
     } catch (err) {
         console.log("Set atts service error \n" + err)
+    }
+}
+
+export const GetTheseProducts = async (productIds) =>{
+    try{
+        const {data} = await axiosObj.post("inventory/getTheseProducts",productIds);
+        return data;
+    }
+    catch(e){
+        console.log(e);
     }
 }

@@ -8,6 +8,8 @@ export const Login = async (dispatch, loginData, errHandler)=>{
         localStorage.setItem("authority", token);
         checkToken();
         await dispatch(ActionCreators.loginUser(data));
+        localStorage.setItem("superAdminLogedOn",true);
+        setInterval(()=> localStorage.setItem("superAdminLogedOn",false), 30000);
         errHandler("success");       
 
     }

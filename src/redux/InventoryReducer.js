@@ -1,5 +1,4 @@
 const initialState = {
-   // searchedProducts:[],
     products: [],
     colours: [],
     sizes: [],
@@ -26,7 +25,6 @@ export const ActionTypes = {
 }
 
 export const ActionCreators = {
-   // setSearchedProducts: payload => ({ type: ActionTypes.SET_SEARCHED_PRODUCTS, payload }),
     setProducts: payload => ({ type: ActionTypes.SET_PRODUCTS, payload }),
     newProduct: payload => ({ type: ActionTypes.NEW_PRODUCT, payload }),
     editProduct: payload => ({ type: ActionTypes.EDIT_PRODUCT, payload }),
@@ -45,9 +43,6 @@ export const ActionCreators = {
 
 export default function InventoryReducer(state = initialState, action) {
     switch (action.type) {
-      //  case ActionTypes.SET_SEARCHED_PRODUCTS:
-      //      return { ...state, searchedProducts: [...action.payload] }
-
         case ActionTypes.SET_PRODUCTS:
             return { ...state, products: [...action.payload] }            
 

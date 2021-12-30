@@ -72,6 +72,7 @@ const PromotionProductsModal = ({ promotion, handleClose }) => {
     const handleSelect = (event) => {
         const product = event;
         const selectedItemId = product.id;
+        alert("added");
         if (editedPromotion.productIds.includes(selectedItemId) === false) { // product is added to promotion if its not already inlcuded in it
             setPromotion({ ...editedPromotion, productIds: [...editedPromotion.productIds, selectedItemId] });
         } else {

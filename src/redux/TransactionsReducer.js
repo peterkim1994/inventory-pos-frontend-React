@@ -2,21 +2,28 @@ const initialState = {
     transactions : [],
     selectedTransaction : {},
     refunds : [],
-    refund : {}
+    refund : {},
+    bulkPrintList : []
 }
 
 export const ActionTypes = {
     SET_TRANSACTIONS : "SET_TRANSACTIONS",
     DELETE_TRANSACTIONS : "DELETE_TRANSACTIONS",
     SET_REFUNDS : "SET_REFUNDS",
-    RESTOCK_PRODUCT : "RESTOCK_PRODUCT"
+    RESTOCK_PRODUCT : "RESTOCK_PRODUCT",
+    SET_BULK_PRINT_LIST : "SET_BULK_PRINT_LIST",
+    CLEAR_BULK_PRINT_LIST : "CLEAR_BULK_PRINT_LIST",
+    RESTOCK_PRODUCTS : "RESTOCK_PRODUCTS",
 }
 
 export const ActionCreators = {
     setTransactions: payload => ({type: ActionTypes.SET_TRANSACTIONS, payload}),
     deleteTransactions: payload => ({type: ActionTypes.DELETE_TRANSACTIONS, payload}),
     setRefunds: payload => ({type: ActionTypes.SET_REFUNDS, payload}),
-    restockProduct : payload => ({type: ActionTypes.RESTOCK_PRODUCT, payload})
+    restockProduct : payload => ({type: ActionTypes.RESTOCK_PRODUCT, payload}),
+    updateBulkPrintList : payload => ({type: ActionTypes.SET_BULK_PRINT_LIST, payload}),
+    clearBulkPrintList : () => ({type: ActionTypes.CLEAR_BULK_PRINT_LIST}),
+    restockProducts : payload => ({type: ActionTypes.RESTOCK_PRODUCTS, payload}),
 }
 
 export default function TransactionsReducer(state = initialState, action) {
@@ -41,6 +48,24 @@ export default function TransactionsReducer(state = initialState, action) {
                 return t;
             } );
             return {...state, transactions: newTransactions}
+        case ActionTypes.SET_BULK_PRINT_LIST:
+            let newList = [...action.payload];
+            return {...state, bulkPrintList: newList}
+        case ActionTypes.CLEAR_BULK_PRINT_LIST:   
+            return {...state, bulkPrintList: new Array()}
+        case ActionTypes.RESTOCK_PRODUCTS:
+            let restockedProducts = action.payload;
+            let updatedTransactions = state.transactions.map(t => 
+                {
+                    t.products.forEach(ps => {
+                        if(restockedProducts.some(rs => rs.id === ps.id)){
+                            ps.restocked = true;
+                        }                           
+                    });
+                    return t;
+                }
+            );
+            return {...state, transactions: updatedTransactions}
         default:
             return state;
     }

@@ -1,5 +1,4 @@
-import { useState } from "react"
-import helper from '../util/Helper';
+import { useEffect, useState } from "react"
 import {setTransactions} from "../services/Transactions";
 import { GetReport } from "../services/Transactions";
 import { useDispatch } from "react-redux";
@@ -10,11 +9,13 @@ export const TransactionControls = () => {
     let from = new Date().toISOString().slice(0, 10);
     let to = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().slice(0, 10);
 
-
     const [startDate, setStartDate] = useState(from);
     const [toDate, setToDate] = useState(to);
     const dispatch = useDispatch();
 
+    useEffect(()=>{
+        setTransactions(dispatch, startDate, toDate);
+    },[])
 
     const selectFromDate = (event) => {
         let from = event.target.value;
@@ -34,7 +35,7 @@ export const TransactionControls = () => {
     const showReport = async (event) =>{
         event.preventDefault();
         const report = await GetReport(startDate, toDate);
-        let reportWindow = window.open("", "MsgWindow", "width=400, height=600");
+        let reportWindow = window.open("", "MsgWindow", "width=370, height=400");
         reportWindow.document.write(report);  
     }
 
@@ -61,6 +62,7 @@ export const TransactionControls = () => {
                 <button onClick = {showReport}>
                     GetReport
                 </button>
+                <button>TodaysReport</button>
             </form>
         </div>
     )

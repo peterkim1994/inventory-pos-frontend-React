@@ -1,4 +1,4 @@
-import { Modal, Button, FormControl, Row, Col } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { ProductForm } from './ProductForm';
@@ -20,13 +20,12 @@ const EditProductModal = ({ product }) => {
   }
 
   const printLabel = () =>{
-    var myWindow = window.open("http://localhost:3000/printComponent", "MsgWindow", `width=${300}mm,height=${270}mm`);
-    myWindow.document.write(productRef.current.innerHTML);   
-    console.log(productRef.current.innerHTML);   
-    let printContents = document.getElementById("printable-label");
-    printContents.appendChild(productRef.current);
+    var myWindow = window.open("http://localhost:3000/printComponent", "MsgWindow", `width=${50}mm,height=${27}mm`);
+    myWindow.document.write(productRef.current.innerHTML);  
+   // let printContents = document.getElementById("printable-label");
+   // printContents.appendChild(productRef.current);
     myWindow.print();   
-    myWindow.onafterprint = myWindow.close();
+   // myWindow.onafterprint = myWindow.close();
   }
 
   return (

@@ -1,8 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { CompleteSalePayments } from '../services/Pos';
-import SaleInvoice from './SaleInvoice';
+import { CompleteSalePayments, UpdateSaleCashStatus } from '../services/Pos';
 import { printInvoice } from './SaleInvoice';
 import helper from '../util/Helper';
 
@@ -21,7 +20,7 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
     const [afterPay, setAfterPay] = useState(0.00);
     const [storeCredit, setStoreCredit] = useState(0.00);
     const dispatch = useDispatch();
-    const printReceipt = (numItems) => printInvoice(numItems);    
+    const printReceipt = (cashAmount = 0, changeAmount=0) => printInvoice(cashAmount, changeAmount);    
 
     useEffect(() => {
         if (saleFinished) {
@@ -51,8 +50,11 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
 
     const processPayments = async() => {
         if (saleFinished) {
-            let numItems = sale.products.length
-            printReceipt(numItems);
+            if(cash > 0){
+                printReceipt(cash, amountOwing * -1);
+            }else{
+                printReceipt();
+            }  
         } else {            
             let payments = [];
             if (eftpos == 0.00 &&
@@ -73,8 +75,10 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
                 payments.push({
                     SaleInvoiceId: saleId,
                     PaymentMethodId: 1,
-                    Amount: cash
+                    Amount: cash + amountOwing  // amount owing will be change given                   
                 });
+                sale.TotalCashRecieved = cash;
+                sale.changeGiven = amountOwing;
             }
             if (afterPay > 0) {
                 payments.push({
@@ -90,12 +94,16 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
                     Amount: storeCredit
                 });
             }
-            // async  await
             try{
                 let success = await CompleteSalePayments(dispatch, payments);
+                await UpdateSaleCashStatus(dispatch, sale);
                 if(success){
                     let numItems = sale.products.length
-                    printReceipt(numItems);
+                    if(cash > 0){
+                        printReceipt(cash, amountOwing * -1);
+                    }else{
+                        printReceipt();
+                    }                   
                 }else 
                     throw 100;
             }catch(e){
@@ -120,30 +128,30 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
                 return;
             }
             input.addEventListener("keypress", (event)=> {                
-                if ( event.keyCode === 13 ){                
-                    // let autoCalculateFor = input.name === "eftposAmount" ? setCash : setEftpos;                  
-                    // let enteredValue =  input.name === "eftposAmount" ? eftpos : cash;  
-                    // if(Number.isNaN(enteredValue) && enteredValue > total){
-                    //     setCash(0.00);
-                    //     setEftpos(0.00);
-                    //     setStoreCredit(0.00); 
-                    //     setAfterPay(0.00);        
-                    //     return;
-                    // }                  
-                    // try{
-                    //     handleNaNs();                 
-                    //     autoCalculateFor(total.toFixed(2) - enteredValue.toFixed(2));
-                    // }catch (e){
-                    //     setCash(0.00);
-                    //     setEftpos(0.00);
-                    //     setStoreCredit(0.00);    
-                    // } 
-                  //  let amountPaid = 0.00;                   
+                if ( event.keyCode === 13 ){                           
                     let amountPaid = eftpos + cash + afterPay + storeCredit;
-                    setAmountOwing(total-amountPaid);
+                    setAmountOwing(roundTo(total-amountPaid, 2));
                 }
             });
         }
+    }
+
+    const roundTo = (n, digits)=> {
+        var negative = false;
+        if (digits === undefined) {
+            digits = 0;
+        }
+        if (n < 0) {
+            negative = true;
+            n = n * -1;
+        }
+        var multiplicator = Math.pow(10, digits);
+        n = parseFloat((n * multiplicator).toFixed(11));
+        n = (Math.round(n) / multiplicator).toFixed(digits);
+        if (negative) {
+            n = (n * -1).toFixed(digits);
+        }
+        return parseFloat(n);
     }
 
     const handleNaNs = ()=>{
@@ -200,7 +208,7 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
                                     <input type="number" className="form-control store-credit-amount-field" name="storeCreditAmount" value={storeCredit} onChange={(event) => setStoreCredit(helper.getFloat(event))} />
                                 </div>
                                 <br />
-                                <span>Amount owing: {amountOwing > 0 ? amountOwing: 0.00}</span>
+                                {amountOwing > 0 ? <span>Amount Owing : {amountOwing} </span> :<span> Change Owed : {amountOwing * -1} </span>}
                             </fieldset>
                         </form>
                         <div className="payment-controls">
@@ -208,7 +216,7 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
                             <button className="btn btn-light" onClick={processPayments} style={{width:"130px"}}> {primaryBtn}</button>
                         </div>
                     </div>
-            }
+                }
         </div>
     )
 }

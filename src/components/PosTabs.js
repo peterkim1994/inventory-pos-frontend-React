@@ -14,7 +14,7 @@ const PosTabs = () => {
                     </div>
                 </Tab>
                 <Tab eventKey="Process Refund" title="Process Refund" >
-                    <div className="tabbed-panel">
+                    <div className="tabbed-panel2">
                         <RefundUI />
                     </div>
                 </Tab>

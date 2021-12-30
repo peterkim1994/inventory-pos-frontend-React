@@ -25,7 +25,7 @@ export const LoginPage = () =>{
                 <label>User Name: </label>
                 <input  name="userName" onChange={(event)=> setName(event.target.value)}/>
                 <label>Password: </label>
-                <input  name="password" onChange={(event)=> setPassword(event.target.value)}/>   
+                <input type="password" name="password" onChange={(event)=> setPassword(event.target.value)}/>   
                 <br/>
                 <button type="submit">Login</button>
             </form>

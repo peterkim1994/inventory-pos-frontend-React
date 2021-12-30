@@ -6,6 +6,7 @@ const initialState = {
         contact: "0800 83 83 83"
     },
     sale: {
+        id: 0,
         invoiceNumber: "",
         products: [],
         payments: [],
@@ -35,7 +36,8 @@ export const ActionTypes = {
     ADD_PAYMENTS: "ADD_PAYMENTS",
     EDIT_PAYMENT: "EDIT_PAYMENT",
     DELETE_PAYMENT: "DELETE_PAYMENT",
-    UPDATE_SALE_STATUS: "UPDATE_SALE_STATUS"
+    UPDATE_SALE_STATUS: "UPDATE_SALE_STATUS",
+    UPDATE_SALE_CHANGE_GIVEN: "UPDATE_SALE_CHANGE_GIVEN"
 }
 
 export const ActionCreators = {
@@ -53,7 +55,8 @@ export const ActionCreators = {
     editPayment: payload => ({ type: ActionTypes.EDIT_PAYMENT, payload }),
     deletePayment: payload => ({ type: ActionTypes.DELETE_PAYMENT, payload }),
     updateSaleStatus: payload => ({ type: ActionTypes.UPDATE_SALE_STATUS, payload }),
-    clearSale : () => ({type: ActionTypes.CLEAR_SALE})
+    clearSale : () => ({type: ActionTypes.CLEAR_SALE}),
+    updateSaleChangeGiven : payload => ({type: ActionTypes.UPDATE_SALE_CHANGE_GIVEN, payload})
 }
 
 export default function SaleReducer(state = initialState, action) {
@@ -63,7 +66,12 @@ export default function SaleReducer(state = initialState, action) {
         case ActionTypes.UPDATE_SALE_PAYMENTS:
             return { ...state, sale: { ...state.sale, payments: action.payload } }
         case ActionTypes.SET_SALE:
-            return { ...state, sale: action.payload }
+            let oldObj = state.sale;
+            let newObj = Object.assign({},action.payload);
+            return Object.assign({}, state, {
+                sale: action.payload
+              });
+           // return { ...state, sale: newObj }
         case ActionTypes.CANCEL_SALE:
             return { ...state, sale: action.payload }
         case ActionTypes.HOLD_SALE: //holds current sale as previous, and assigns new sale to current
@@ -82,6 +90,8 @@ export default function SaleReducer(state = initialState, action) {
             return { ...state, sale: { ...state.sale, finalised: action.payload } }
         case ActionTypes.CLEAR_SALE:
             return {...state, sale : initialState.sale}
+        case ActionTypes.updateSaleChangeGiven:
+            return {...state, sale: {...state.sale, totalCashRecieved: action.payload.totalCashRecieved, changeGiven: action.payload.changeGiven}}
         default:
             return state;
     }

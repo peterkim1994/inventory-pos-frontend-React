@@ -25,7 +25,8 @@ export const GetPrevSale = async (dispatch, saleId) => {
 export const StartSale = async (dispatch) => {
     try {
         const { data } = await axiosObj.post("sales/StartNewSale");
-        dispatch(ActionCreators.startNewSale(data));
+        await dispatch(ActionCreators.startNewSale(data));
+        //return data.id;
         return parseInt(data.invoiceNumber);
     } catch (err) {
         console.log("start sale service err");
@@ -41,7 +42,7 @@ export const AddProductSales = async (dispatch, saleId, products) => {
             saleId: saleId
         }
         const { data } = await axiosObj.post("sales/AddProductSales", reqBody);
-        dispatch(ActionCreators.setSale(data));
+        await dispatch(ActionCreators.setSale(data));
     } catch (err) {
         console.log("addProductSales  service err");
         console.log(err);
@@ -90,13 +91,27 @@ export const ProcessRefund = async (refund, setMsg) => {
 
 export const CancelSale = async(dispatch, sale) => {
     try {        
-        const { data } = await axiosObj.post("sales/cancelSale", parseInt(sale.invoiceNumber));
+        const { data } = await axiosObj.post("sales/cancelSale", sale);
         dispatch(ActionCreators.clearSale());      
     }
     catch (e) {
         if (e.response && e.response.data) {
             console.log(e.response.data); 
             alert("sale doesnt exist, was not canceled");
+        } else {
+            console.log(e);
+        }
+    }
+}
+
+//for total cash given and change owed
+export const UpdateSaleCashStatus = async(dispatch, sale)=> {
+    try {               
+        dispatch(ActionCreators.updateSaleChangeGiven(sale));      
+    }
+    catch (e) {
+        if (e.response && e.response.data) {
+            console.log(e.response.data);           
         } else {
             console.log(e);
         }

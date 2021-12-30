@@ -3,15 +3,18 @@ import React, { useRef } from 'react';
 const SaleInvoice = ({sale}) => {
     
     const invoiceRef = useRef();
+    let keyNum = 0;
 
-    const productList = sale.products.map(pr => {
+    const productList = sale.products.map(pr => {        
         if (pr.promotionApplied = true) {
             let promo = pr.promotionName;
         }
         return (
-            <p>
-                <span style={{whiteSpace:"pre-wrap"}}>{pr.product}</span>
-                <span>${pr.priceSold.toFixed(2)}</span>               
+            <p key={`${pr.product}-${sale.invoiceNumber}-${++keyNum}`}>
+                <span style={{whiteSpace:"pre-wrap"}}>{pr.product} </span>
+                <span>: ${pr.priceSold.toFixed(2)}</span>  
+                {pr.promotionApplied && <br/>}
+                {pr.promotionApplied &&<span style={{color:"GrayText"}}> {pr.promotionName}</span>}
              </p>
         )
     });
@@ -20,30 +23,49 @@ const SaleInvoice = ({sale}) => {
         return paymentAmounts.reduce((a,b)=> a + b, 0);
     }
 
-    const paymentList = sale.payments.map(p => {
+    const paymentList = sale.payments.map(p => {       
        return (
-            <p>{p.paymentMethod} : ${p.amount.toFixed(2)} </p>
+        <p key={`${sale.invoiceNumber}-${p.product}-${++keyNum}`}>
+            {p.paymentMethod} : ${p.amount.toFixed(2)}
+        </p>
         );
     });
+
+    // const promotionsApplied = sale.products.map(pr => {        
+    //     if (pr.promotionApplied = true) {
+    //         let promo = pr.promotionName;
+    //     }
+    //     return (
+    //         <p key={`${pr.product}-${sale.invoiceNumber}${pr.promotionId}-${++keyNum}`}>
+    //             <span style={{whiteSpace:"pre-wrap"}}>{pr.product} </span>
+    //             <span>: ${pr.priceSold.toFixed(2)}</span>               
+    //          </p>
+    //     )
+    // });
 
     console.log(sale);
     console.log(paymentList);
     let keyCount = 0;
 
     return (
-        <div className="invoice-body" ref={invoiceRef}>
-            <div>
+        <div className="invoice-body" ref={invoiceRef} style={{fontFamily:"Helvetica",marginLeft:"3mm",position:"relative",top:"2mm"}}>
+            <div>            
+                <p>The Base Parade, Te Rapa, Hamilton 3200</p>
+                <p>ph: 07-849-0452</p>
                 <p>Invoice: {sale.invoiceNumber}</p>                
                 {sale.dateTime}
                 <br/>
-                <span className="product-list">
+                <br/>
+                <span className="product-list" style={{fontSize:"12px"}}>
                     {productList}
                 </span>
                 <br />
                 <span>
                     {paymentList}
                 </span>
-                <h5>TOTAL: ${sumPayments(sale.payments.map(p=>p.amount)).toFixed(2)}</h5>
+
+                
+                <span> TOTAL: ${sumPayments(sale.payments.map(p=>p.amount)).toFixed(2)}</span>
             </div>
         </div>
     )
@@ -60,21 +82,27 @@ const SaleInvoice = ({sale}) => {
 //     myWindow.print();
 // }
 
-export const printInvoice = (numItems) => {
-    let divId = "printed-receipt";
-    let height = 370;
-    if(numItems > 4){
-        height = (100 * numItems) + 200;
-    }
-    let myWindow = window.open("http://localhost:3000/printComponent", "MsgWindow", `width=${300}mm,height=${height}mm`);
-    let printContents = document.getElementById(divId).innerHTML;
-    myWindow.document.write(printContents);  
-//    myWindow.document.write(invoiceRef.current.innerHTML);   
-   // console.log(productRef.current.innerHTML);   
-   // let printContents = document.getElementById("printable-label");
- //   printContents.appendChild(productRef.current);
-    myWindow.print();   
-    myWindow.onafterprint = myWindow.close();
-}
+// {
+//     sale.ChangeOwed && sale.totalCashRecieved ? 
+//         <span> CASH AMOUNT RECIEVED: {sale.totalCashRecieved} <br/>
+//         CHANGE OWED:{sale.ChangeOwed } </span> 
+//     : "s"
+// }
 
+export const printInvoice = ( cashAmount = 0.00, changeAmount = 0.00) => {
+   let divId = "printed-receipt";
+
+    let myWindow = window.open("http://localhost:3000/printComponent", "MsgWindow", `width=${780}mm,height=${780}mm`);
+    let printContents = document.getElementById(divId).innerHTML;
+
+    myWindow.document.write('<html><head><title>receipt</title><link rel="stylesheet" type="text/css" href="../App.css"></head><body>');
+    myWindow.document.write(printContents);  
+    myWindow.document.write(`<br/> CASH RECIEVED: \$${cashAmount} <br/>`);
+    myWindow.document.write(`CHANGE GIVEN: \$${changeAmount}`);
+    myWindow.document.write('</body></html>');
+    console.log(printContents);
+    setTimeout(()=> myWindow.print(), 200);   
+  //  myWindow.onafterprint = myWindow.close;
+}
+ 
 export default SaleInvoice

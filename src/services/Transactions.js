@@ -19,16 +19,16 @@ export const GetReport = async (from, to) => {
         const { data } = await axiosObj.get("StoreManagement/GetReport?from=" + from + "&to=" + to);
         console.log("report");
         console.log(data);
-        let report = `<div>
-                            <h2> Report </h2>
-                            ${getBoldPara("from", data.from)}
-                            ${getBoldPara("to", data.to)}
-                            ${getBoldPara("total cash", data.cashAmount)}
-                            ${getBoldPara("total eftpos", data.eftposAmount)}
-                            ${getBoldPara("total after pay", data.afterPayAmount)}
-                            ${getBoldPara("Total ", data.totalAmount)}   
-                            ${getBoldPara("total refunds", data.totalRefunds)}
-                            ${getBoldPara("Net Total", data.netTotal)}  
+        let report = `<div class="sales-report">
+                            <h2>SALES REPORT</h2>
+                            ${getBoldPara("FROM", data.from)}
+                            ${getBoldPara("TO", data.to)}
+                            ${getBoldPara("TOTAL CASH", data.cashAmount.toFixed(2))}
+                            ${getBoldPara("TOTAL EFTPOS", data.eftposAmount.toFixed(2))}
+                            ${getBoldPara("TOTAL AFTER-PAY", data.afterPayAmount.toFixed(2))}
+                            ${getBoldPara("TOTAL ", data.totalAmount.toFixed(2))}   
+                            ${getBoldPara("TOTAL REFUNDS", data.totalRefunds.toFixed(2))}
+                            ${getBoldPara("NET TOTAL", data.netTotal.toFixed(2))}  
                         </div>`;
         return report;
     } catch (err) {
@@ -43,13 +43,55 @@ export const VoidProductSale = async (productSale) => {
             saleId: productSale.saleInvoiceId
         }
         const { data } = await axiosObj.post("StoreManagement/VoidProductSale", reqBody);
+        
         return data;
     } catch (err) {
         console.log(" problem in void productsale services: \n" + err);
     }
 }
 
-const getBoldPara = (text, text2) => {
-    return `<p><b>${text} : </b> ${text2} </p>`;
+export const UpdateBulkPrintList = async (dispatch, products) =>{
+    try{
+        dispatch(ActionCreators.updateBulkPrintList(products));
+    }
+    catch(err){
+        console.log("update bulk print list err");
+        console.log(err);
+        alert("update bulk print list err");
+    }    
 }
 
+export const ClearBulkPrintList = async (dispatch) =>{
+    try{     
+        await dispatch(ActionCreators.clearBulkPrintList());
+    }
+    catch(err){
+        console.log("clear bulk print list err");
+        console.log(err);
+        alert("clear bulk print list err");
+    }    
+}
+
+
+const getBoldPara = (text, text2) => {
+    return `<p>
+        <span style=""float:left;"><b>${text}</span></b>
+        <span style="float:right;"> ${text2}</span> 
+    </p>`;
+}
+
+export const RestockProductSales = async (dispatch, productSales) =>{
+    try{
+        alert("restocking");
+        if(productSales && productSales.length > 1){
+            const {data} = await axiosObj.post("StoreManagement/restockProductSales", productSales.map(ps => ps.id));
+            productSales.forEach(ps => {
+                ps.restocked = true;
+            });           
+        }
+        dispatch(ActionCreators.restockProducts(productSales));
+    }
+    catch(e){
+        console.log(e);
+    }
+}
