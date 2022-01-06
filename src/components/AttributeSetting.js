@@ -42,10 +42,10 @@ const AttributeSetting = ({ attributeName, attributes }) => {
     }
 
     return (
-        <div style={{ width: "100%", padding: "10px" }}>
+        <div style={{  width:"100%", padding: "10px" }}>
             <Form>
                 <Form.Row>
-                    <Col sm={4}>
+                    <Col sm={5} >
                         <AttributeSelector
                             attributeName={attributeName}
                             stateAttributes={attributes}
@@ -58,16 +58,16 @@ const AttributeSetting = ({ attributeName, attributes }) => {
                             }}
                         />
                     </Col>
-                    <Col sm={4}>
+                    <Col sm={3}>
                         <InputGroup>
                             <input type="text" value={attribute.value} disabled={show} onChange={event => setAttribute({ ...attribute, value: event.target.value })} />
-                            <Button className="btn-warning" onClick={handleEdit} >Update</Button>
+                            <Button className="btn-warning" onClick={handleEdit} style={{ marginLeft:"3px"}}>Update</Button>
                         </InputGroup>
                     </Col>
                     <Col sm={4}>
                         <InputGroup>
                             <input type="text" value={newAttribute.value} disabled={show} onChange={event => setNewAttribute({ value: event.target.value })} />
-                            <Button className="btn-light" onClick={handleAdd}>
+                            <Button className="btn-info" onClick={handleAdd} style={{width:"8vw", marginLeft:"3px"}}>
                                 {`Add ${attributeName}`}
                             </Button>
                         </InputGroup>

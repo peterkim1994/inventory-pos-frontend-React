@@ -48,22 +48,21 @@ const SaleInvoice = ({sale}) => {
     let keyCount = 0;
 
     return (
-        <div className="invoice-body" ref={invoiceRef} style={{fontFamily:"Helvetica",marginLeft:"3mm",position:"relative",top:"2mm"}}>
+        <div className="invoice-body" ref={invoiceRef} style={{fontFamily:"Times New Roman, Times, serif",marginLeft:"2mm",position:"relative",top:"2mm"}}>
             <div>            
                 <p>The Base Parade, Te Rapa, Hamilton 3200</p>
                 <p>ph: 07-849-0452</p>
                 <p>Invoice: {sale.invoiceNumber}</p>                
                 {sale.dateTime}
                 <br/>
-                <br/>
-                <span className="product-list" style={{fontSize:"12px"}}>
+                -------------------------------------------------------------
+                <span className="product-list" style={{fontSize:"13.5px"}}>
                     {productList}
                 </span>
                 <br />
                 <span>
                     {paymentList}
                 </span>
-
                 
                 <span> TOTAL: ${sumPayments(sale.payments.map(p=>p.amount)).toFixed(2)}</span>
             </div>

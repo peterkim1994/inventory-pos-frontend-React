@@ -111,12 +111,12 @@ export const SaleUI = () => {
                         <SaleProductList products={saleItems} handleRemove={removeProductItems} removeBtnSetting={removeSetting} />
                     </div>
                 </div>
-                <div className="payment-ui">
+                <div className="payment-ui blockOrder">
                     <SalePaymentUI sale={sale} processSaleComponent={processSaleBtn} clearSale={clearSale} />
                     <button className="btn btn-warning" 
                         id="cancel-sale-btn"
                         onClick={cancelCurrentSale}
-                        disabled={cancelBtn}
+                        hidden={cancelBtn}
                     > Cancel Sale </button>
                 </div>
                 <div className="printable" id="printed-receipt">
@@ -124,7 +124,6 @@ export const SaleUI = () => {
                     <SaleInvoice sale={sale} business={business} />
                 </div>
             </div>
-
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, ModalFooter } from "react-bootstrap";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { ProductForm } from './ProductForm';
@@ -13,19 +13,18 @@ const EditProductModal = ({ product }) => {
   const dispatch = useDispatch();
   const productRef = useRef();
 
-  const editProduct = (editedProduct) => {    
-    const success =  EditProduct(dispatch, editedProduct);    
-    if(success)
+  const editProduct = (editedProduct) => {
+    const success = EditProduct(dispatch, editedProduct);
+    if (success)
       handleClose();
   }
 
-  const printLabel = () =>{
-    var myWindow = window.open("http://localhost:3000/printComponent", "MsgWindow", `width=${50}mm,height=${27}mm`);
-    myWindow.document.write(productRef.current.innerHTML);  
-   // let printContents = document.getElementById("printable-label");
-   // printContents.appendChild(productRef.current);
-    myWindow.print();   
-   // myWindow.onafterprint = myWindow.close();
+  const printLabel = () => {
+    var myWindow = window.open("http://localhost:3000/printComponent", "MsgWindow", `width=${900}mm,height=${600}mm`);
+    myWindow.document.write(productRef.current.innerHTML);
+    myWindow.document.body.style.marginTop = 0;
+    myWindow.print();
+    //   myWindow.onafterprint = myWindow.close();
   }
 
   return (
@@ -40,14 +39,18 @@ const EditProductModal = ({ product }) => {
         <Modal.Body>
           {show && <ProductForm product={product} handleClose={handleClose} handleSubmit={editProduct} />}
         </Modal.Body>
-        <div ref={productRef}>
-          <ProductLabel product={product}/>
-        </div>
-        <button onClick={printLabel}>print</button>        
+        <ModalFooter>
+          <div className="flexOrders" style={{margin:"auto"}}>
+            <div ref={productRef} >
+              <ProductLabel product={product} />
+            </div>
+           
+          </div>       
+          <button className="btn btn-primary" onClick={printLabel}>print</button>
+        </ModalFooter>
       </Modal>
     </div>
   )
 }
-
 
 export default EditProductModal

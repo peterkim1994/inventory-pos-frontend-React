@@ -35,17 +35,15 @@ const ProductsSoldTable = () => {
         UpdateBulkPrintList(dispatch, [...updatedList]);
     }
 
-    const handleCheckBoxClick = (productSale) => {
+    const handleCheckBoxClick = async (productSale) => {
         let updatedBulkProductList = [];
         if (bullkPrintProducts.includes(productSale)) {
             updatedBulkProductList = bullkPrintProducts.filter(p => p.id !== productSale.id);
         } else {
-
-            updatedBulkProductList = bullkPrintProducts.concat(productSale);         
-            console.log(bullkPrintProducts.concat(productSale));
+            updatedBulkProductList = bullkPrintProducts.concat(productSale);                
         }
-        setBulkPrintProducts([...updatedBulkProductList]);
-        UpdateBulkPrintList(dispatch, [...updatedBulkProductList]);
+        await setBulkPrintProducts([...updatedBulkProductList]);
+        await UpdateBulkPrintList(dispatch, [...updatedBulkProductList]);
     }
 
     const bulkPrintCheckBox = (productSaleId) => {
@@ -78,8 +76,8 @@ const ProductsSoldTable = () => {
                         <th className="table-col"> Product ID</th>
                         <th className="table-col"> Product Details </th>
                         <th className="table-col"> Date Sold</th>
-                        <th className="table-col"> Restocked</th>
-                        <th className="table-col"> Bulk-Print</th>
+                        <th className="table-col" style={{textAlign:"center"}}> Restocked</th>
+                        <th className="table-col" style={{textAlign:"center"}}> Bulk-Print</th>
                     </tr>
                 </thead>
                 <tbody >
@@ -90,7 +88,7 @@ const ProductsSoldTable = () => {
                                 <td className="table-col"> {productSale.productId} </td>
                                 <td className="table-col"> {productSale.product} </td>
                                 <td className="table-col"> {transactions.filter(t => t.id == productSale.saleInvoiceId)[0].dateTime}</td>
-                                <td className="table-col"> {productSale.restocked ? "yes" : "no"} </td>
+                                <td className="table-col" style={{textAlign:"center"}}> <h3>{productSale.restocked ? "✓" : <b>X</b>} </h3> </td>
                                 <td className="table-col"> <button  className={`btn btn-${isInBulkPrint(productSale)}`} onClick={() => handleCheckBoxClick(productSale)}> Add To Bulk Print</button> </td>
                             </tr>
                         )

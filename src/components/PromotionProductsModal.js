@@ -47,7 +47,7 @@ const PromotionProductsModal = ({ promotion, handleClose }) => {
 
     const toggleProductView = () => {
         if (btnLabel === "Add products from Inventory") {
-            setBtnLabel("Done");
+            setBtnLabel("Finish Adding");
             //Not ideal but oh well
             addProductPromos();
             removeProductPromos();
@@ -72,7 +72,6 @@ const PromotionProductsModal = ({ promotion, handleClose }) => {
     const handleSelect = (event) => {
         const product = event;
         const selectedItemId = product.id;
-        alert("added");
         if (editedPromotion.productIds.includes(selectedItemId) === false) { // product is added to promotion if its not already inlcuded in it
             setPromotion({ ...editedPromotion, productIds: [...editedPromotion.productIds, selectedItemId] });
         } else {
@@ -89,18 +88,20 @@ const PromotionProductsModal = ({ promotion, handleClose }) => {
         }
     }
  
-    const inventorySearchPanel = <InventorySearchPanel setResults={showOtherProducts} />;
+    const inventorySearchPanel = <div style={{width:"90%", position:"relative", right:"20px"}}><InventorySearchPanel setResults={showOtherProducts} /></div>;
     const selectBtn = (value) => { return (<Button type="button" value={value.id} onClick={() => handleSelect(value)} >{renderBtnLabel(value.id)} </Button>) };
 
     return (
         <div className="promotional-inventory-modals ">
-            <Modal show={show} size="lg" dialogClassName="promotional-inventory-modal">
+            <Modal show={show} size="xl" dialogClassName="promotional-inventory-modal">
                 <Modal.Header >
-                    <Modal.Title>{promotion.promotionName}</Modal.Title>
-                    {searchVisible && inventorySearchPanel}
-                    <Button onClick={toggleProductView}>{btnLabel}</Button>
+                    <div className="blockOrder">                
+                        <Modal.Title>{promotion.promotionName}</Modal.Title>
+                        {searchVisible && inventorySearchPanel}
+                        <Button onClick={toggleProductView}>{btnLabel}</Button>
+                    </div>
                 </Modal.Header>
-                <Modal.Body style={{ maxHeight: "460px", overflow: "scroll" }} >
+                <Modal.Body style={{ maxHeight: "600px", overflow: "scroll" , margin:"auto"}} >
                     <InventoryTable products={diplayedProducts} selectEnabled={true} handleSelect={handleSelect} actionBtn={selectBtn} />
                 </Modal.Body>
                 <Modal.Footer style={{ width: "auto", margin: "auto", height: "fit-content" }}>

@@ -72,7 +72,6 @@ export const ClearBulkPrintList = async (dispatch) =>{
     }    
 }
 
-
 const getBoldPara = (text, text2) => {
     return `<p>
         <span style=""float:left;"><b>${text}</span></b>
@@ -81,8 +80,7 @@ const getBoldPara = (text, text2) => {
 }
 
 export const RestockProductSales = async (dispatch, productSales) =>{
-    try{
-        alert("restocking");
+    try{      
         if(productSales && productSales.length > 1){
             const {data} = await axiosObj.post("StoreManagement/restockProductSales", productSales.map(ps => ps.id));
             productSales.forEach(ps => {

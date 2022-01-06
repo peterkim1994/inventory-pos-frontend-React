@@ -10,7 +10,7 @@ const InventorySettings = () => {
     const categories = useSelector(state => state.inventoryReducer.categories);
 
     return (
-        <div>
+        <div className="inventorySettings">
             <AttributeSetting attributes={brands} attributeName={"Brand"} />
             <AttributeSetting attributes={colours} attributeName={"Colour"} />
             <AttributeSetting attributes={categories} attributeName={"Category"} />

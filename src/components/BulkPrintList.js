@@ -5,6 +5,7 @@ import { GetTheseProducts } from "../services/Inventory";
 import { ClearBulkPrintList } from "../services/Transactions";
 import React from "react";
 import { RestockProductSales } from "../services/Transactions";
+import { MedLabel, GetBulkMedLabelDimensions } from '../util/LabelDimensions';
 
 //list for bulk products to print
 export const BulkPrintList = () => {
@@ -14,19 +15,23 @@ export const BulkPrintList = () => {
     const ref = useRef();
     const [productLabels, setProductLabels] = useState([]);
     let i = 0;
-
+    let dimensions;
     useEffect(async ()=>{
         await setProducts(productList);
-        let prods = await GetTheseProducts(products.map(p=>p.productId));
+        let prods = await GetTheseProducts(productList.map(p=>p.productId));
         console.log(prods);
         await setProductLabels(prev => ([...productList.map(p=> prods.find(x => x.id === p.productId))]));  
         console.log(productLabels);
+        dimensions = GetBulkMedLabelDimensions(productList.length);
     }, [productList]);
 
     const bulkPrintProducts = async() =>{
         var myWindow = window.open("http://localhost:3000/printComponent", "MsgWindow", `width=${600}mm,height=${600}mm`);
-        setTimeout(()=> myWindow.document.write(ref.current.innerHTML), 500); 
-        setTimeout(()=>  myWindow.print, 500);  
+        setTimeout(()=>{
+            myWindow.document.write(ref.current.innerHTML);
+            myWindow.document.body.style.marginTop=0; 
+            myWindow.print() }, 500); 
+        
         await RestockProductSales(dispatch,productList);
     }
 
@@ -40,16 +45,20 @@ export const BulkPrintList = () => {
         setProductLabels([]);
     }
 
+   
+    //clear button was broken--- fix later
     return (
-        <div className="bulk-print-list">
+        <div className="bulk-print-list" >
            <h3> Bulk Print List {products.length}</h3>            
             <button className="btn btn-primary" onClick={bulkPrintProducts}>bulk print</button>
-            <button className= "btn btn-secondary" onClick={clearBulkPrintList}> clear</button>
-            <div className="printabless">
-                <div ref={ref} name style={{ width:"50mm", maxHeight:`${productLabels.length * 28}mm`,minHeight:`${productLabels.length * 28}mm`, height:`${productLabels.length * 28}mm` }}>
+            <button className= "btn btn-secondary" onClick={clearBulkPrintList} hidden> clear</button>
+            <br/>
+            <br/>
+            <div className="printables"style={{position:"relative", left:"60px"}}>
+                <div ref={ref} style={{...dimensions}}>
                     {productLabels.map(p => {                        
-                        return <div style={{maxHeight:"28mm",minHeight:"28mm", height:"28mm", width:"50mm"}}>                        
-                            {p && <ProductLabel product={p} key={`product-barcode-bulk-print-${i++}`} />}
+                        return <div key={`product-barcode-bulk-print-${i++}`}>                        
+                            {p && <ProductLabel product={p} />}
                         </div>
                     })}
                 </div>

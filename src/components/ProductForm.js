@@ -106,7 +106,7 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
                 <CurrencyFormInput label="Price" initialValue={updatedProduct.price} handleOnChange={(event) => updateProduct({ ...updatedProduct, price: (parseFloat(event.target.value)) })} />
                 <NumericalFormInput label="Quantity" initialValue={updatedProduct.qty} handleOnChange={(event) => updateProduct({ ...updatedProduct, qty: parseInt(event.target.value) })} />
             </Form.Row>
-            <div className="form-buttons-container">
+            <div className="form-buttons-container flexOrder">
                 <Button variant="primary" className="product-form-button"
                     type="button" onClick={submitForm}> Save </Button>
                 {product.id && <Button variant="warning" className="product-form-button" onClick={handleClose}> close </Button>}

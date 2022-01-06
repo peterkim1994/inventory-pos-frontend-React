@@ -1,6 +1,6 @@
-import {useRef, useState} from 'react';
+import { useRef, useState} from 'react';
 import {useDispatch} from "react-redux";
-import {Login} from '../services/Users';
+import {Login, Logout} from '../services/Users';
 
 export const LoginPage = () =>{
 
@@ -19,6 +19,10 @@ export const LoginPage = () =>{
         Login(dispatch, loginData, setResponse);
     }
 
+    const logOut = ()=>{
+        Logout(dispatch);
+    }
+
     return (
         <div >
             <form ref={loginRef} onSubmit={login} style={{display:"flex", margin:"auto", width:"30%", flexDirection:"column", padding:"50px", flexWrap:"wrap"}}>
@@ -27,7 +31,8 @@ export const LoginPage = () =>{
                 <label>Password: </label>
                 <input type="password" name="password" onChange={(event)=> setPassword(event.target.value)}/>   
                 <br/>
-                <button type="submit">Login</button>
+                <button className="btn btn-primary" type="submit">Login</button>
+                <button className="btn btn-warning" onClick={logOut}>Logout</button>
             </form>
             {response}
         </div>
