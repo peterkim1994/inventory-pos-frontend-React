@@ -1,7 +1,13 @@
 import * as axios from 'axios';
 
 export const axiosObj = axios.create({
-    baseURL: "https://localhost:5001/",
+    headers: {
+       'Access-Control-Allow-Origin': '*',
+       "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",    
+     },      
+      baseURL: "http://inventoryapi.local/",
+
+     // baseURL: "https://localhost:5001/",
 });
 
 export const checkToken = () =>{

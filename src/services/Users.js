@@ -2,14 +2,19 @@ import { ActionCreators } from '../redux/UserReducer';
 import {axiosObj, checkToken} from './RequestServer';
 
 export const Login = async (dispatch, loginData, errHandler)=>{
-    try{
-        const {data} = await axiosObj.post("Authenticator/Login", loginData);      
+    try{               
+        const headers = {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",                
+              'Content-Type':  'application/json'   
+          };
+        const {data} = await axiosObj.post("Authenticator/Login", loginData,{headers});      
         const token = data.accessToken.split(",")[0];  
         localStorage.setItem("authority", token);
         checkToken();
         await dispatch(ActionCreators.loginUser(data));
-        localStorage.setItem("superAdminLogedOn",true);
-        setInterval(()=> localStorage.setItem("superAdminLogedOn",false), 30000);
+        localStorage.setItem("superAdminLogedOn", true);
+        setTimeout(()=> localStorage.setItem("superAdminLogedOn", false), 30000);
         errHandler("success");       
 
     }
@@ -25,10 +30,11 @@ export const Login = async (dispatch, loginData, errHandler)=>{
 
 export const Logout = async(dispatch) =>{
     try{
-        checkToken();
-        const {data} = await axiosObj.post("Authenticator/Logout");        
-        dispatch(ActionCreators.logoutUser());
         localStorage.setItem("authority", " ");
+        localStorage.setItem("superAdminLogedOn", false);
+        checkToken();
+   //     const {data} = await axiosObj.post("Authenticator/Logout");        
+        dispatch(ActionCreators.logoutUser());
     }
     catch(e){
         console.log(e);   

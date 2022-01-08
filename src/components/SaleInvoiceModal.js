@@ -20,8 +20,11 @@ const SaleInvoiceModal = ( {invoice} ) => {
 
     const allC =() =>{ 
        let allCash = invoice.payments.filter(p=>p.paymentMethodId !== 1).length === 0;   
-       
-       if(localStorage.getItem("superAdminLogedOn") == "true"){
+       console.log("hel");
+       console.log(allCash);
+       console.log( invoice.products);
+       if(localStorage.getItem("superAdminLogedOn") === 'true'){
+        console.log("helss");
          return allCash;        
        }
        return false;
@@ -37,15 +40,15 @@ const SaleInvoiceModal = ( {invoice} ) => {
                     </Modal.Header>
                     <Modal.Body>
                         <SaleInvoice sale={invoice} />
-                        {allC()==true && invoice.products.map(p=>                            
+                        {allC() === true && invoice.products.map(p=>                            
                             {
-                            if(p.canceled == false)  
+                            if(p.canceled === false)  
                                 return(                              
                                     <div key={`ps-m-${p.id}${invoice.invoiceNumber}`}>
                                         <span>{p.product}</span>   
                                         <button onClick={() => voidProductSale(p)}>  void </button>                                
                                     </div>)
-                            }                         
+                            }
                         )}
                     </Modal.Body>
                 </Modal>

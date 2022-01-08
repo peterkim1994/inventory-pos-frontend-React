@@ -18,12 +18,12 @@ class Helper {
 
     getDate = (date) =>{
         let d = new Date(date);
-        return  `${d.getDate()}/${d.getMonth()}/${d.getYear().toString().substring(2)}`; 
+        return  `${d.getDate()}/${d.getMonth() + 1}/${d.getYear().toString().substring(1)}`; 
     }
 
     getTime =(date)=>{
         let d = new Date(date);
-        return  `${d.getHours()}:${d.getMinutes()}`; 
+        return  `${d.getHours()}:${d.getMinutes().toString().padStart(2, '0')}`; 
     }
     getCurrentDate = () =>{
         var today = new Date();

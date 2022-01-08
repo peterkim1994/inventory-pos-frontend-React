@@ -39,7 +39,16 @@
 }
 
 .inventorySettings{
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.new-product-form{
+  position: relative;
+  top: 20px;
+  padding: 30px;
 }
 
 .inventory-search-panel{
@@ -237,7 +246,7 @@
 .payment-ui{  
     padding: 2vh;
     background-color: rgba(232, 232, 235, 0.767);
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+   /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     width: 25vw;
     min-height: 75vh;
     height: 65vh;
@@ -252,6 +261,15 @@
   align-content: space-between;
   align-items: space-between;
   margin-top: 2vh;
+}
+
+.transactions-controls{
+  padding: 10px;
+}
+
+button.transactions-controls{
+  margin-left: 5px;
+
 }
 
 .payment-input label {

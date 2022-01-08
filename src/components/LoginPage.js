@@ -19,7 +19,8 @@ export const LoginPage = () =>{
         Login(dispatch, loginData, setResponse);
     }
 
-    const logOut = ()=>{
+    const logOut = (event)=>{
+        event.preventDefault();
         Logout(dispatch);
     }
 
@@ -32,7 +33,7 @@ export const LoginPage = () =>{
                 <input type="password" name="password" onChange={(event)=> setPassword(event.target.value)}/>   
                 <br/>
                 <button className="btn btn-primary" type="submit">Login</button>
-                <button className="btn btn-warning" onClick={logOut}>Logout</button>
+                <button className="btn btn-warning" onClick={(event) =>logOut(event)}>Logout</button>
             </form>
             {response}
         </div>

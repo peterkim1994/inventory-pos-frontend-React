@@ -13,12 +13,12 @@ const InventoryTabs = () => {
                     </div>
                 </Tab>
                 <Tab eventKey="AddProduct" title="Add New Product">
-                    <div className="tabbed-panel new-product-page">
+                    <div className="tabbed-panel new-product-page new-product-form">
                         <NewProduct />
                     </div>
                 </Tab>
-                <Tab eventKey="InventorySettings" title="Settings" >
-                    <div className="tabbed-panel inventory-body">
+                <Tab eventKey="InventorySettings" title="Product Attributes" >
+                    <div className="tabbed-panel inventory-body InventorySettings">
                         <InventorySettings />
                     </div>
                 </Tab>

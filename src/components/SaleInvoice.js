@@ -96,8 +96,8 @@ export const printInvoice = ( cashAmount = 0.00, changeAmount = 0.00) => {
 
     myWindow.document.write('<html><head><title>receipt</title><link rel="stylesheet" type="text/css" href="../App.css"></head><body>');
     myWindow.document.write(printContents);  
-    myWindow.document.write(`<br/> CASH RECIEVED: \$${cashAmount} <br/>`);
-    myWindow.document.write(`CHANGE GIVEN: \$${changeAmount}`);
+    myWindow.document.write(`<br/><br/>&nbsp CASH RECIEVED: \$${cashAmount} <br/>`);
+    myWindow.document.write(`&nbsp CHANGE GIVEN: \$${changeAmount}`);
     myWindow.document.write('</body></html>');
     console.log(printContents);
     setTimeout(()=> myWindow.print(), 200);   

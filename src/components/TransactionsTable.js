@@ -36,7 +36,7 @@ const TransactionsTable = ({ transactions }) => {
                         transactions && transactions.map(sale =>
                             <tr key={sale.id} id={`sale-transaction-row-${sale.id}`} style={{ height: "50%" }}>
                                 <td className="table-col"> {sale.invoiceNumber} </td>
-                                <td className="table-col"> {Helper.getDate(sale.dateTime)} </td>
+                                <td className="table-col"> {Helper.getDate(sale.dateTime)}</td>
                                 <td className="table-col"> {Helper.getTime(sale.dateTime)} </td>
                                 <td className="table-col"> {sale.payments.filter(s => s.paymentMethodId == 1).map(s => s.amount)} </td>
                                 <td className="table-col"> {sale.payments.filter(s => s.paymentMethodId == 2).map(s => s.amount)} </td>

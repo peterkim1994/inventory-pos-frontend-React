@@ -40,7 +40,7 @@ export const TransactionControls = () => {
     }
 
     return (
-        <div>
+        <div className="transactions-controls">
             <form>
                 <input
                     type="date"
@@ -49,6 +49,7 @@ export const TransactionControls = () => {
                     value={startDate}
                     onChange={selectFromDate}
                 />
+                ➔
                 <input
                     type="date"
                     id="to-date"
@@ -56,14 +57,15 @@ export const TransactionControls = () => {
                     value={toDate}
                     onChange={selectToDate}
                 />
-                <button onClick = {searchDates}>
+                <button className="transactions-controls btn btn-primary btn-sm" onClick = {searchDates}>
                     Search
                 </button>
-                <button onClick = {showReport}>
+                <button className="transactions-controls btn btn-warning btn-sm" onClick = {showReport}>
                     GetReport
                 </button>
-                <button>TodaysReport</button>
+               
             </form>
         </div>
     )
 }
+// <button className="transactions-controls btn btn-warning">TodaysReport</button>
