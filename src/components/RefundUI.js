@@ -1,20 +1,16 @@
-import { ProcessRefund, GetPrevSale } from '../services/Pos';
+import { ProcessRefund } from '../services/Pos';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 
 
 const RefundUI = () => {
-    const dispatch = useDispatch();
     const sale = useSelector(state => state.saleReducer.sale);
     const [invoiceNumber, setInvoiceNumber] = useState(sale.invoiceNumber);
     const [refundAmount, setRefundAmount] = useState(0.00);
     const [refundReason, setRefundReason] = useState("");
-    // const [isPrevSale, setPrevSale] = useState(false);
     const [serverResponse, setServerResponse] = useState("");
     const processRefund = async () => {
         try {
-            //        setPrevSale(true);
-            //  await GetPrevSale(dispatch, parseInt(invoiceNumber));
             const refund = {
                 saleInvoiceId: invoiceNumber,
                 amount: refundAmount,
@@ -26,12 +22,11 @@ const RefundUI = () => {
             alert("are you sure that sale id exists")
         }
     }
-    //      <button className="btn btn-secondary" onClick={searchPreviousSale}>Search</button>
 
     return (
         <div>
             <div className="refund-ui" >
-                <div className="refund-field">
+                <div className="refund-field" key="invoiceNum">
                     <label className="refund-field" htmlFor="invoice-number-input" >Invoice Id </label>
                     <input
                         className="refund-field"
@@ -40,7 +35,7 @@ const RefundUI = () => {
                         onChange={(event) => setInvoiceNumber(parseInt(event.target.value))}
                     />
                 </div>
-                <div className="refund-field">
+                <div className="refund-field" key="amountFor">
                     <label className="refund-field" htmlFor="refund-amount">Amount Refunded</label>
                     <input
                         className="refund-field"
@@ -51,7 +46,7 @@ const RefundUI = () => {
                         onChange={(event) => setRefundAmount(parseFloat(event.target.value))}
                     />
                 </div>
-                <div className="refund-field">
+                <div className="refund-field" key="RefundReason">
                     <label className="refund-field" htmlFor="refund-reason">Reason:</label>
                     <textarea
                         className="refund-field"
