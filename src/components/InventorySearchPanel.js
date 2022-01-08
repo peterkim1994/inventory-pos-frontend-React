@@ -25,7 +25,6 @@ const InventorySearchPanel = ({ setResults }) => {
     const performFilter = (event) => {
         event.preventDefault();
         const filteredResults = products.filter((product) => { return productFilterObj.filterProducts(product) });
-        console.log("set results being called");
         setResults(filteredResults);
     }
 

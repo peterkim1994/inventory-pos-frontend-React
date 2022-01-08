@@ -20,11 +20,7 @@ const SaleInvoiceModal = ( {invoice} ) => {
 
     const allC =() =>{ 
        let allCash = invoice.payments.filter(p=>p.paymentMethodId !== 1).length === 0;   
-       console.log("hel");
-       console.log(allCash);
-       console.log( invoice.products);
        if(localStorage.getItem("superAdminLogedOn") === 'true'){
-        console.log("helss");
          return allCash;        
        }
        return false;

@@ -5,10 +5,7 @@ import { axiosObj } from './RequestServer';
 export const setTransactions = async (dispatch, from, to) => {
     try {
         const { data } = await axiosObj.get("StoreManagement/GetTransactions?from=" + from + "&to=" + to);
-        console.log(" set transaction ");
-        console.log(data);
         dispatch(ActionCreators.setTransactions(data));
-        //return data;
     } catch (err) {
         console.log(" problem in transsaction services: \n" + err);
     }
@@ -17,8 +14,6 @@ export const setTransactions = async (dispatch, from, to) => {
 export const GetReport = async (from, to) => {
     try {
         const { data } = await axiosObj.get("StoreManagement/GetReport?from=" + from + "&to=" + to);
-        console.log("report");
-        console.log(data);
         let report = `<div class="sales-report">
                             <h2>SALES REPORT</h2>
                             ${getBoldPara("FROM", data.from)}

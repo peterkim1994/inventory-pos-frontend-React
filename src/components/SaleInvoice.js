@@ -43,8 +43,6 @@ const SaleInvoice = ({sale}) => {
     //     )
     // });
 
-    console.log(sale);
-    console.log(paymentList);
     let keyCount = 0;
 
     return (
@@ -52,18 +50,18 @@ const SaleInvoice = ({sale}) => {
             <div>            
                 <p>The Base Parade, Te Rapa, Hamilton 3200</p>
                 <p>ph: 07-849-0452</p>
+                <p>GST: 125-903-118</p>
                 <p>Invoice: {sale.invoiceNumber}</p>                
                 {sale.dateTime}
                 <br/>
-                -------------------------------------------------------------
-                <span className="product-list" style={{fontSize:"13.5px"}}>
+                ------------------------------------------------------------
+                <span className="product-list" style={{fontSize:"14.3px"}}>
                     {productList}
                 </span>
                 <br />
                 <span>
                     {paymentList}
-                </span>
-                
+                </span>                
                 <span> TOTAL: ${sumPayments(sale.payments.map(p=>p.amount)).toFixed(2)}</span>
             </div>
         </div>
@@ -99,7 +97,6 @@ export const printInvoice = ( cashAmount = 0.00, changeAmount = 0.00) => {
     myWindow.document.write(`<br/><br/>&nbsp CASH RECIEVED: \$${cashAmount} <br/>`);
     myWindow.document.write(`&nbsp CHANGE GIVEN: \$${changeAmount}`);
     myWindow.document.write('</body></html>');
-    console.log(printContents);
     setTimeout(()=> myWindow.print(), 200);   
   //  myWindow.onafterprint = myWindow.close;
 }

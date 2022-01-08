@@ -7,8 +7,7 @@ export const GetInventory = async (dispatch) => {
     try {                   
         const { data } = await axiosObj.get("inventory");
         dispatch(ActionCreators.setProducts(data));
-    } catch (err) {
- 
+    } catch (err) { 
         console.log("GetInventory service error \n" + err)
     }
 }

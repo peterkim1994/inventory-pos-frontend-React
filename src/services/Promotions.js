@@ -4,8 +4,6 @@ import {axiosObj} from './RequestServer';
 
 export const AddPromotion = async (dispatch, promotion) => {
     try {
-        console.log("services add promo");
-        console.log(promotion);
         const { data } = await axiosObj.post("sales/addPromotion", promotion);
         dispatch(ActionCreators.newPromotion(data));
     } catch (err) {
@@ -25,7 +23,6 @@ export const EditPromotion = async (dispatch, promotion) => {
 }
 
 export const DeletePromotion = async(dispatch, promotion) => {
-    console.log(promotion.id);
     try {
         const requestBody = {
             promotionId: promotion.id
@@ -74,8 +71,6 @@ export const RemoveProductPromotions = async (dispatch, promotion, removedProduc
 export const GetPromotionsProducts = async (dispatch, promotionId) => {
     try {
         const { data } = await axiosObj.get(`sales/GetPromotionsProducts/${promotionId}`);
-        console.log("dispatch ");
-        console.log(data);
         dispatch(ActionCreators.setPromotionProducts(data));
     } catch (err) {
         console.log(" GetPromotionsProducts service error \n");

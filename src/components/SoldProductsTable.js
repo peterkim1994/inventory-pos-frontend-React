@@ -8,8 +8,6 @@ const ProductsSoldTable = () => {
     const transactions = useSelector(state => state.transactionsReducer.transactions);
     const dispatch = useDispatch();
     const products = transactions.flatMap(t => t.products);
-    console.log(" products table");
-    console.log(products);
     let keyCounter = 0;
     const [bullkPrintProducts, setBulkPrintProducts] = useState([]);
 

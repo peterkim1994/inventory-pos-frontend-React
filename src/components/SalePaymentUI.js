@@ -181,8 +181,8 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
                             <input type="radio" id="eftposPay" name="paymentType" value="EFTPOS" onClick={() => setSinglePayment(setEftpos)} />
                             <label className="payment-radio-btns" htmlFor="eftposPay">EFTPOS</label>
                             <input type="radio" id="cashPay" name="paymentType" value="CASH" onClick={() => setSinglePayment(setCash)} />
-                            <label className="payment-radio-btns" htmlFor="eftposPay">CASH</label>
-                            <input type="radio" id="afterPay" name="paymentType" value="AFTER PAY" onClick={() => setSinglePayment(setAfterPay)} />
+                            <label className="payment-radio-btns" htmlFor="eftposPay" hidden>CASH</label>
+                            <input type="radio" id="afterPay" name="paymentType" value="AFTER PAY" onClick={() => setSinglePayment(setAfterPay)} hidden/>
                             <label className="payment-radio-btns" htmlFor="eftposPay">AFTER PAY</label>
                         </form>
                         <input className="btn btn-info" type="button" value="More Options" onClick={enableMoreOptions} />

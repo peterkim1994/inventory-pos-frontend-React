@@ -19,9 +19,7 @@ export const BulkPrintList = () => {
     useEffect(async ()=>{
         await setProducts(productList);
         let prods = await GetTheseProducts(productList.map(p=>p.productId));
-        console.log(prods);
         await setProductLabels(prev => ([...productList.map(p=> prods.find(x => x.id === p.productId))]));  
-        console.log(productLabels);
         dimensions = GetBulkMedLabelDimensions(productList.length);
     }, [productList]);
 

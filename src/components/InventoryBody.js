@@ -7,8 +7,6 @@ import { useSelector } from 'react-redux';
 export default function InventoryBody() {
 
     const products = useSelector( state => state.inventoryReducer.products );
-    console.log("inventory body mounted");
-    console.log(products)
     const [filteredProducts, setFilteredProducts] = useState(products);//initial state set to all products
 
    // useEffect(()=>{
