@@ -15,6 +15,7 @@ const InventoryTable = ({ products, selectEnabled, handleSelect, actionBtn }) =>
                         <th className="table-col"> Description </th>
                         <th className="table-col"> Price </th>
                         <th className="table-col"> Quantity</th>
+                        <th className="table-col"> ID: </th>
                         <th className="table-col"> </th>
                     </tr>
                 </thead>
@@ -29,6 +30,7 @@ const InventoryTable = ({ products, selectEnabled, handleSelect, actionBtn }) =>
                                 <td className="table-col" style={{minWidth:"30%",fontSize:"0.9em"}}> {pr.description} </td>
                                 <td className="table-col"> {pr.price} </td>
                                 <td className="table-col"> {pr.qty} </td>
+                                <td className="table-col"> {pr.id} </td>
                                 <td className="table-col">
                                     {!selectEnabled && <EditProductModal product={pr} />}
                                     {selectEnabled &&  pr.id}
