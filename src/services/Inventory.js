@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { ActionCreators } from '../redux/InventoryReducer';
-import {axiosObj} from './RequestServer';
+import {axiosObj, checkToken} from './RequestServer';
 
 
 export const GetInventory = async (dispatch) => {
@@ -32,7 +32,7 @@ export const AddColour = async (dispatch, colour) => {
 
 export const EditColour = async (dispatch, colour) => {
     try {
-        const { data } = await axiosObj.put("inventory/editColour", colour);
+        const { data } = await axiosObj.post("inventory/editColour", colour);
         dispatch(ActionCreators.editColour(data));
      
     } catch (err) {
@@ -51,7 +51,7 @@ export const AddItemCategory = async (dispatch, category) => {
 
 export const EditCategory = async (dispatch, category) => {
     try {
-        const { data } = await axiosObj.put("inventory/editCategory", category);
+        const { data } = await axiosObj.post("inventory/editCategory", category);
         dispatch(ActionCreators.editcategory(data));
     } catch (err) {
         console.log("edit category service error \n" + err)
@@ -69,7 +69,7 @@ export const AddSize = async (dispatch, size) => {
 
 export const EditSize = async (dispatch, size) => {
     try {
-        const { data } = await axiosObj.put("inventory/editSize", size);
+        const { data } = await axiosObj.post("inventory/editSize", size);
         dispatch(ActionCreators.editSize(size));
     } catch (err) {
         console.log("edit category service error \n" + err)
@@ -87,7 +87,7 @@ export const AddBrand = async (dispatch, brand) => {
 
 export const EditBrand = async (dispatch, brand) => {
     try {
-        const { data } = await axiosObj.put("inventory/editbrand", brand);
+        const { data } = await axiosObj.post("inventory/editbrand", brand);
         dispatch(ActionCreators.editBrand(data));
     } catch (err) {
         console.log("edit brand service error \n" + err)
@@ -97,7 +97,8 @@ export const EditBrand = async (dispatch, brand) => {
 export const EditProduct = async(dispatch, product) => {    
     let userRequestResponse = document.getElementById("addProductApiResponse");
     try{
-        const response = await axiosObj.put("inventory/editproduct", product);
+        checkToken();
+        const response = await axiosObj.post("Inventory/EditProduct", product);
         dispatch(ActionCreators.editProduct(response.data));
         console.log(response.data);
         userRequestResponse.innerHTML = "success";    

@@ -10,6 +10,7 @@ export const Login = async (dispatch, loginData, errHandler)=>{
           };
         const {data} = await axiosObj.post("Authenticator/Login", loginData,{headers});      
         const token = data.accessToken.split(",")[0];  
+    
         localStorage.setItem("authority", token);
         checkToken();
         await dispatch(ActionCreators.loginUser(data));

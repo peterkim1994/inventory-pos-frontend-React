@@ -14,7 +14,7 @@ export const AddPromotion = async (dispatch, promotion) => {
 
 export const EditPromotion = async (dispatch, promotion) => {
     try {
-        const { data } = await axiosObj.put("sales/editPromotion", promotion);
+        const { data } = await axiosObj.post("sales/editPromotion", promotion);
         dispatch(ActionCreators.editPromotion(data));
     } catch (err) {
         console.log("edit brand service error \n")
