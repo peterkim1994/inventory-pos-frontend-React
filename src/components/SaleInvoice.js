@@ -10,12 +10,14 @@ const SaleInvoice = ({sale}) => {
             let promo = pr.promotionName;
         }
         return (
-            <p key={`${pr.product}-${sale.invoiceNumber}-${++keyNum}`}>
-                <span style={{whiteSpace:"pre-wrap"}}>{pr.product} </span>
-                <span>: ${pr.priceSold.toFixed(2)}</span>  
-                {pr.promotionApplied && <br/>}
-                {pr.promotionApplied &&<span style={{color:"GrayText"}}> {pr.promotionName}</span>}
-             </p>
+            <div>
+                <span key={`${pr.product}-${sale.invoiceNumber}-${++keyNum}`}>
+                    <span style={{whiteSpace:"pre-wrap"}}>{pr.product} </span>
+                    <span>: ${pr.priceSold.toFixed(2)}</span>  
+                    {pr.promotionApplied && <br/>}
+                    {pr.promotionApplied &&<span style={{color:"GrayText"}}> {pr.promotionName}</span>}
+                </span>               
+             </div>
         )
     });
 
@@ -25,9 +27,10 @@ const SaleInvoice = ({sale}) => {
 
     const paymentList = sale.payments.map(p => {       
        return (
-        <p key={`${sale.invoiceNumber}-${p.product}-${++keyNum}`}>
+        <span key={`${sale.invoiceNumber}-${p.product}-${++keyNum}`}>
             {p.paymentMethod} : ${p.amount.toFixed(2)}
-        </p>
+            <br/>
+        </span>       
         );
     });
 
@@ -44,25 +47,52 @@ const SaleInvoice = ({sale}) => {
     // });
 
     let keyCount = 0;
+    let refundPolicy = <span style={{fontSize:"10.5px"}}>We do not provide refunds, exchanges are provided 
+    within 14 days of the <br/> purchased date. The purchased  
+    product must be unused and provided with the  <br/> original receipt and product tags.</span>;
 
     return (
         <div className="invoice-body" ref={invoiceRef} style={{fontFamily:"Times New Roman, Times, serif",marginLeft:"2mm",position:"relative",top:"2mm"}}>
             <div>            
-                <p>The Base Parade, Te Rapa, Hamilton 3200</p>
-                <p>ph: 07-849-0452</p>
-                <p>GST: 125-903-118</p>
-                <p>Invoice: {sale.invoiceNumber}</p>                
+                L306
+                <br/>
+                The Base Outlet 
+                <br/>
+                Te Rapa Rd & Wairere Dr
+                <br/>
+                Hamilton 3200
+                <br/>
+                ------------------------------------------------------------
+                <br/>
+                ph: 07-849-0452
+                <br/>
+                GST: 125-903-118 
+                <br/>
+                ------------------------------------------------------------
+                <br/>
+                Invoice: {sale.invoiceNumber}     
+                <br/>          
                 {sale.dateTime}
+                <br/>
+                ------------------------------------------------------------
+                <br/>          
+                <span>Refund Policy:
+                <br/>
+                 {refundPolicy}
+                </span>
                 <br/>
                 ------------------------------------------------------------
                 <span className="product-list" style={{fontSize:"14.3px"}}>
                     {productList}
                 </span>
-                <br />
+                <br/>
+                ------------------------------------------------------------
+                <br/>                 
                 <span>
                     {paymentList}
                 </span>                
                 <span> TOTAL: ${sumPayments(sale.payments.map(p=>p.amount)).toFixed(2)}</span>
+                <br/>
             </div>
         </div>
     )
