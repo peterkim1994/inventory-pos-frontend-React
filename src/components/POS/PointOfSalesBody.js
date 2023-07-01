@@ -1,4 +1,4 @@
-import SaleUI from './SaleUI';
+import SaleUI from './Sales/SaleUI';
 
 export default function PointOfSalesBody(){
 

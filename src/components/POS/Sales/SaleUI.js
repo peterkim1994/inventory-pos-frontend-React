@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SaleProductList from './SaleProductList';
-import { AddProductSales, StartSale, ClearSale, CancelSale } from '../services/Pos';
+import { AddProductSales, StartSale, ClearSale, CancelSale } from '../../../services/Pos';
 import SalePaymentUI from './SalePaymentUI';
-import SaleInvoice from './Printables/SaleInvoice';
+import SaleInvoice from '../Printables/SaleInvoice';
 
 export const SaleUI = () => {
 

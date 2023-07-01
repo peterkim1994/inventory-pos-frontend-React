@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import PromotionsTable from './PromotionsTable';
-import { AddPromotion, GetCurrentPromotions } from '../services/Promotions';
+import { AddPromotion, GetCurrentPromotions } from '../../../services/Promotions';
 import PromotionFormModal from './PromotionFormModal';
 
 export default function PromotionManagement() {

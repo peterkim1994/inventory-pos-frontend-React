@@ -1,5 +1,5 @@
 import PromotionForm from './PromotionForm';
-import { DeletePromotion } from '../services/Promotions';
+import { DeletePromotion } from '../../../services/Promotions';
 import { Modal, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';

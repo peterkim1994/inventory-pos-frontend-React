@@ -1,6 +1,6 @@
 import { Tabs, Tab } from 'react-bootstrap';
 import PosBody from './PointOfSalesBody';
-import PromotionManagement from '../PromotionManagement';
+import PromotionManagement from './Promotions/PromotionManagement';
 import RefundUI from './RefundUI';
 
 const PosTabs = () => {

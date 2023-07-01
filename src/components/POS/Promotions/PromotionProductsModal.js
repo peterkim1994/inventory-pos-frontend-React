@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useRef } from 'react';
-import InventorySearchPanel from './Inventory/InventorySearchPanel';
-import InventoryTable from './InventoryTable';
-import {  RemoveProductPromotions, AddProductPromotions } from '../services/Promotions';
+import InventorySearchPanel from '../../Inventory/InventorySearchPanel';
+import InventoryTable from '../../Inventory/InventoryTable';
+import {  RemoveProductPromotions, AddProductPromotions } from '../../../services/Promotions';
 import { Modal, Button } from 'react-bootstrap';
 
 const PromotionProductsModal = ({ promotion, handleClose }) => {

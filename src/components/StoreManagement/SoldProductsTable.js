@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { UpdateBulkPrintList } from "../services/Transactions";
-import Helper from "../util/Helper";
+import { UpdateBulkPrintList } from "../../services/Transactions";
 
 const ProductsSoldTable = () => {
 
@@ -50,7 +49,6 @@ const ProductsSoldTable = () => {
             <input type="checkbox" onClick={() => handleCheckBoxClick(productSaleId)} checked={bullkPrintProducts.includes(p => p.id == productSaleId)} />
         )
     }
-
 
     const isInBulkPrint = (productSale) =>{
         if(bullkPrintProducts && bullkPrintProducts.includes(productSale)){

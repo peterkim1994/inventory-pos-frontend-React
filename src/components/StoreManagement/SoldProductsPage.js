@@ -1,5 +1,5 @@
-import { BulkPrintList } from "./BulkPrintList";
-import ProductsSoldTable from "./SoldProductsTable";
+import { BulkPrintList } from "../POS/BulkPrintList";
+import ProductsSoldTable from "../StoreManagement/SoldProductsTable";
 
 export const SoldProductsPage = () =>{
     return(

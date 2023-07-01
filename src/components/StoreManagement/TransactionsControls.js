@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import {setTransactions} from "../services/Transactions";
-import { GetReport } from "../services/Transactions";
+import {setTransactions} from "../../services/Transactions";
+import { GetReport } from "../../services/Transactions";
 import { useDispatch } from "react-redux";
 
 

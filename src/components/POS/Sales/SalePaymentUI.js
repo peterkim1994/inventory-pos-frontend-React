@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { CompleteSalePayments, UpdateSaleCashStatus } from '../services/Pos';
-import { printInvoice } from './Printables/SaleInvoice';
-import helper from '../util/Helper';
+import { CompleteSalePayments, UpdateSaleCashStatus } from '../../../services/Pos';
+import { printInvoice } from '../Printables/SaleInvoice';
+import helper from '../../../util/Helper';
 
 
 const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
