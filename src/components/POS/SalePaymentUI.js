@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { CompleteSalePayments, UpdateSaleCashStatus } from '../services/Pos';
-import { printInvoice } from './SaleInvoice';
+import { printInvoice } from './Printables/SaleInvoice';
 import helper from '../util/Helper';
 
 
@@ -10,7 +10,6 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
 
     const total = parseFloat(sale.total);
     const [amountOwing, setAmountOwing] = useState(total);
-    const [paymentAmount, setPaymentAmount] = useState(0.00);
     const saleId = parseInt(sale.invoiceNumber);
     const saleFinished = useSelector(state => state.saleReducer.sale.finalised);
     const [primaryBtn, setPrimaryBtn] = useState("processSale");

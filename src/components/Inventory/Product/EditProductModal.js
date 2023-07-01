@@ -2,8 +2,8 @@ import { Modal, Button, ModalFooter } from "react-bootstrap";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { ProductForm } from './ProductForm';
-import { EditProduct } from '../services/Inventory';
-import ProductLabel from "./ProductLabel";
+import { EditProduct } from '../../../services/Inventory';
+import ProductLabel from "../../Printables/ProductLabel";
 import { useRef } from "react";
 
 const EditProductModal = ({ product }) => {

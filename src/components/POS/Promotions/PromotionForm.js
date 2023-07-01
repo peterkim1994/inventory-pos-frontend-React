@@ -1,6 +1,6 @@
 import { Form, Button, Row, Label, Col } from 'react-bootstrap';
-import CurrencyFormInput from './CurrencyFormInput';
-import NumericalFormInput from './NumericalFormInput';
+import CurrencyFormInput from './Shared/CurrencyFormInput';
+import NumericalFormInput from './Shared/NumericalFormInput';
 import { useState } from 'react';
 
 

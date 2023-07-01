@@ -1,7 +1,7 @@
-import SaleInvoice from "./SaleInvoice";
+import SaleInvoice from "../Printables/SaleInvoice";
 import { Modal, Button } from 'react-bootstrap';
 import { useState } from 'react';
-import { VoidProductSale } from "../services/Transactions";
+import { VoidProductSale } from "../../services/Transactions";
 const SaleInvoiceModal = ( {invoice} ) => {
 
     const [show, setShow] = useState(false);

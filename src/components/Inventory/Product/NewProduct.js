@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { AddProduct } from '../services/Inventory';
+import { AddProduct } from '../../../services/Inventory';
 
 import ProductForm from './ProductForm';
 

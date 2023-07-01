@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, InputGroup, Form, Col } from 'react-bootstrap';
-import ProductFilter from '../util/ProductFilter';
-import AttributeSelector from './AttributeSelector';
+import ProductFilter from '../../util/ProductFilter';
+import AttributeSelector from '../Shared/AttributeSelector';
 
 const InventorySearchPanel = ({ setResults }) => {
     const brands = useSelector(state => state.inventoryReducer.brands);

@@ -1,8 +1,8 @@
 import { Tabs, Tab } from 'react-bootstrap';
 import TransactionsTable from './TransactionsTable';
 import { useSelector } from 'react-redux';
-import { SoldProductsPage } from './SoldProductsPage';
-import RefundList from './RefundList';
+import { SoldProductsPage } from './POS/SoldProductsPage';
+import RefundList from './POS/RefundList';
 
 const TransactionsTabs = () => {
 

@@ -37,6 +37,7 @@ const ProductsSoldTable = () => {
         let updatedBulkProductList = [];
         if (bullkPrintProducts.includes(productSale)) {
             updatedBulkProductList = bullkPrintProducts.filter(p => p.id !== productSale.id);
+            console.log(updatedBulkProductList);
         } else {
             updatedBulkProductList = bullkPrintProducts.concat(productSale);                
         }

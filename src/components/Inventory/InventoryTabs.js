@@ -1,5 +1,5 @@
 import { Tabs, Tab } from 'react-bootstrap';
-import { NewProduct } from './NewProduct';
+import { NewProduct } from './Product/NewProduct';
 import InventoryBody from './InventoryBody';
 import InventorySettings from './InventorySettings';
 

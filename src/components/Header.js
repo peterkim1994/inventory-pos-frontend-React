@@ -7,7 +7,6 @@ import { GetProductAttributes, GetInventory } from '../services/Inventory';
 import { GetCurrentPromotions } from '../services/Promotions';
 import { checkToken } from '../services/RequestServer';
 
-
 const Header = () => {
 
     const user = useSelector(state => state.userReducer.user);

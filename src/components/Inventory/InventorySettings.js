@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import AttributeSetting from './AttributeSetting';
+import AttributeSetting from '../Shared/AttributeSetting';
 
 
 const InventorySettings = () => {

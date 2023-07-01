@@ -41,5 +41,4 @@ export default function PromotionManagement() {
                 <PromotionsTable promotions={allPromotions} />
         </div>
     );
-
 }

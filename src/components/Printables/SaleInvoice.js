@@ -98,24 +98,6 @@ const SaleInvoice = ({sale}) => {
     )
 }
 
-// export const printInvoice = (divId = "printed-receipt") => {
-//     let printContents = document.getElementById(divId).innerHTML;
-//     var originalContents = document.body.innerHTML;
-//  //   document.body.innerHTML = printContents;
-//  //   window.print();
-//   //  document.body.innerHTML = originalContents;
-//     var myWindow = window.open("", "MsgWindow", "width=500,height=800");
-//     myWindow.document.write(printContents);   
-//     myWindow.print();
-// }
-
-// {
-//     sale.ChangeOwed && sale.totalCashRecieved ? 
-//         <span> CASH AMOUNT RECIEVED: {sale.totalCashRecieved} <br/>
-//         CHANGE OWED:{sale.ChangeOwed } </span> 
-//     : "s"
-// }
-
 export const printInvoice = ( cashAmount = 0.00, changeAmount = 0.00) => {
    let divId = "printed-receipt";
 

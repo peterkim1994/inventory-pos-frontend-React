@@ -1,6 +1,6 @@
 import React from "react";
 import Helper from "../util/Helper";
-import SaleInvoiceModal from "./SaleInvoiceModal";
+import SaleInvoiceModal from "./POS/SaleInvoiceModal";
 
 const TransactionsTable = ({ transactions }) => {
 

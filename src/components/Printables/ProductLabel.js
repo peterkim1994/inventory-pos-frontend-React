@@ -1,13 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { MedLabel, LabelFont } from '../util/LabelDimensions';
+import { MedLabel, LabelFont } from '../../util/LabelDimensions';
 
 const ProductLabel = ({ product, size, productId, isSmallLabel }) => {
-
-   // if(product == null){        
-     //   let url_string = window.location.href;
-     //   let url = new URL(url_string);
-    //    productId = url.searchParams.get("productId");
-   // }
 
     let labelTag = <span>
                         {product.brandValue}&nbsp;{product.itemCategoryValue}&nbsp;

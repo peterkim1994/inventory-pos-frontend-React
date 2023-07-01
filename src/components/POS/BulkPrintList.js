@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from 'react';
-import ProductLabel from "./ProductLabel";
-import { GetTheseProducts } from "../services/Inventory";
-import { ClearBulkPrintList } from "../services/Transactions";
+import ProductLabel from "../Printables/ProductLabel";
+import { GetTheseProducts } from "../../services/Inventory";
+import { ClearBulkPrintList } from "../../services/Transactions";
 import React from "react";
-import { RestockProductSales } from "../services/Transactions";
-import { MedLabel, GetBulkMedLabelDimensions } from '../util/LabelDimensions';
+import { RestockProductSales } from "../../services/Transactions";
+import { MedLabel, GetBulkMedLabelDimensions } from '../../util/LabelDimensions';
 
 //list for bulk products to print
 export const BulkPrintList = () => {
@@ -42,7 +42,6 @@ export const BulkPrintList = () => {
         await ClearBulkPrintList(dispatch);
         setProductLabels([]);
     }
-
    
     //clear button was broken--- fix later
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import EditProductModal from './EditProductModal';
+import EditProductModal from './Product/EditProductModal';
 
 const InventoryTable = ({ products, selectEnabled, handleSelect, actionBtn }) => {
     //select enabled is for promotions product table

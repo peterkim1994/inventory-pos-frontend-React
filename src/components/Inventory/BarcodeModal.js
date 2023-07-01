@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
-import ProductLabel from "./ProductLabel"
-import { PrintBarcode } from "../services/PrintService"
+import ProductLabel from "../Printables/ProductLabel"
+import { PrintBarcode } from "../../services/PrintService"
 import { useRef, useState } from "react"
 
 const BarcodeModal = ({product, afterPrint}) =>{
@@ -29,5 +29,4 @@ const BarcodeModal = ({product, afterPrint}) =>{
             <button className="btn btn-secondary" onClick={goMedium}>Medium</button>
         </div>
     )
-
 }

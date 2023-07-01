@@ -5,7 +5,6 @@ import PromotionFormModal from './PromotionFormModal';
 import PromotionProductsModal from './PromotionProductsModal';
 import { GetPromotionsProducts, EditPromotion } from '../services/Promotions';
 
-
 const PromotionsTable = ({ promotions }) => {
     const dispatch = useDispatch();
 

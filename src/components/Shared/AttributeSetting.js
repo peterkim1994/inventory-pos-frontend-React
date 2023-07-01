@@ -1,8 +1,8 @@
 import { Form, Col, Button, InputGroup } from 'react-bootstrap';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { AddColour, AddBrand, AddItemCategory, AddSize } from '../services/Inventory';
-import { EditColour, EditBrand, EditCategory, EditSize } from '../services/Inventory';
+import { AddColour, AddBrand, AddItemCategory, AddSize } from '../../services/Inventory';
+import { EditColour, EditBrand, EditCategory, EditSize } from '../../services/Inventory';
 import AttributeSelector from './AttributeSelector';
 
 const AttributeSetting = ({ attributeName, attributes }) => {

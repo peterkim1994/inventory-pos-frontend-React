@@ -2,9 +2,9 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import React, { useState, useRef } from "react";
 
 import { useSelector } from 'react-redux';
-import AttributeSelector from './AttributeSelector';
-import NumericalFormInput from './NumericalFormInput';
-import CurrencyFormInput from './CurrencyFormInput';
+import AttributeSelector from '../Shared/AttributeSelector';
+import NumericalFormInput from '../Shared/NumericalFormInput';
+import CurrencyFormInput from '../Shared/CurrencyFormInput';
 
 export const ProductForm = ({ product, handleClose, handleSubmit }) => {
     const brands = useSelector(state => state.inventoryReducer.brands);

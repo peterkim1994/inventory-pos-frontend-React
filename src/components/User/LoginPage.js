@@ -1,12 +1,12 @@
 import { useRef, useState} from 'react';
 import {useDispatch} from "react-redux";
-import {Login, Logout} from '../services/Users';
+import {Login, Logout} from '../../services/Users';
 
 export const LoginPage = () =>{
 
     const loginRef = useRef();
-    const [name,setName] = useState();
-    const [pass,setPassword] = useState();
+    const [name, setName] = useState();
+    const [pass, setPassword] = useState();
     const dispatch = useDispatch();
     const [response, setResponse ] = useState("");
 
@@ -16,6 +16,7 @@ export const LoginPage = () =>{
             userName: name,
             password: pass
         }
+        
         Login(dispatch, loginData, setResponse);
     }
 
