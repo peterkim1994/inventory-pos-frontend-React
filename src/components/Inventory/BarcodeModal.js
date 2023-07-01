@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import ProductLabel from "../Printables/ProductLabel"
+import ProductLabel from "../POS/Printables/ProductLabel"
 import { PrintBarcode } from "../../services/PrintService"
 import { useRef, useState } from "react"
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { MedLabel, LabelFont } from '../../util/LabelDimensions';
+import { MedLabel, LabelFont } from '../../../util/LabelDimensions';
 
 const ProductLabel = ({ product, size, productId, isSmallLabel }) => {
 

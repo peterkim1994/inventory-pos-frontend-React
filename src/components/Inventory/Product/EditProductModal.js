@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { ProductForm } from './ProductForm';
 import { EditProduct } from '../../../services/Inventory';
-import ProductLabel from "../../Printables/ProductLabel";
+import ProductLabel from "../../POS/Printables/ProductLabel";
 import { useRef } from "react";
 
 const EditProductModal = ({ product }) => {
