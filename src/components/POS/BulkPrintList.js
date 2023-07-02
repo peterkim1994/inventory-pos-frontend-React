@@ -5,7 +5,7 @@ import { GetTheseProducts } from "../../services/Inventory";
 import { ClearBulkPrintList } from "../../services/Transactions";
 import React from "react";
 import { RestockProductSales } from "../../services/Transactions";
-import { MedLabel, GetBulkMedLabelDimensions } from '../../util/LabelDimensions';
+import { MedLabel, GetBulkMedLabelDimensions } from '../../data/LabelDimensions';
 
 //list for bulk products to print
 export const BulkPrintList = () => {

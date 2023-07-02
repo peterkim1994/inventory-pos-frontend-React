@@ -16,7 +16,6 @@ const ProductsSoldTable = () => {
         }        
     },[products.length]);
 
-
     const initBulkPrintList =()=>{
         let i = 0;
         let updatedList = [];
@@ -28,6 +27,7 @@ const ProductsSoldTable = () => {
                 k++;                    
             }
         } 
+
         setBulkPrintProducts([...updatedList]);
         UpdateBulkPrintList(dispatch, [...updatedList]);
     }
@@ -40,6 +40,7 @@ const ProductsSoldTable = () => {
         } else {
             updatedBulkProductList = bullkPrintProducts.concat(productSale);                
         }
+        
         await setBulkPrintProducts([...updatedBulkProductList]);
         await UpdateBulkPrintList(dispatch, [...updatedBulkProductList]);
     }
@@ -61,8 +62,6 @@ const ProductsSoldTable = () => {
             return "warning";
         }
     }
-
-    //checked={bullkPrintProducts && bullkPrintProducts.includes(productSale)}
     
     return (
         <div >

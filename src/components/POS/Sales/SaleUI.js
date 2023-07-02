@@ -120,7 +120,7 @@ export const SaleUI = () => {
                     > Cancel Sale </button>
                 </div>
                 <div className="printable" id="printed-receipt">
-                    <img id="receipt-logo" src="../procamp_sign.png"/>
+                    <img id="receipt-logo" src="../assets/procamp_sign.png"/>
                     <SaleInvoice sale={sale} business={business} />
                 </div>
             </div>

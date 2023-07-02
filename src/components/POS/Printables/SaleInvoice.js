@@ -52,7 +52,7 @@ const SaleInvoice = ({sale}) => {
     product must be unused and provided with the  <br/> original receipt and product tags.</span>;
 
     return (
-        <div className="invoice-body" ref={invoiceRef} style={{fontFamily:"Times New Roman, Times, serif",marginLeft:"2mm",position:"relative",top:"2mm"}}>
+        <div className="invoice-body" ref={invoiceRef} style={{fontFamily:"Times New Roman, Times, serif", marginLeft:"2mm",position:"relative",top:"2mm"}}>
             <div>            
                 L306
                 <br/>

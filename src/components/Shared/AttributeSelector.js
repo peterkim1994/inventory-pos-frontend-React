@@ -22,10 +22,7 @@ const AttributeSelector = ({ stateAttributes, attributeName, handleSelect, produ
                      <option key={0} value={-1}> - </option>
                         {
                             attributes.map(a =>
-                                <option
-                                    key={a.id}
-                                    value={a.id}
-                                >
+                                <option key={a.id} value={a.id}>
                                     {a.value}
                                 </option>
                             )
