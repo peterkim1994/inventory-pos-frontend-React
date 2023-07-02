@@ -47,10 +47,10 @@ const AttributeSetting = ({ attributeName, attributes }) => {
                 <Form.Row>
                     <Col sm={5} >
                         <AttributeSelector
-                            attributeName={attributeName}
-                            stateAttributes={attributes}
+                            attributeCategory={attributeName}
+                            attributes={attributes}
                             //       productAttribute = {null}
-                            handleSelect={(event) => {
+                            selectEventHandler={(event) => {
                                 const attributeValue = event.target.options[event.target.selectedIndex].text;
                                 const attributeId = parseInt(event.target.value);
                                 setAttribute({ id: attributeId, value: attributeValue });

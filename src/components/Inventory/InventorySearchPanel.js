@@ -39,11 +39,10 @@ const InventorySearchPanel = ({ setResults }) => {
             <Form className="inventory-search-panel">                
                 <Form.Row>              
                     <InputGroup className="inventory-search-panel">
-
                         <AttributeSelector
-                            stateAttributes={brands}
-                            attributeName={"Brand"}
-                            handleSelect= { 
+                            attributes={brands}
+                            attributeCategory={"Brand"}
+                            selectEventHandler= { 
                                 event =>{
                                     productFilterObj.brandParam = parseInt(event.target.value);
                                     performFilter(event);
@@ -51,24 +50,24 @@ const InventorySearchPanel = ({ setResults }) => {
                             }
                         />
                         <AttributeSelector
-                            stateAttributes={categories}
-                            attributeName={"Category"}
-                            handleSelect={event => {
+                            attributes={categories}
+                            attributeCategory={"Category"}
+                            selectEventHandler={event => {
                                 productFilterObj.categoryParam = parseInt(event.target.value)
                                 performFilter(event);
                             }}
                         />
                         <AttributeSelector
-                            stateAttributes={colours}
-                            attributeName={"Colour"}
-                            handleSelect={event => {
+                            attributes={colours}
+                            attributeCategory={"Colour"}
+                            selectEventHandler={event => {
                                 productFilterObj.colourParam = parseInt(event.target.value);
                                 performFilter(event);}}
                         />
                         <AttributeSelector
-                            stateAttributes={sizes}
-                            attributeName={"Size"}
-                            handleSelect={event => {
+                            attributes={sizes}
+                            attributeCategory={"Size"}
+                            selectEventHandler={event => {
                                 productFilterObj.sizeParam = parseInt(event.target.value);
                                 performFilter(event);}}
                         />
@@ -87,11 +86,5 @@ const InventorySearchPanel = ({ setResults }) => {
         </div>
     )
 }
-
-/*
-                        <Col>
-                            <button className="btn btn-primary" onClick={(event) => performFilter(event)}>Filter</button>
-                        </Col>
-*/
 
 export default InventorySearchPanel

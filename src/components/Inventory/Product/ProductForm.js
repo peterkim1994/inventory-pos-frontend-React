@@ -68,36 +68,36 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
             </Form.Group>
             <Form.Row>
                 <AttributeSelector
-                    stateAttributes={brands}
-                    attributeName="Brand"
-                    productAttribute={product.brandId}
-                    handleSelect={
+                    attributes={brands}
+                    attributeCategory="Brand"
+                    initialAttributeValueId={product.brandId}
+                    selectEventHandler={
                         event => updateProduct({ ...updatedProduct, brandId: parseInt(event.target.value) })
                     }
                 />
                 <AttributeSelector
-                    stateAttributes={categories}
-                    attributeName="Category"
-                    productAttribute={product.itemCategoryId}
-                    handleSelect={event =>
+                    attributes={categories}
+                    attributeCategory="Category"
+                    initialAttributeValueId={product.itemCategoryId}
+                    selectEventHandler={event =>
                         updateProduct({ ...updatedProduct, itemCategoryId: parseInt(event.target.value) })
                     }
                 />
             </Form.Row>
             <Form.Row>
                 <AttributeSelector
-                    stateAttributes={colours}
-                    attributeName="Colour"
-                    productAttribute={product.colourId}
-                    handleSelect={
+                    attributes={colours}
+                    attributeCategory="Colour"
+                    initialAttributeValueId={product.colourId}
+                    selectEventHandler={
                         event => updateProduct({ ...updatedProduct, colourId: parseInt(event.target.value) })
                     }
                 />
                 <AttributeSelector
-                    stateAttributes={sizes}
-                    attributeName="Size"
-                    productAttribute={product.sizeId}
-                    handleSelect={
+                    attributes={sizes}
+                    attributeCategory="Size"
+                    initialAttributeValueId={product.sizeId}
+                    selectEventHandler={
                         event => updateProduct({ ...updatedProduct, sizeId: parseInt(event.target.value) })
                     }
                 />
