@@ -314,23 +314,7 @@ button.transactions-controls{
   margin-top: 20px;
 }
 
-.refund-field{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
-}
 
-.refund-field label{
-  width: 15vw;
-}
-
-.refund-field input{
-  width: 25vw;
-}
-.refund-field textarea{
-  width: 25vw;
-}
 
 @media print {
   body{
