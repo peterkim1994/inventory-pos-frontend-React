@@ -66,6 +66,7 @@
   width: 18vw;
   padding-bottom: 3px;
 }
+
 .inventory-search-bar button{
   margin-left: 10px;
 }
@@ -79,12 +80,10 @@
 }
 
 .inventory-table{  
- 
   padding-top: 0px;
   max-width: 100%;
   padding: 3rem;
   position:relative; 
-  
 }
 
 .inventory-table-body{
@@ -306,21 +305,6 @@ button.transactions-controls{
   display: none;
 }
 
-.refund-ui{
-  display: flex;
-  flex-direction:column;
-  align-self: center;
-  justify-content: center;
-  align-content: center;
-  max-width: 50vw;
-  height: 50vh;
-  margin: auto;
-  background-color: linen;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  padding: 10px;
-  margin-top: 20px;
-}
-
 .promoPage{
   display: flex;
   align-content: center;
@@ -441,6 +425,7 @@ button.transactions-controls{
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   margin-top: 20px;
 }
+
 .payment-radio-btns input{
   width: 1.5em;
   height: 1.5em;
