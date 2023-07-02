@@ -1,0 +1,41 @@
+.refund-pannel{
+    display: flex;
+    flex-direction:column;
+    align-self: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.refund-ui{
+    display: flex;
+    flex-direction:column;
+    align-self: center;
+    justify-content: center;
+    align-content: center;
+    min-width: 60px;
+    max-width: 50vw;
+    height: 40vh;
+    margin: auto;
+    background-color: rgb(207, 203, 227);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 10px;
+    margin-top: 40px;
+  }
+
+  .refund-field{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+  }
+  
+  .refund-field label{
+    width: 15vw;
+  }
+  
+  .refund-field input{
+    width: 25vw;
+  }
+  .refund-field textarea{
+    width: 25vw;
+  }

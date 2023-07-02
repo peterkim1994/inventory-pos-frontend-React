@@ -1,7 +1,6 @@
 class Helper {
     
     Constructor(){
-
     }
 
     getNumber = (event) => {
@@ -15,7 +14,6 @@ class Helper {
         return Number.isNaN(parsedValue) ? 0.00 : parsedValue;
     }
 
-
     getDate = (date) =>{
         let d = new Date(date);
         return  `${d.getDate()}/${d.getMonth() + 1}/${d.getYear().toString().substring(1)}`; 
@@ -25,6 +23,7 @@ class Helper {
         let d = new Date(date);
         return  `${d.getHours()}:${d.getMinutes().toString().padStart(2, '0')}`; 
     }
+
     getCurrentDate = () =>{
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');

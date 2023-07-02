@@ -8,8 +8,6 @@ const medium = {
 const toLabel = (product) =>{
     let labelInfo = `${product.price} - ${product.brandValue} - ${product.itemCategoryValye}\n
     - ${product.colourValue} ${product.sizeValue}`;
-
-    
 }
 
 export default PrintLabel = (width, length, fontSize, product, size) =>{

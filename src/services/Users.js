@@ -14,15 +14,16 @@ export const Login = async (dispatch, loginData, errHandler)=>{
         localStorage.setItem("authority", token);
         checkToken();
         await dispatch(ActionCreators.loginUser(data));
-        let prevState = localStorage.getItem("superAdminLogedOn");
+     //   let prevState = localStorage.getItem("superAdminLogedOn");
         localStorage.setItem("superAdminLogedOn", true);
-        let autoLogOut = (prevState) =>{
-            if(!prevState){
-                setTimeout(()=> localStorage.setItem("superAdminLogedOn", false), 2000000);
-            }
-        }
         
-        autoLogOut(prevState);
+       // let autoLogOut = (prevState) =>{
+       //     if(!prevState){
+                setTimeout(()=> localStorage.setItem("superAdminLogedOn", false), 2000000);
+       //     }
+      //  }
+        
+      //  autoLogOut(prevState);
         errHandler("success");       
 
     }
