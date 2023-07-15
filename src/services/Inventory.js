@@ -1,13 +1,28 @@
 import axios from 'axios';
 import { ActionCreators } from '../redux/InventoryReducer';
-import {axiosObj, checkToken} from './RequestServer';
-
+import { axiosObj, checkToken } from './RequestServer';
 
 export const GetInventory = async (dispatch) => {
-    try {                   
+    try {
         const { data } = await axiosObj.get("inventory");
         dispatch(ActionCreators.setProducts(data));
-    } catch (err) { 
+    } catch (err) {
+        console.log("GetInventory service error \n" + err)
+    }
+}
+
+export const GetInventoryProducts = async (dispatch) => {
+    try {
+        const { data } = await axiosObj.get("inventory/GetInventoryProducts", {
+            params: {
+                storeId: 1,
+                numItemsToDisplay: 150,
+                pageNum: 1
+            }
+        });
+
+        dispatch(ActionCreators.setProducts(data));
+    } catch (err) {
         console.log("GetInventory service error \n" + err)
     }
 }
@@ -34,9 +49,9 @@ export const EditColour = async (dispatch, colour) => {
     try {
         const { data } = await axiosObj.post("inventory/editColour", colour);
         dispatch(ActionCreators.editColour(data));
-     
+
     } catch (err) {
-        console.log("edit colour service error \n" + err);        
+        console.log("edit colour service error \n" + err);
     }
 }
 
@@ -94,20 +109,20 @@ export const EditBrand = async (dispatch, brand) => {
     }
 }
 
-export const EditProduct = async(dispatch, product) => {    
+export const EditProduct = async (dispatch, product) => {
     let userRequestResponse = document.getElementById("addProductApiResponse");
-    try{
+    try {
         checkToken();
         const response = await axiosObj.post("Inventory/EditProduct", product);
         dispatch(ActionCreators.editProduct(response.data));
         console.log(response.data);
-        userRequestResponse.innerHTML = "success";    
-        return true;       
-    }catch(err){
+        userRequestResponse.innerHTML = "success";
+        return true;
+    } catch (err) {
         userRequestResponse.innerHTML = err.message;
         console.log(err);
         return false;
-    }   
+    }
 }
 
 export const AddProduct = async (dispatch, product) => {
@@ -116,20 +131,20 @@ export const AddProduct = async (dispatch, product) => {
     //   try {
     console.log(product);
     const response = await axiosObj.post("inventory/addproduct", product)
-        .catch(err => {                       
-            validProduct = false;            
+        .catch(err => {
+            validProduct = false;
             console.log(err);
             let errorMessage = "";
-            if(err.response.data && typeof(err.response.data) === "object" ){
-                if(err.response.data.Description)
-                 err.response.data.errors.Description.map(e => {
-                     errorMessage += (e + "\n");
-                })
-              }else if(err.response.data){ 
-                 errorMessage = err.response.data;
+            if (err.response.data && typeof (err.response.data) === "object") {
+                if (err.response.data.Description)
+                    err.response.data.errors.Description.map(e => {
+                        errorMessage += (e + "\n");
+                    })
+            } else if (err.response.data) {
+                errorMessage = err.response.data;
             }
             userRequestResponse.innerHTML = errorMessage;
-        });   
+        });
     if (validProduct) {
         dispatch(ActionCreators.newProduct(response.data));
         userRequestResponse.innerHTML = "success";
@@ -152,12 +167,13 @@ export const GetProductAttributes = async (dispatch) => {
     }
 }
 
-export const GetTheseProducts = async (productIds) =>{
-    try{
-        const {data} = await axiosObj.post("inventory/getTheseProducts",productIds);
+export const GetTheseProducts = async (productIds) => {
+    try {
+        const productIdList = productIds.join(',');
+        const { data } = await axiosObj.get("inventory/getTheseProducts?productIds=", productIds);
         return data;
     }
-    catch(e){
+    catch (e) {
         console.log(e);
     }
 }
