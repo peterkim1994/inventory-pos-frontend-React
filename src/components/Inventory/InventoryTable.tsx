@@ -1,13 +1,13 @@
-import React from 'react';
+import * as React from 'react';
 import EditProductModal from './Product/EditProductModal';
 
-const InventoryTable = ({ products, selectEnabled, handleSelect, actionBtn }) => {
+const InventoryTable : any = ({products, selectEnabled, handleSelect, actionBtn }) => {
     //select enabled is for promotions product table
     return (
         <div >
             <table className='table table-striped table-hover inventory-table'>
                 <thead>
-                    <tr>                        
+                    <tr>
                         <th className="table-col"> Brand </th>
                         <th className="table-col"> Category </th>
                         <th className="table-col"> Colour </th>
@@ -15,11 +15,11 @@ const InventoryTable = ({ products, selectEnabled, handleSelect, actionBtn }) =>
                         <th className="table-col"> Description </th>
                         <th className="table-col"> Price </th>
                         <th className="table-col"> Quantity</th>
-                        <th className="table-col"> ID: </th>
+                        <th className="table-col"> IDs: </th>
                         <th className="table-col"> </th>
                     </tr>
                 </thead>
-                <tbody >
+                <tbody>
                     {
                       products.map(pr =>
                             <tr key={pr.id} id={`product-row-${pr.id}`} style={{height:"50%"}}>                                

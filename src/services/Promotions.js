@@ -1,7 +1,6 @@
 import { ActionCreators } from '../redux/PromotionsReducer';
 import {axiosObj} from './RequestServer';
 
-
 export const AddPromotion = async (dispatch, promotion) => {
     try {
         const { data } = await axiosObj.post("sales/addPromotion", promotion);
@@ -46,6 +45,7 @@ export const GetCurrentPromotions = async (dispatch) => {
 
 export const AddProductToPromotion = async (dispatch, promotion, product) => {
     try {
+        //todo: inspect why this is a get request
         const { data } = await axiosObj.get(`sales/AddProductPromotion/?${product.id}/${promotion.id}`);
         dispatch(ActionCreators.setPromotions(data));
     } catch (err) {

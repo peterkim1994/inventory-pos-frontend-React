@@ -49,7 +49,6 @@ const AttributeSetting = ({ attributeName, attributes }) => {
                         <AttributeSelector
                             attributeCategory={attributeName}
                             attributes={attributes}
-                            //       productAttribute = {null}
                             selectEventHandler={(event) => {
                                 const attributeValue = event.target.options[event.target.selectedIndex].text;
                                 const attributeId = parseInt(event.target.value);
