@@ -4,6 +4,7 @@ import SaleProductList from './SaleProductList';
 import { AddProductSales, StartSale, ClearSale, CancelSale } from '../../../services/Pos';
 import SalePaymentUI from './SalePaymentUI';
 import SaleInvoice from '../Printables/SaleInvoice';
+import '../../../assets/POS/salesUI.scss';
 
 export const SaleUI = () => {
 
@@ -101,10 +102,10 @@ export const SaleUI = () => {
         <div>        
             <div className="pos-page">
                 <div className="sale-ui">
-                    <div className="barcode-search">
+                    <div className="sales-barcode-search">
                         <form className="sale-ui-barcode-entry" onSubmit={scanBarcode}>
-                            <label for="barcodeNumber"> Barcode: </label>
-                            <input ref={barcodeRef} type="number" name="barcodeNumber" disabled={removeSetting}/>
+                            <label className="barcode-label" for="barcodeNumber"> Barcode</label>
+                            <input autoFocus className="std-form-control" ref={barcodeRef} type="number" name="barcodeNumber" disabled={removeSetting}/>
                         </form>
                     </div>
                     <div>
@@ -127,4 +128,5 @@ export const SaleUI = () => {
         </div>
     );
 }
+
 export default SaleUI

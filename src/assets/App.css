@@ -2,6 +2,7 @@
 
 .App {
   text-align: center;
+  height: 100vh;
 }
 
 .App-logo {
@@ -187,82 +188,11 @@
   margin: auto;
   height: fit-content;
 }
-.sale-ui{
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  background-color:azure;
-  max-width: 60vw;
-  height: 75vh;
-  margin:auto;
-}
-
-.sales-list-body{
-  width:50vw;
-  height:60vh;
-  background-color:azure;
-  overflow-y: scroll;
-}
-
-.sale-list-left{
-    display: flex;
-    float: left;
-    white-space: pre-wrap;
-}
-
-.sale-list-right{
-    display: flex;
-    float: right;
-    max-width:min-content;
-    max-height: fit-content;
-}
 
 .product-attribute{
     width: 8vw;
 }
 
-.payment-controls{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-content:center;
-    align-items: center;
-}
-
-.pos-page{
-    display:inline-flex;
-    flex-direction:row;
-    justify-content:center;
-    align-content:center;
-    align-items: center;
-    margin: auto;    
-
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding: 10px;
-    background-color: rgb(217, 231, 247);
-}
-
-.payment-ui{  
-    padding: 2vh;
-    background-color: rgba(232, 232, 235, 0.767);
-   /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
-    width: 25vw;
-    min-height: 75vh;
-    height: 65vh;
-    margin: auto;
-}
-
-.payment-input{
-  display: flex;
-  width:20vw;
-  flex-direction:row;
-  justify-content:space-between;
-  align-content: space-between;
-  align-items: space-between;
-  margin-top: 2vh;
-}
 
 .transactions-controls{
   padding: 10px;
@@ -313,8 +243,6 @@ button.transactions-controls{
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   margin-top: 20px;
 }
-
-
 
 @media print {
   body{
@@ -408,11 +336,4 @@ button.transactions-controls{
   max-width: 80%;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   margin-top: 20px;
-}
-
-.payment-radio-btns input{
-  width: 1.5em;
-  height: 1.5em;
-  top: 3px;
-  position: relative;
 }
