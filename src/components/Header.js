@@ -13,13 +13,15 @@ const Header = () => {
     const [signedIn, SetSignedIn] = useState(user === null ? false : true);
     const dispatch = useDispatch();
     const userRef = useRef(user);
+    //const defaultPageQuery = 
 
     useEffect(() => {
         let func = function () {
             SetSignedIn(user === null ? false : true);
             GetProductAttributes(dispatch);
             //GetInventory(dispatch);
-            GetInventoryProducts(dispatch);
+            
+    //        GetInventoryProducts(dispatch, );
             GetCurrentPromotions(dispatch);
         }
 

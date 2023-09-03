@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     GetProductAttributes(dispatch);
     //GetInventory(dispatch);
-    GetInventoryProducts(dispatch);
+    //GetInventoryProducts(dispatch);
   }, []);
 
   return (

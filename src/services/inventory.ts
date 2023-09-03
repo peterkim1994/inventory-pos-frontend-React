@@ -4,6 +4,7 @@ import { axiosObj, checkToken } from './RequestServer';
 import { Dispatch } from '@reduxjs/toolkit';
 import { ProductAttribute } from '../types/product/productAttribute';
 import { Product } from '../types/product/prouduct';
+import { AllProductQueryModel } from '../types/product/productQueryModel';
 
 export const GetInventory = async (dispatch : Dispatch) => {
     try {
@@ -14,15 +15,16 @@ export const GetInventory = async (dispatch : Dispatch) => {
     }
 }
 
-export const GetInventoryProducts = async (dispatch : Dispatch) => {
+export const GetInventoryProducts = async (dispatch : Dispatch, productQuery: AllProductQueryModel) => {
     try {
         const { data } = await axiosObj.get("inventory/GetInventoryProducts", {
             params: {
                 storeId: 1,
-                numItemsToDisplay: 150,
-                pageNum: 1
+                numItemsToDisplay: productQuery.numItemsPerPage,
+                pageNum: productQuery.pageNum
             }
         });
+        
         dispatch(ActionCreators.setProducts(data));
     } catch (err) {
         console.log("GetInventory service error \n" + err)
@@ -159,7 +161,6 @@ export const GetProductAttributes = async (dispatch : Dispatch) => {
 
 export const GetTheseProducts = async (productIds : number []) => {
     try {
-        const productIdList = productIds.join(',');
         const { data } = await axiosObj.get("inventory/getTheseProducts?productIds=", productIds);
         return data;
     }
