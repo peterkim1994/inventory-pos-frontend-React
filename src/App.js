@@ -1,6 +1,7 @@
 import React from 'react';
 import './assets/App.css';
-import './assets/Refund.css';
+import './assets/main.scss';
+import './assets/POS/refund.scss';
 import { Route } from 'react-router-dom';
 import Header from './components/Header';
 import InventoryTabs from './components/Inventory/InventoryTabs';
@@ -10,14 +11,15 @@ import TransactionsBody from './components/StoreManagement/TransactionsBody';
 import PrintComponent from './components/POS/Printables/PrintComponent';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { GetProductAttributes, GetInventory } from './services/Inventory';
+import { GetProductAttributes, GetInventory, GetInventoryProducts } from './services/inventory';
 
 function App() {
 
   const dispatch = useDispatch();
   useEffect(() => {
     GetProductAttributes(dispatch);
-    GetInventory(dispatch);
+    //GetInventory(dispatch);
+    GetInventoryProducts(dispatch);
   }, []);
 
   return (

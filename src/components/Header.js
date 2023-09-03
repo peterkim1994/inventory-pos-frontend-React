@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import { NavDropdown, Nav } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetProductAttributes, GetInventory } from '../services/Inventory';
+import { GetProductAttributes, GetInventory, GetInventoryProducts } from '../services/inventory';
 import { GetCurrentPromotions } from '../services/Promotions';
 import { checkToken } from '../services/RequestServer';
 
@@ -18,14 +18,17 @@ const Header = () => {
         let func = function () {
             SetSignedIn(user === null ? false : true);
             GetProductAttributes(dispatch);
-            GetInventory(dispatch);
+            //GetInventory(dispatch);
+            GetInventoryProducts(dispatch);
             GetCurrentPromotions(dispatch);
         }
+
         if (userRef.current !== user) {
             func();
         } else { // else will run when component initially mounts
             checkToken(); // asigns JWT token to axios singleton obj 
         }
+
     }, [user]);
 
     return (

@@ -5,7 +5,6 @@ import { CompleteSalePayments, UpdateSaleCashStatus } from '../../../services/Po
 import { printInvoice } from '../Printables/SaleInvoice';
 import helper from '../../../util/Helper';
 
-
 const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
 
     const total = parseFloat(sale.total);
@@ -41,6 +40,7 @@ const SalePaymentUI = ({ sale, processSaleComponent, clearSale }) => {
                 btn.checked = false;
             }
         });
+
         setEftpos(0.00);
         setCash(0.00);
         setStoreCredit(0.00);

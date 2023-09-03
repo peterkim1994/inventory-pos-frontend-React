@@ -2,7 +2,7 @@ import * as axios from 'axios';
 
 export const axiosObj = axios.create({
     headers: {
-       'Access-Control-Allow-Origin': '*',
+       'Access-Control-Allow-Origin': 'https://localhost:5001/',
        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",    
      },      
     //baseURL: "http://inventoryapi.local/",

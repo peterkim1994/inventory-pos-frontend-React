@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import InventoryReducer from './InventoryReducer';
+import InventoryReducer from './inventoryReducer';
 import PromotionsReducer from './PromotionsReducer';
 import TransactionsReducer from './TransactionsReducer';
 import UserReducer from './UserReducer';

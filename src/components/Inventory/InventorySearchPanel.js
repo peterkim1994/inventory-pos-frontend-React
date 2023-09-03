@@ -67,7 +67,7 @@ const InventorySearchPanel = ({ setResults }) => {
                         <AttributeSelector
                             attributes={sizes}
                             attributeCategory={"Size"}
-                            selectEventHandler={event => {
+                            handleSelect={event => {
                                 productFilterObj.sizeParam = parseInt(event.target.value);
                                 performFilter(event);}}
                         />

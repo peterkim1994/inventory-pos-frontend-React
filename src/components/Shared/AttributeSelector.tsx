@@ -2,7 +2,7 @@ import { Form, Col, Row } from 'react-bootstrap';
 import { ProductAttribute } from '../../types/product/productAttribute'
 import { FC } from 'react';
 import { AttributeSelectionProps } from '../../types/product/attributeSelectionProps';
-import React from 'react';
+import * as React from 'react';
 
 const AttributeSelector : FC<AttributeSelectionProps> = ({ attributes = [], attributeCategory, selectEventHandler, initialAttributeValueId }) => {
 
@@ -11,8 +11,6 @@ const AttributeSelector : FC<AttributeSelectionProps> = ({ attributes = [], attr
     const selectAttribute = (selectedValue : string) => {
         initialAttributeValueId = parseInt(selectedValue);
     }
-
-    console.log(attributes);
 
     return (
         <Col>
