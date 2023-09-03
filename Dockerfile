@@ -26,3 +26,8 @@ EXPOSE 8080
 
 #command step to tell docker file how to run the application. Only one per file is allowed
 CMD ["npm", "start"]
+
+#build your container, -t is tag, and path for container to run in . means current dir
+#docker build -t [dockerUserName]/[imageName]:[v] .
+
+#run docker and -p 3002:8080 [imageGuid]
