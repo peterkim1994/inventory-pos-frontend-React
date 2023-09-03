@@ -2,7 +2,7 @@ import { Modal, Button, ModalFooter } from "react-bootstrap";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { ProductForm } from './ProductForm';
-import { EditProduct } from '../../../services/Inventory';
+import { EditProduct } from '../../../services/inventory';
 import ProductLabel from "../../POS/Printables/ProductLabel";
 import { useRef } from "react";
 
@@ -16,7 +16,9 @@ const EditProductModal = ({ product }) => {
   const editProduct = (editedProduct) => {
     const success = EditProduct(dispatch, editedProduct);
     if (success)
+    {
       handleClose();
+    }
   }
 
   const printLabel = () => {
@@ -43,8 +45,7 @@ const EditProductModal = ({ product }) => {
           <div className="flexOrders" style={{margin:"auto"}}>
             <div ref={productRef} >
               <ProductLabel product={product} />
-            </div>
-           
+            </div>        
           </div>       
           <button className="btn btn-primary" onClick={printLabel}>print</button>
         </ModalFooter>

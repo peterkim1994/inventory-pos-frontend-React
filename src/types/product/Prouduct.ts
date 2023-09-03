@@ -1,4 +1,4 @@
-export interface Products {
+export interface Product {
     id: number;
     barcode?: number;
     manufactureCode?: string;
@@ -15,3 +15,7 @@ export interface Products {
     qty?: number;
     active?: boolean;
   }
+
+export interface Products {
+  producs: Product[];
+}

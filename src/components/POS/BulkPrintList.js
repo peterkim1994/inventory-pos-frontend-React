@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from 'react';
 import ProductLabel from "./Printables/ProductLabel";
-import { GetTheseProducts } from "../../services/Inventory";
+import { GetTheseProducts } from "../../services/inventory";
 import { ClearBulkPrintList } from "../../services/Transactions";
 import React from "react";
 import { RestockProductSales } from "../../services/Transactions";

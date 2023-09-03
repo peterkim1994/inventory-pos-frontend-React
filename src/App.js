@@ -11,15 +11,15 @@ import TransactionsBody from './components/StoreManagement/TransactionsBody';
 import PrintComponent from './components/POS/Printables/PrintComponent';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { GetProductAttributes, GetInventory, GetInventoryProducts } from './services/Inventory';
+import { GetProductAttributes, GetInventory, GetInventoryProducts } from './services/inventory';
 
 function App() {
 
   const dispatch = useDispatch();
   useEffect(() => {
     GetProductAttributes(dispatch);
-    GetInventory(dispatch);
-    //GetInventoryProducts(dispatch);
+    //GetInventory(dispatch);
+    GetInventoryProducts(dispatch);
   }, []);
 
   return (

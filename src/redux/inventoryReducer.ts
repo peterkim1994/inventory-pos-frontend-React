@@ -1,4 +1,10 @@
-const initialState = {
+import { InitialState } from "../types/state/inventory/inventoryInitialState"
+import { ActionTypes } from "../types/state/inventory/inventoryActionTypes"
+import { AddProductAttributeAction, InventoryAction, ProductAction, ProductsAction, SetProductAttributesAction, UpdateProductAttributeAction } from "../types/state/inventory/inventoryActions"
+import { Product } from "../types/product/prouduct"
+import { ProductAttribute } from "../types/product/productAttribute"
+
+const initialState: InitialState = {
     products: [],
     colours: [],
     sizes: [],
@@ -6,45 +12,28 @@ const initialState = {
     brands: [],
 }
 
-export const ActionTypes = {
-    SET_SEARCHED_PRODUCTS : 'SET_SEARCHED_PRODUCTS',
-    SET_PRODUCTS: 'SET_PRODUCTS',
-    NEW_PRODUCT: 'NEW_PRODUCT',
-    EDIT_PRODUCT: 'EDIT_PRODUCT',
-    SET_COLOURS: 'SET_COLOURS',
-    NEW_COLOUR: 'NEW_COLOUR',
-    EDIT_COLOUR: 'EDIT_COLOUR',
-    SET_CATEGORIES: 'SET_CATEGORIES',
-    NEW_CATEGORY: 'NEW_CATEGORY',
-    EDIT_CATEGORY: 'EDIT_CATEGORY',
-    SET_BRANDS: 'SET_BRANDS',
-    NEW_BRAND: 'NEW_BRAND',
-    EDIT_BRAND: 'EDIT_BRAND',
-    SET_SIZES: 'SET_SIZES',
-    NEW_SIZE: 'NEW_SIZE'
-}
-
 export const ActionCreators = {
-    setProducts: payload => ({ type: ActionTypes.SET_PRODUCTS, payload }),
-    newProduct: payload => ({ type: ActionTypes.NEW_PRODUCT, payload }),
-    editProduct: payload => ({ type: ActionTypes.EDIT_PRODUCT, payload }),
-    setColours: payload => ({ type: ActionTypes.SET_COLOURS, payload }),
-    newColour: payload => ({ type: ActionTypes.NEW_COLOUR, payload }),
-    editColour: payload => ({ type: ActionTypes.EDIT_COLOUR, payload }),
-    setCategories: payload => ({ type: ActionTypes.SET_CATEGORIES, payload }),
-    newCategory: payload => ({ type: ActionTypes.NEW_CATEGORY, payload }),
-    editCategory: payload => ({ type: ActionTypes.EDIT_CATEGORY, payload }),
-    setBrands: payload => ({ type: ActionTypes.SET_BRANDS, payload }),
-    newBrand: payload => ({ type: ActionTypes.NEW_BRAND, payload }),
-    editBrand: payload => ({ type: ActionTypes.EDIT_BRAND, payload }),
-    setSizes: payload => ({ type: ActionTypes.SET_SIZES, payload }),
-    newSize: payload => ({ type: ActionTypes.NEW_SIZE, payload }),
+    setProducts: (payload: Product[]): ProductsAction => ({ type: ActionTypes.SET_PRODUCTS, payload }),
+    newProduct: (payload: Product): ProductAction => ({ type: ActionTypes.NEW_PRODUCT, payload }),
+    editProduct: (payload: Product): ProductAction => ({ type: ActionTypes.EDIT_PRODUCT, payload }),
+    setColours: (payload: ProductAttribute[]): SetProductAttributesAction => ({ type: ActionTypes.SET_COLOURS, payload }),
+    newColour: (payload: ProductAttribute): AddProductAttributeAction => ({ type: ActionTypes.NEW_COLOUR, payload }),
+    editColour: (payload: ProductAttribute): UpdateProductAttributeAction => ({ type: ActionTypes.EDIT_COLOUR, payload }),
+    newCategory: (payload: ProductAttribute): AddProductAttributeAction => ({ type: ActionTypes.NEW_CATEGORY, payload }),
+    setCategories: (payload: ProductAttribute[]): SetProductAttributesAction => ({ type: ActionTypes.SET_CATEGORIES, payload }),
+    editCategory: (payload: ProductAttribute): UpdateProductAttributeAction => ({ type: ActionTypes.EDIT_CATEGORY, payload }),
+    setBrands: (payload: ProductAttribute[]): SetProductAttributesAction => ({ type: ActionTypes.SET_BRANDS, payload }),
+    newBrand: (payload: ProductAttribute): AddProductAttributeAction => ({ type: ActionTypes.NEW_BRAND, payload }),
+    editBrand: (payload: ProductAttribute): UpdateProductAttributeAction => ({ type: ActionTypes.EDIT_BRAND, payload }),
+    setSizes: (payload: ProductAttribute[]): SetProductAttributesAction => ({ type: ActionTypes.SET_SIZES, payload }),
+    newSize: (payload: ProductAttribute): AddProductAttributeAction => ({ type: ActionTypes.NEW_SIZE, payload }),
+    editSize: (payload: ProductAttribute): UpdateProductAttributeAction => ({ type: ActionTypes.EDIT_SIZE, payload }),
 }
 
-export default function InventoryReducer(state = initialState, action) {
+export default function InventoryReducer(state = initialState, action: InventoryAction) {
     switch (action.type) {
         case ActionTypes.SET_PRODUCTS:
-            return { ...state, products: [...action.payload] }            
+            return { ...state, products: [...action.payload] }
 
         case ActionTypes.NEW_PRODUCT:
             return { ...state, products: [...state.products, action.payload] }

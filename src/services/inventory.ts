@@ -1,8 +1,11 @@
 import axios from 'axios';
-import { ActionCreators } from '../redux/InventoryReducer';
+import { ActionCreators } from '../redux/inventoryReducer';
 import { axiosObj, checkToken } from './RequestServer';
+import { Dispatch } from '@reduxjs/toolkit';
+import { ProductAttribute } from '../types/product/productAttribute';
+import { Product } from '../types/product/prouduct';
 
-export const GetInventory = async (dispatch) => {
+export const GetInventory = async (dispatch : Dispatch) => {
     try {
         const { data } = await axiosObj.get("inventory");
         dispatch(ActionCreators.setProducts(data));
@@ -11,7 +14,7 @@ export const GetInventory = async (dispatch) => {
     }
 }
 
-export const GetInventoryProducts = async (dispatch) => {
+export const GetInventoryProducts = async (dispatch : Dispatch) => {
     try {
         const { data } = await axiosObj.get("inventory/GetInventoryProducts", {
             params: {
@@ -20,23 +23,13 @@ export const GetInventoryProducts = async (dispatch) => {
                 pageNum: 1
             }
         });
-
         dispatch(ActionCreators.setProducts(data));
     } catch (err) {
         console.log("GetInventory service error \n" + err)
     }
 }
 
-// export const SetSearchItems = async (dispatch, searchQuery) => {
-//     try {
-//         const data = 
-//         dispatch(ActionCreators.setSearchProducts(data));
-//     } catch (err) {
-//         console.log("GetInventory service error \n" + err)
-//     }
-// }
-
-export const AddColour = async (dispatch, colour) => {
+export const AddColour = async (dispatch : Dispatch, colour : ProductAttribute) => {
     try {
         const { data } = await axiosObj.post("inventory/addcolour", colour);
         dispatch(ActionCreators.newColour(data));
@@ -45,7 +38,7 @@ export const AddColour = async (dispatch, colour) => {
     }
 }
 
-export const EditColour = async (dispatch, colour) => {
+export const EditColour = async (dispatch : Dispatch, colour : ProductAttribute) => {
     try {
         const { data } = await axiosObj.post("inventory/editColour", colour);
         dispatch(ActionCreators.editColour(data));
@@ -55,7 +48,7 @@ export const EditColour = async (dispatch, colour) => {
     }
 }
 
-export const AddItemCategory = async (dispatch, category) => {
+export const AddItemCategory = async (dispatch : Dispatch, category : ProductAttribute) => {
     try {
         const { data } = await axiosObj.post("inventory/addItemCategory", category);
         dispatch(ActionCreators.newCategory(data));
@@ -64,16 +57,16 @@ export const AddItemCategory = async (dispatch, category) => {
     }
 }
 
-export const EditCategory = async (dispatch, category) => {
+export const EditCategory = async (dispatch : Dispatch, category : ProductAttribute) => {
     try {
         const { data } = await axiosObj.post("inventory/editCategory", category);
-        dispatch(ActionCreators.editcategory(data));
+        dispatch(ActionCreators.editCategory(data));
     } catch (err) {
         console.log("edit category service error \n" + err)
     }
 }
 
-export const AddSize = async (dispatch, size) => {
+export const AddSize = async (dispatch : Dispatch, size : ProductAttribute) => {
     try {
         const { data } = await axiosObj.post("inventory/addSize", size);
         dispatch(ActionCreators.newSize(data));
@@ -82,7 +75,7 @@ export const AddSize = async (dispatch, size) => {
     }
 }
 
-export const EditSize = async (dispatch, size) => {
+export const EditSize = async (dispatch : Dispatch, size : ProductAttribute) => {
     try {
         const { data } = await axiosObj.post("inventory/editSize", size);
         dispatch(ActionCreators.editSize(size));
@@ -91,7 +84,7 @@ export const EditSize = async (dispatch, size) => {
     }
 }
 
-export const AddBrand = async (dispatch, brand) => {
+export const AddBrand = async (dispatch : Dispatch, brand : ProductAttribute) => {
     try {
         const { data } = await axiosObj.post("inventory/addbrand", brand);
         dispatch(ActionCreators.newBrand(data));
@@ -100,7 +93,7 @@ export const AddBrand = async (dispatch, brand) => {
     }
 }
 
-export const EditBrand = async (dispatch, brand) => {
+export const EditBrand = async (dispatch : Dispatch, brand : ProductAttribute) => {
     try {
         const { data } = await axiosObj.post("inventory/editbrand", brand);
         dispatch(ActionCreators.editBrand(data));
@@ -109,8 +102,8 @@ export const EditBrand = async (dispatch, brand) => {
     }
 }
 
-export const EditProduct = async (dispatch, product) => {
-    let userRequestResponse = document.getElementById("addProductApiResponse");
+export const EditProduct = async (dispatch : Dispatch, product: Product) => {
+    let userRequestResponse : HTMLElement = document.getElementById("addProductApiResponse") as HTMLElement;
     try {
         checkToken();
         const response = await axiosObj.post("Inventory/EditProduct", product);
@@ -118,40 +111,37 @@ export const EditProduct = async (dispatch, product) => {
         console.log(response.data);
         userRequestResponse.innerHTML = "success";
         return true;
-    } catch (err) {
+    } catch (err : any) {
         userRequestResponse.innerHTML = err.message;
         console.log(err);
         return false;
     }
 }
 
-export const AddProduct = async (dispatch, product) => {
-    const userRequestResponse = document.getElementById("addProductApiResponse");
-    let validProduct = true;
-    //   try {
-    console.log(product);
-    const response = await axiosObj.post("inventory/addproduct", product)
-        .catch(err => {
-            validProduct = false;
-            console.log(err);
-            let errorMessage = "";
-            if (err.response.data && typeof (err.response.data) === "object") {
-                if (err.response.data.Description)
-                    err.response.data.errors.Description.map(e => {
-                        errorMessage += (e + "\n");
-                    })
-            } else if (err.response.data) {
-                errorMessage = err.response.data;
-            }
-            userRequestResponse.innerHTML = errorMessage;
-        });
-    if (validProduct) {
+export const AddProduct = async (dispatch : Dispatch, product: Product) => {
+    const userRequestResponse : HTMLElement = document.getElementById("addProductApiResponse")!;
+
+    try{
+        const response = await axiosObj.post("inventory/addproduct", product)
         dispatch(ActionCreators.newProduct(response.data));
         userRequestResponse.innerHTML = "success";
+    } catch(err: any) {
+        console.log(err);
+        let errorMessage = "";
+        if (err.response.data != null && err.response.data && typeof (err.response.data) === "object") {
+            if (err.response.data.Description)
+                err.response.data.errors.Description.map((e: string) => {
+                    errorMessage += (e + "\n");
+                })
+        } else if (err.response.data) {
+            errorMessage = err.response.data;
+        }
+
+        userRequestResponse.innerHTML = errorMessage;
     }
 }
 
-export const GetProductAttributes = async (dispatch) => {
+export const GetProductAttributes = async (dispatch : Dispatch) => {
     try {
         const { data } = await axiosObj.get("inventory/productattributes");
         const colours = data[0];
@@ -167,7 +157,7 @@ export const GetProductAttributes = async (dispatch) => {
     }
 }
 
-export const GetTheseProducts = async (productIds) => {
+export const GetTheseProducts = async (productIds : number []) => {
     try {
         const productIdList = productIds.join(',');
         const { data } = await axiosObj.get("inventory/getTheseProducts?productIds=", productIds);
