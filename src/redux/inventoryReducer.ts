@@ -1,7 +1,7 @@
 import { InitialState } from "../types/state/inventory/inventoryInitialState"
 import { ActionTypes } from "../types/state/inventory/inventoryActionTypes"
 import { AddProductAttributeAction, InventoryAction, ProductAction, ProductsAction, SetProductAttributesAction, UpdateProductAttributeAction } from "../types/state/inventory/inventoryActions"
-import { Product } from "../types/product/prouduct"
+import { Product } from "../types/product/product"
 import { ProductAttribute } from "../types/product/productAttribute"
 
 const initialState: InitialState = {
@@ -14,6 +14,7 @@ const initialState: InitialState = {
 
 export const ActionCreators = {
     setProducts: (payload: Product[]): ProductsAction => ({ type: ActionTypes.SET_PRODUCTS, payload }),
+    addProducts: (payload: Product[]): ProductsAction => ({type: ActionTypes.ADD_PRODUCTS, payload }),
     newProduct: (payload: Product): ProductAction => ({ type: ActionTypes.NEW_PRODUCT, payload }),
     editProduct: (payload: Product): ProductAction => ({ type: ActionTypes.EDIT_PRODUCT, payload }),
     setColours: (payload: ProductAttribute[]): SetProductAttributesAction => ({ type: ActionTypes.SET_COLOURS, payload }),
@@ -34,6 +35,10 @@ export default function InventoryReducer(state = initialState, action: Inventory
     switch (action.type) {
         case ActionTypes.SET_PRODUCTS:
             return { ...state, products: [...action.payload] }
+
+        case ActionTypes.ADD_PRODUCTS:
+            const itemsNotInCurrentState = action.payload.filter(x => !state.products.some(stateProduct => x.id === stateProduct.id))
+            return {...state, products: [...state.products, ...itemsNotInCurrentState]}
 
         case ActionTypes.NEW_PRODUCT:
             return { ...state, products: [...state.products, action.payload] }
@@ -66,7 +71,7 @@ export default function InventoryReducer(state = initialState, action: Inventory
             return { ...state, categories: [...action.payload] }
 
         case ActionTypes.NEW_CATEGORY:
-            return { ...state, categories: [...state.colours, action.payload] }
+            return { ...state, categories: [...state.categories, action.payload] }
 
         case ActionTypes.EDIT_CATEGORY:
             let updatedCategories = state.categories.map(c => {

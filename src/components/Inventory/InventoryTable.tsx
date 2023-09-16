@@ -2,16 +2,19 @@ import * as React from 'react';
 import EditProductModal from './Product/EditProductModal';
 import { FC } from 'react';
 
-import {Product} from '../../types/product/prouduct';
+import {Product} from '../../types/product/product';
+import { useProducts } from '../../hooks/useProducts';
 
-const InventoryTable : FC<any> = ({products, selectEnabled, handleSelect, actionBtn }) => {
+const InventoryTable : FC<{inventoryProducts: Product[], selectEnabled?: boolean, actionBtn?: (prod: Product) => HTMLButtonElement}> = ({inventoryProducts, selectEnabled, actionBtn }) => {
 
-    //just use products, when file is refactored to actually be type safe
-    const prods : Product[] = products; 
+    const [products, setProducts, updateProduct] = useProducts(inventoryProducts);
 
-    //select enabled is for promotions product table
+    React.useEffect(()=>{
+        setProducts(inventoryProducts);
+    }, [inventoryProducts]);
+
     return (
-        <div >
+        <div className="inventory-table-body">
             <table className='table table-striped table-hover inventory-table'>
                 <thead>
                     <tr>
@@ -28,7 +31,7 @@ const InventoryTable : FC<any> = ({products, selectEnabled, handleSelect, action
                 </thead>
                 <tbody>
                     {
-                      prods.map(pr =>
+                      products.map(pr =>
                             <tr key={pr.id} id={`product-row-${pr.id}`} style={{height:"50%"}}>                                
                                 <td className="table-col"> {pr.brandValue} </td>
                                 <td className="table-col"> {pr.itemCategoryValue} </td>
@@ -39,8 +42,7 @@ const InventoryTable : FC<any> = ({products, selectEnabled, handleSelect, action
                                 <td className="table-col"> {pr.qty} </td>
                                 <td className="table-col"> {pr.id} </td>
                                 <td className="table-col">
-                                    {!selectEnabled && <EditProductModal product={pr} />}
-                                    {selectEnabled &&  pr.id}
+                                    {!selectEnabled ? <EditProductModal product={pr} updateHandler={updateProduct} /> : pr.id}
                                 </td>        
                                 { actionBtn && actionBtn(pr) }                            
                             </tr>

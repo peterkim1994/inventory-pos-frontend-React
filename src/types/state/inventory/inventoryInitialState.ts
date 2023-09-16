@@ -1,4 +1,4 @@
-import { Product } from "../../product/prouduct";
+import { Product } from "../../product/product";
 import { ProductAttribute } from "../../product/productAttribute";
 
 export interface InitialState{

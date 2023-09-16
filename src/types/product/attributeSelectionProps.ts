@@ -4,5 +4,5 @@ export interface AttributeSelectionProps {
     attributes: ProductAttribute[],
     attributeCategory: string,
     selectEventHandler: (event: any) => void,
-    initialAttributeValueId?: number
+    initialAttributeValueId?: number,
 }

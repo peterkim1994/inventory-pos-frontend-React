@@ -2,8 +2,7 @@ import { FC, useState } from "react"
 import * as React from 'react';
 import { PaginationProps } from "../../types/formProps/paginationProps";
 
-
-export const PageSelector: FC<PaginationProps> = ({ pageNumber, numPages, pageSelectionHandler }) => {
+export const PageSelector: FC<PaginationProps> = ({ numPages, pageSelectionHandler }) => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     
     const pageHandler = (page : number) =>{
@@ -21,12 +20,13 @@ export const PageSelector: FC<PaginationProps> = ({ pageNumber, numPages, pageSe
                 />              
             </li>         
             {
-               Array.from({ length: 10 }, (_, i) => (
+               Array.from({ length: numPages }, (_, i) => (
                 <li key={i} className="page-item">
                   <input 
                     type="button" 
                     value={String(i + 1)} 
                     onClick={() => pageHandler(i + 1)}
+                    className={`page-number-btn ${currentPage === i+1 ? "selected" : ""}`}
                   />
                 </li>
               ))
@@ -35,7 +35,7 @@ export const PageSelector: FC<PaginationProps> = ({ pageNumber, numPages, pageSe
              <input type="button" 
                     value=">"
                     disabled={currentPage >= numPages} 
-                    onClick={ () => pageHandler(currentPage - 1)} 
+                    onClick={ () => pageHandler(currentPage + 1)} 
                 />                
             </li>         
         </ul>

@@ -6,6 +6,7 @@ import AttributeSelector from '../../Shared/AttributeSelector';
 import NumericalFormInput from '../../Shared/NumericalFormInput';
 import CurrencyFormInput from '../../Shared/CurrencyFormInput';
 
+//todo:redo this entire form
 export const ProductForm = ({ product, handleClose, handleSubmit }) => {
     const brands = useSelector(state => state.inventoryReducer.brands);
     const colours = useSelector(state => state.inventoryReducer.colours);
@@ -31,6 +32,9 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
             handleSubmit(updatedProduct);
         }
     }
+
+    //sad :(
+    let getText = (event) => event.target.options[event.target.selectedIndex].text;
 
     return (
         <Form onSubmit={submitForm} >
@@ -72,15 +76,21 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
                     attributeCategory="Brand"
                     initialAttributeValueId={product.brandId}
                     selectEventHandler={
-                        event => updateProduct({ ...updatedProduct, brandId: parseInt(event.target.value) })
-                    }
+                        event => updateProduct({ ...updatedProduct,
+                             brandId: parseInt(event.target.value),
+                             brandValue:getText(event)
+                            })
+                        }
                 />
                 <AttributeSelector
                     attributes={categories}
                     attributeCategory="Category"
                     initialAttributeValueId={product.itemCategoryId}
                     selectEventHandler={event =>
-                        updateProduct({ ...updatedProduct, itemCategoryId: parseInt(event.target.value) })
+                        updateProduct({ ...updatedProduct, 
+                            itemCategoryId: parseInt(event.target.value),
+                            itemCategoryValue: getText(event)                      
+                        })
                     }
                 />
             </Form.Row>
@@ -90,7 +100,10 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
                     attributeCategory="Colour"
                     initialAttributeValueId={product.colourId}
                     selectEventHandler={
-                        event => updateProduct({ ...updatedProduct, colourId: parseInt(event.target.value) })
+                        event => updateProduct({ ...updatedProduct,
+                             colourId: parseInt(event.target.value),
+                             colourValue: getText(event)
+                            })
                     }
                 />
                 <AttributeSelector
@@ -98,7 +111,10 @@ export const ProductForm = ({ product, handleClose, handleSubmit }) => {
                     attributeCategory="Size"
                     initialAttributeValueId={product.sizeId}
                     selectEventHandler={
-                        event => updateProduct({ ...updatedProduct, sizeId: parseInt(event.target.value) })
+                        event => updateProduct({ ...updatedProduct,
+                             sizeId: parseInt(event.target.value),
+                             sizeValue: getText(event)
+                            })
                     }
                 />
             </Form.Row>

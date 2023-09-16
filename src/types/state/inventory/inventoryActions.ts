@@ -1,9 +1,9 @@
 
-import { Product } from "../../product/prouduct"
+import { Product } from "../../product/product"
 import { ProductAttribute } from "../../product/productAttribute"
 import { ActionTypes } from "./inventoryActionTypes";
 
-type InventoryProductsAction = ActionTypes.SET_PRODUCTS;
+type InventoryProductsAction = ActionTypes.SET_PRODUCTS | ActionTypes.ADD_PRODUCTS;
 type InventoryProductAction =  ActionTypes.NEW_PRODUCT |  ActionTypes.EDIT_PRODUCT;
 type SetProductAttributesActionTypes = ActionTypes.SET_BRANDS | ActionTypes.SET_COLOURS | ActionTypes.SET_SIZES | ActionTypes.SET_CATEGORIES;
 type AddProductAttributeActionTypes =  ActionTypes.NEW_CATEGORY | ActionTypes.NEW_SIZE | ActionTypes.NEW_BRAND | ActionTypes.NEW_COLOUR;

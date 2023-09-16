@@ -6,17 +6,19 @@ import { EditProduct } from '../../../services/inventory';
 import ProductLabel from "../../POS/Printables/ProductLabel";
 import { useRef } from "react";
 
-const EditProductModal = ({ product }) => {
+const EditProductModal = ({ product, updateHandler }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const dispatch = useDispatch();
   const productRef = useRef();
+  const [thisProduct, setThisProduct] = useState(product);
 
   const editProduct = (editedProduct) => {
-    const success = EditProduct(dispatch, editedProduct);
+    const success = EditProduct(dispatch, editedProduct);    
     if (success)
     {
+      updateHandler(editedProduct)
       handleClose();
     }
   }
@@ -39,7 +41,7 @@ const EditProductModal = ({ product }) => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {show && <ProductForm product={product} handleClose={handleClose} handleSubmit={editProduct} />}
+          {show && <ProductForm product={thisProduct} handleClose={handleClose} handleSubmit={editProduct} />}
         </Modal.Body>
         <ModalFooter>
           <div className="flexOrders" style={{margin:"auto"}}>

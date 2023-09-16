@@ -8,26 +8,25 @@ const AttributeSelector : FC<AttributeSelectionProps> = ({ attributes = [], attr
 
     const availableAttributes : ProductAttribute[] = attributes;
     
-    const selectAttribute = (selectedValue : string) => {
-        initialAttributeValueId = parseInt(selectedValue);
-    }
-
     return (
         <Col>
             <Form.Group as={Row} required>
-                <Form.Label column sm={4} > <b> {attributeCategory} </b></Form.Label>
+                <Form.Label column sm={4}> 
+                    <b>{attributeCategory}</b>                
+                </Form.Label>
                 <Col sm={8} style={{width:"100%"}}>
                     <Form.Control as="select"
+                        name={attributeCategory}
                         id={`${attributeCategory}-selector`}
                         onChange={selectEventHandler}
                         required
                         defaultValue={initialAttributeValueId}
                         style={{width:"100%"}}
                     >
-                     <option key={0} value={-1}> - </option>
+                     <option key={0}> - </option>
                         {
                             availableAttributes.map(a =>
-                                <option key={a.id} value={a.id}>
+                                <option key={a.id} value={a.id} id={a.value}>
                                     {a.value}
                                 </option>
                             )

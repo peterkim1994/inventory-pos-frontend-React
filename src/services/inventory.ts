@@ -3,8 +3,10 @@ import { ActionCreators } from '../redux/inventoryReducer';
 import { axiosObj, checkToken } from './RequestServer';
 import { Dispatch } from '@reduxjs/toolkit';
 import { ProductAttribute } from '../types/product/productAttribute';
-import { Product } from '../types/product/prouduct';
-import { AllProductQueryModel } from '../types/product/productQueryModel';
+import { Product } from '../types/product/product';
+import { InventoryCatalogRequestModel } from '../types/product/productQueryModel';
+import { SearchQuery } from '../types/product/SearchQuery';
+
 
 export const GetInventory = async (dispatch : Dispatch) => {
     try {
@@ -15,19 +17,44 @@ export const GetInventory = async (dispatch : Dispatch) => {
     }
 }
 
-export const GetInventoryProducts = async (dispatch : Dispatch, productQuery: AllProductQueryModel) => {
+export const GetInventoryProducts = async (dispatch : Dispatch, productQuery: InventoryCatalogRequestModel) : Promise<{ products: Product[], availablePages : number}> => {
     try {
+         // todo: store id should be retrieved via token later
         const { data } = await axiosObj.get("inventory/GetInventoryProducts", {
-            params: {
+            params: {                
                 storeId: 1,
-                numItemsToDisplay: productQuery.numItemsPerPage,
-                pageNum: productQuery.pageNum
+                numItemsPerPage: productQuery.numItemsPerPage,
+                startPage: productQuery.startPage,
+                endPage: productQuery.endPage
             }
         });
         
-        dispatch(ActionCreators.setProducts(data));
+        //dispatch(ActionCreators.addProducts(data.includedProducts));
+        
+        return {
+            products : data.includedProducts,
+            availablePages : data.availableNumberOfPages
+        };
+
     } catch (err) {
-        console.log("GetInventory service error \n" + err)
+        console.log("GetInventory service error \n" + err);
+        return {
+            products : [],
+            availablePages : 0
+        };
+    }
+}
+
+export const SearchInventory = async (searchQuery : SearchQuery) : Promise<Product[]> => {
+    try{
+        const { data } = await axiosObj.get("inventory/GetInventorySearch", {
+            params : {...searchQuery}
+        });
+        
+        return data;
+    } catch (err){
+        console.log("err");
+        return [];
     }
 }
 

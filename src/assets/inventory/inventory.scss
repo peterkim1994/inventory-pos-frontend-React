@@ -5,3 +5,13 @@
         display: inline;
     }
 }
+
+.page-number-btn{
+    &.selected{
+        font-weight: bolder;
+    }
+
+    .unSelected{
+        font-weight: lighter;
+    }
+}

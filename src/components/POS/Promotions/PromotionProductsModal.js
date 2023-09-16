@@ -103,7 +103,7 @@ const PromotionProductsModal = ({ promotion, handleClose }) => {
                     </div>
                 </Modal.Header>
                 <Modal.Body style={{ maxHeight: "600px", overflow: "scroll" , margin:"auto"}} >
-                    <InventoryTable products={diplayedProducts} selectEnabled={true} handleSelect={handleSelect} actionBtn={selectBtn} />
+                    <InventoryTable inventoryProducts={diplayedProducts} selectEnabled={true} handleSelect={handleSelect} actionBtn={selectBtn} />
                 </Modal.Body>
                 <Modal.Footer style={{ width: "auto", margin: "auto", height: "fit-content" }}>
                     <Button variant="secondary" onClick={closeModal}> Close </Button>
