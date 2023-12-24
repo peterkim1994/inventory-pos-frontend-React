@@ -12,20 +12,30 @@ export const SaleUI = () => {
     const business = useSelector(state => state.saleReducer.bussinessDetails);
     const [removeSetting, setRemoveSetting] = useState(false);
     const [saleItems, setSaleItems] = useState([]);
-    const barcodeRef = useRef();
+    const barcodeRef = useRef(null);
     const dispatch = useDispatch();
     let currentSaleId;
 
-    const [cancelBtn,disableCancelBtn] = useState(false);
+    const [cancelBtn, disableCancelBtn] = useState(false);
 
+    const focusBarcodeInput = () =>{
+        setTimeout(() => {
+            barcodeRef.current.focus();
+        }, 50);        
+    }
+
+    useEffect(()=>{
+        focusBarcodeInput();
+    }, []);
+    
     //cancel btn enabled when items are in sale
     useEffect(()=>{
         if(sale.products.length > 0 && !sale.finalised){
             disableCancelBtn(false);            
         }else{
-            disableCancelBtn(true);
+            disableCancelBtn(true);            
         }
-    },[sale])
+    },[sale]);
 
     const addProductToSale = (item) => {
         setSaleItems([...saleItems, item]);
@@ -36,6 +46,7 @@ export const SaleUI = () => {
         ClearSale(dispatch)
         setSaleItems([]);
         disableRemoveBtns(false);
+        focusBarcodeInput();
     }
 
     const cancelCurrentSale = () =>{
@@ -43,6 +54,7 @@ export const SaleUI = () => {
         CancelSale(dispatch, sale);        
         setSaleItems([]);
         disableRemoveBtns(false);
+        focusBarcodeInput();
     }
 
     const disableRemoveBtns = (setting) => {        
@@ -60,6 +72,7 @@ export const SaleUI = () => {
             }
         });
         setSaleItems(updatedSaleItems);
+        focusBarcodeInput();
     }
     
     //Optimise product retrieval via barcode later:
